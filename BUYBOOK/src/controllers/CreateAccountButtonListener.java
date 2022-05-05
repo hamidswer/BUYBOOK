@@ -18,20 +18,17 @@ import views.widgets.SignButton;
 
 public class CreateAccountButtonListener implements ActionListener
 {
-	private LoginPageView loginPageView;
 	private SignButton createAccountButton; // CreateAccountButtonListener has-a createAccountButton
 
 	public CreateAccountButtonListener(LoginPageView loginPageView)
 	{
-		this.loginPageView = loginPageView;
-
+		createAccountButton = loginPageView.getCreateAccountButton();
 		createAccountButton.addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		// TODO Auto-generated method stub
-
+		System.out.println("hey");
 	}
 }

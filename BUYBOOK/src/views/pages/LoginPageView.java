@@ -64,7 +64,7 @@ public class LoginPageView extends JFrame
 		errorPanelBuilder();
 		errorPanel.setOpaque(false); // Make the panel transparent.
 		add(errorPanel);
-		
+
 		// Add create account panel to the application.
 		accountPanelBuilder();
 		createAccountPanel.setOpaque(false); // Make the panel transparent.
@@ -119,7 +119,7 @@ public class LoginPageView extends JFrame
 		// Add the loginButton to the loginFormPanel.
 		loginFormPanel.add(loginButton);
 	}
-	
+
 	public void errorPanelBuilder()
 	{
 		errorPanel = new JPanel();
@@ -175,5 +175,10 @@ public class LoginPageView extends JFrame
 	public SignButton getLoginButton()
 	{
 		return loginButton;
+	}
+
+	public SignButton getCreateAccountButton()
+	{
+		return createAccountButton;
 	}
 }
