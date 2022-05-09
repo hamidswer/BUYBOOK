@@ -1,14 +1,14 @@
 # Book Store Application<br>
-1.	Introduction<br>
-	This proposed Java application would be an offline application through which customers can buy the books from the “BUYBOOK” store. The “BUYBOOK” store provides electronic books and paper books. The “BUYBOOK” store provides fiction and non-fiction books.<br>
-	First of all, the customer must create an account before logging in if they disn’t sign up before. For practicing one-click technique the customer must provide creadit card information in this step. After that they must loggin in to their account. After loggin in the application, the customer can surf through the application and get access to the futures. Besides keeping the record of book inventories, this softwrae will keep customers information, and accept credit card for payment. customers can sort the books by its name, rating, and price.  <br>
+1. Introduction<br>
+&emsp;&emsp;This proposed Java application would be an offline application through which customers can buy the books from the "BUYBOOK" store. The "BUYBOOK" store provides electronic books and paper books. The "BUYBOOK" store includes fiction and non-fiction books.<br>
+&emsp;&emsp;First, the customer must create an account before logging in if they didn't sign up. To practice the one-click technique, the customer must provide credit card information in creating the account step. After that, they must log in to their account. After login into the application, the customer can surf through the application and get access to the future. Besides keeping the record of book inventories, this software will keep customers' information and accept credit cards for payment. Customers can sort the books by their name, rate, and price.<br>
 
-2.	Features<br>
-Some the features of the “BUYBOOK” store are as follows:<br>
-•	Categorizing of books base on fiction, or non-fiction<br>
-•	Keeping record of the books inventory<br>
-•	Keeping record of the customers information<br>
-•	Showing the status of availability of the book<br>
+2. Features<br>
+Some of the features of the “BUYBOOK” store are as follows:<br>
+• Categorizing of books based on fiction, or non-fiction<br>
+• Keeping record of the books inventory<br>
+• Keeping record of the customers' information<br>
+• Showing the status of availability of paper books<br>
 
 3. Colors<br>
 Application’s background - Inkwell (The Pantone Color of the 2021) - RGB (54, 57, 69)<br>
@@ -18,6 +18,7 @@ Login & Create account background - Mint (The Pantone Color of the 2021) - RGB (
 Link background - Mint Shade - RGB (27, 108, 89)<br>
 Form text - Ultimate Gray (The Pantone Color of the 2021) - RGB (147, 149, 151)<br>
 Text - White|Black - RGB(255,255,255)|RGB(0,0,0)<br>
+ErrorBorder - Red - RGB(255,0,0)<br>
 
 4. Fonts<br>
 Times New Roman<br>
@@ -27,5 +28,8 @@ Text - 20<br>
 Categories & Price - 18<br>
 Error - 16<br>
 
+5. Libraries<br>
+![path](https://user-images.githubusercontent.com/86551137/167447070-932e2d8b-ab36-4c0d-ba14-04d7a5e787b9.JPG)
 
+#Preview
 ![All](https://user-images.githubusercontent.com/86551137/167443772-2836e895-36be-4a50-9039-eb115f055e76.JPG)
