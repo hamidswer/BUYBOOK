@@ -5,15 +5,28 @@ import models.Book;
 /**
  * Lead Author(s):
  * 
- * @author Hamid Reza Zamaninasab.
+ * @author Hamid Reza Zamaninasab
  * 
- *         Version/date: 2.3 / 5/8/2022
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 2.4 / 05/12/2022
+ * 
  * 
  */
 public interface Sortable
 {
 	/**
-	 * Sort by book name.
+	 * Sort by books' name.
 	 * 
 	 * @param books.
 	 */
@@ -21,14 +34,14 @@ public interface Sortable
 	public void sortByName(Book[] books);
 
 	/**
-	 * Sort by books price.
+	 * Sort by books' price.
 	 * 
 	 * @param books
 	 */
 	public void sortByPrice(Book[] books);
 
 	/**
-	 * Sort books by rate.
+	 * Sort by books' rate.
 	 * 
 	 * @param fictionList - list of the Fiction objects
 	 */

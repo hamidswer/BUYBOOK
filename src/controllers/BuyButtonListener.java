@@ -1,13 +1,3 @@
-
-/**
- * Lead Author(s):
- * 
- * @author Hamid Reza Zamaninasab.
- * 
- *         Version/date: 1.1 / 05/09/2022
- * 
- * 
- */
 package controllers;
 
 import java.awt.event.ActionEvent;
@@ -18,17 +8,39 @@ import models.BuyBook;
 import views.pages.PageView;
 import views.widgets.Button;
 
+/**
+ * Lead Author(s):
+ * 
+ * @author Hamid Reza Zamaninasab
+ * 
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 1.4 / 05/12/2022
+ * 
+ * 
+ */
+//A BuyButtonListener is-an ActionListener.
 public class BuyButtonListener implements ActionListener
 {
 
 	// BuyButtonListener has-a view.
 	private PageView view;
 
-	// BuyButtonListener has-a buyBook.
-	private BuyBook buyBook;
-
 	// BuyButtonListener has-a book.
 	private Book book;
+
+	// BuyButtonListener has-a button.
+	private Button button;
 
 	/**
 	 * `BuyButtonListener Constructor - It listen to book's buy button and change
@@ -49,6 +61,8 @@ public class BuyButtonListener implements ActionListener
 		// Listen to bookButton.
 		bookButton.addActionListener(this);
 
+		button = bookButton;
+
 	}
 
 	/**
@@ -58,11 +72,12 @@ public class BuyButtonListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
-		// Initialize buttonName and assign the value from a ActionEvent object.
-		String buttonName = ((Button) event.getSource()).getActionCommand();
+		// Initialize buttonText with the button's text value.
+		String buttonText = button.getText();
 
+		// BuyButtonListener has-a buyBook.
 		// Initialize a buyBook model with book and buttonName as arguments.
-		buyBook = new BuyBook(book, buttonName);
+		BuyBook buyBook = new BuyBook(book, buttonText);
 
 		// Update the view by getting message from buyBook model.
 		update(buyBook.getMessage());

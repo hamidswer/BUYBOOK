@@ -3,17 +3,27 @@ package models;
 /**
  * Lead Author(s):
  * 
- * @author Hamid Reza Zamaninasab.
+ * @author Hamid Reza Zamaninasab
  * 
- *         Version/date: 2.2 / 5/9/2022
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 2.3 / 05/12/2022
  * 
  * 
  */
-// PaperBook is-a Book so inherits all of its public methods and variables of Book.
+// A PaperBook is-a Book.
 public class PaperBook extends Book
 {
-	private InventoryDatabase database = new InventoryDatabase();;
-
 	// PaperBook constructor 
 	public PaperBook(Book book)
 	{
@@ -27,6 +37,7 @@ public class PaperBook extends Book
 	 */
 	public void decLeftInStore()
 	{
+		InventoryDatabase database = new InventoryDatabase();
 		database.updateInventory(getId());
 	}
 }

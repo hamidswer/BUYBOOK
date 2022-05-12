@@ -1,22 +1,9 @@
-
-/**
- * Lead Author(s):
- * 
- * @author Hamid Reza Zamaninasab.
- * 
- *         Version/date: 1.1 / 05/05/2022
- * 
- * 
- */
 package views.pages;
 
 import javax.swing.JFrame;
-
 import models.Book;
-
 import javax.swing.ImageIcon;
 import java.awt.Color;
-
 import views.pages.components.LoginAccountPanel;
 import views.pages.components.LoginErrorPanel;
 import views.pages.components.BookPanel;
@@ -30,9 +17,60 @@ import views.pages.components.LoginPanel;
 import views.pages.components.SortPanel;
 import views.widgets.Scroll;
 
-@SuppressWarnings("serial")
+/**
+ * Lead Author(s):
+ * 
+ * @author Hamid Reza Zamaninasab
+ * 
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Instance variable In Java: All you need to know.
+ *         https://www.edureka.co/blog/instance-variable-in-java
+ * 
+ *         Serializable Interface in Java.
+ *         https://www.geeksforgeeks.org/serializable-interface-in-java
+ * 
+ *         What does it mean: The serializable class does not declare a static
+ *         final serialVersionUID field?
+ *         https://stackoverflow.com/questions/2288937/what-does-it-mean-the-serializable-class-does-not-declare-a-static-final-serial
+ * 
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 1.7 / 05/12/2022
+ * 
+ * 
+ */
+
+// A PageView is-a JFrame.
 public class PageView extends JFrame
 {
+
+	/**
+	 * Serialization is a mechanism of converting the state of an object into a byte
+	 * stream, and it can be used to make it eligible for saving its state into a
+	 * file. If you are serializing objects and deserializing them in a different
+	 * place (or time) where (when) the class has changed, without creating
+	 * serialVersionUID, you could be faced with InvalidClassException. The JFrame
+	 * class implements java.io.Serializable interface so the it's subclass
+	 * (PageView).
+	 */
+	private static final long serialVersionUID = 3292032292637496818L;
+
+	// A PageView has-a width.
+	private final int width = 428;
+
+	// A PageView has-a height.
+	private final int height = 926;
+
 	// A PageView has-a headerPanel.
 	private HeaderPanel headerPanel;
 
@@ -50,12 +88,6 @@ public class PageView extends JFrame
 
 	// A PageView has-a categoryPanel.
 	private CategoryPanel categoryPanel;
-
-	// A PageView has-a width.
-	private final int width = 428;
-
-	// A PageView has-a height.
-	private final int height = 926;
 
 	// A PageView has-a sortPanel.
 	private SortPanel sortPanel;
@@ -91,7 +123,7 @@ public class PageView extends JFrame
 		setLayout(null);
 
 		// Add headerPanel to JFrame.
-		addHeaderPanel();
+		addHeaderPanel(false);
 
 		// Add Panels to JFrame.
 		addLoginPanels();
@@ -114,27 +146,22 @@ public class PageView extends JFrame
 	}
 
 	/**
-	 * Repaint the page view.
+	 * Purpose: It removes the old header panel and adds the new header panel to the
+	 * page view.
+	 * 
+	 * @param isUserloggedIn - true means the user logged.
 	 */
-	public void repaintPageView()
+	public void addHeaderPanel(boolean isUserloggedIn)
 	{
-		// update the UI.
-		this.revalidate();
-		this.validate();
-		this.repaint();
-	}
+		if (headerPanel != null)
+			// Remove old header panel.
+			this.remove(headerPanel);
 
-	/**
-	 * Add the headerPanel to the pageView.
-	 */
-	public void addHeaderPanel()
-	{
-		// Add the header panel to the application.
-		// The customer is not logged in to the application.
-		headerPanel = new HeaderPanel(this, false);
+		// Add new header panel to the page view.
+		headerPanel = new HeaderPanel(this, isUserloggedIn);
 
-		// x == 0, y == 0, width == 428, height == 130.
 		headerPanel.setBounds(0, 0, width, 130);
+
 		add(headerPanel);
 
 		// Repaint the page view.
@@ -169,29 +196,13 @@ public class PageView extends JFrame
 	}
 
 	/**
-	 * Remove loginPanels.
-	 */
-	public void removeLoginPanels()
-	{
-		if (loginPanel != null)
-			this.remove(loginPanel);
-		if (loginErrorPanel != null)
-			this.remove(loginErrorPanel);
-		if (loginAccountPanel != null)
-			this.remove(loginAccountPanel);
-
-		// Repaint the page view.
-		repaintPageView();
-	}
-
-	/**
 	 * add the loginErrorPanel.
 	 * 
 	 * @return
 	 */
 	public void addLoginErrorPanel()
 	{
-		loginErrorPanel.setError();
+		loginErrorPanel.setErrorMessage();
 
 		// Repaint the page view.
 		repaintPageView();
@@ -216,62 +227,19 @@ public class PageView extends JFrame
 	}
 
 	/**
-	 * Remove createAccountPanels.
-	 */
-	public void removeCreateAccountPanel()
-	{
-		if (createAccountPanel != null)
-			this.remove(createAccountPanel);
-
-		// Repaint the page view.
-		repaintPageView();
-	}
-
-	/**
-	 * Add the activeHeaderPanel.
-	 */
-	public void addActiveHeaderPanel()
-	{
-		if (headerPanel != null)
-			// Remove old header panel.
-			this.remove(headerPanel);
-
-		// Add the header panel to the application.
-		// The customer is logged in to the application.
-		headerPanel = new HeaderPanel(this, true);
-		// x == 0, y == 0, width == 428, height == 130.
-		headerPanel.setBounds(0, 0, width, 130);
-		add(headerPanel);
-
-		// Repaint the page view.
-		repaintPageView();
-	}
-
-	/**
 	 * Add the categoryPanel.
 	 */
-	public void addCategoryPanel(boolean disable)
+	public void addCategoryPanel(boolean booksButtonDisabled)
 	{
+		if (categoryPanel != null)
+			this.removeCategoryPanel();
 		// Initialize the categoryPanel.
-		categoryPanel = new CategoryPanel(this, disable);
+		categoryPanel = new CategoryPanel(this, booksButtonDisabled);
 
-		// x == 0, y == 130, width == 428, height == 40.
 		categoryPanel.setBounds(0, 130, width, 40);
 
 		// Add the categoryPanel.
 		add(categoryPanel);
-
-		// Repaint the page view.
-		repaintPageView();
-	}
-
-	/**
-	 * Remove the categoryPanel.
-	 */
-	public void removeCategoryPanel()
-	{
-		if (categoryPanel != null)
-			this.remove(categoryPanel);
 
 		// Repaint the page view.
 		repaintPageView();
@@ -286,18 +254,6 @@ public class PageView extends JFrame
 		// x == 0, y == 180, width == 428, height == 35.
 		sortPanel.setBounds(0, 180, width, 35);
 		add(sortPanel);
-		// Repaint the page view.
-		repaintPageView();
-	}
-
-	/**
-	 * Remove the sortPanel.
-	 */
-	public void removeSortPanel()
-	{
-		if (sortPanel != null)
-			this.remove(sortPanel);
-
 		// Repaint the page view.
 		repaintPageView();
 	}
@@ -325,20 +281,6 @@ public class PageView extends JFrame
 	}
 
 	/**
-	 * Remove the booksPanel.
-	 */
-	public void removeBooksPanel()
-	{
-		if (booksPanel != null)
-			this.remove(booksPanel);
-		if (scroll != null)
-			this.remove(scroll);
-
-		// Repaint the page view.
-		repaintPageView();
-	}
-
-	/**
 	 * Add the fullBookPanel.
 	 */
 	public void addFullBookPanel(Book book)
@@ -347,18 +289,6 @@ public class PageView extends JFrame
 		// x == 0, y == 180, width == 428, height == 250.
 		fullBookPanel.setBounds(35, 180, 340, 320);
 		add(fullBookPanel);
-
-		// Repaint the page view.
-		repaintPageView();
-	}
-
-	/**
-	 * Remove the fullBookPanel.
-	 */
-	public void removeFullBookPanel()
-	{
-		if (fullBookPanel != null)
-			this.remove(fullBookPanel);
 
 		// Repaint the page view.
 		repaintPageView();
@@ -379,6 +309,84 @@ public class PageView extends JFrame
 	}
 
 	/**
+	 * Remove loginPanels.
+	 */
+	public void removeLoginPanels()
+	{
+		if (loginPanel != null)
+			this.remove(loginPanel);
+		if (loginErrorPanel != null)
+			this.remove(loginErrorPanel);
+		if (loginAccountPanel != null)
+			this.remove(loginAccountPanel);
+
+		// Repaint the page view.
+		repaintPageView();
+	}
+
+	/**
+	 * Remove createAccountPanels.
+	 */
+	public void removeCreateAccountPanel()
+	{
+		if (createAccountPanel != null)
+			this.remove(createAccountPanel);
+
+		// Repaint the page view.
+		repaintPageView();
+	}
+
+	/**
+	 * Remove the categoryPanel.
+	 */
+	public void removeCategoryPanel()
+	{
+		if (categoryPanel != null)
+			this.remove(categoryPanel);
+
+		// Repaint the page view.
+		repaintPageView();
+	}
+
+	/**
+	 * Remove the sortPanel.
+	 */
+	public void removeSortPanel()
+	{
+		if (sortPanel != null)
+			this.remove(sortPanel);
+
+		// Repaint the page view.
+		repaintPageView();
+	}
+
+	/**
+	 * Remove the booksPanel.
+	 */
+	public void removeBooksPanel()
+	{
+		if (booksPanel != null)
+			this.remove(booksPanel);
+		if (scroll != null)
+			this.remove(scroll);
+
+		// Repaint the page view.
+		repaintPageView();
+	}
+
+	/**
+	 * Remove the fullBookPanel.
+	 */
+	public void removeFullBookPanel()
+	{
+		if (fullBookPanel != null)
+			this.remove(fullBookPanel);
+
+		// Repaint the page view.
+		repaintPageView();
+	}
+
+	/**
 	 * Remove the buyPanel.
 	 */
 	public void removeBuyPanel()
@@ -388,6 +396,17 @@ public class PageView extends JFrame
 
 		// Repaint the page view.
 		repaintPageView();
+	}
+
+	/**
+	 * Repaint the page view.
+	 */
+	private void repaintPageView()
+	{
+		// update the UI.
+		this.revalidate();
+		this.validate();
+		this.repaint();
 	}
 
 }

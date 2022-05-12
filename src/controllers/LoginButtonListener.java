@@ -1,18 +1,8 @@
 
-/**
- * Lead Author(s):
- * 
- * @author Hamid Reza Zamaninasab.
- * 
- *         Version/date: 1.1 / 05/07/2022
- * 
- * 
- */
 package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import models.Book;
 import models.BooksList;
 import models.Category;
@@ -22,6 +12,28 @@ import views.pages.components.BookPanel;
 import views.pages.components.LoginPanel;
 import views.widgets.Button;
 
+/**
+ * Lead Author(s):
+ * 
+ * @author Hamid Reza Zamaninasab
+ * 
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 1.2 / 05/12/2022
+ * 
+ * 
+ */
+//A LoginButtonListener is-an ActionListener.
 public class LoginButtonListener implements ActionListener
 {
 
@@ -34,20 +46,8 @@ public class LoginButtonListener implements ActionListener
 	// LoginButtonListener has-a panel
 	private LoginPanel panel;
 
-	// LoginButtonListener has-a loginButton
-	private Button loginButton;
-
-	// LoginButtonListener has-an email.
-	private String email;
-
-	// LoginButtonListener has-a password.
-	private String password;
-
 	// LoginButtonListener has-a categoryButton.
 	private BookPanel[] booksPanel;
-
-	// LoginButtonListener has-a categoryObj.
-	private Category categoryObj;
 
 	/**
 	 * LoginButtonListener Constructor - It listen to the login button.
@@ -64,7 +64,7 @@ public class LoginButtonListener implements ActionListener
 		this.panel = panel;
 
 		// Initialize the loginButton.
-		loginButton = panel.getLoginComponent();
+		Button loginButton = panel.getLoginButton();
 
 		// Listen to the loginButton.
 		loginButton.addActionListener(this);
@@ -78,10 +78,10 @@ public class LoginButtonListener implements ActionListener
 	public void actionPerformed(ActionEvent event)
 	{
 		// Get the updated email.
-		email = panel.getEmailComponent().getText();
+		String email = panel.getEmailComponent().getText();
 
 		// Get the updated password.
-		password = new String(panel.getPasswordComponent().getPassword());
+		String password = new String(panel.getPasswordComponent().getPassword());
 
 		// Initialize the model.
 		this.model = new Login(email, password);
@@ -103,12 +103,11 @@ public class LoginButtonListener implements ActionListener
 			this.view.removeLoginPanels();
 
 			// Remove old header panel, and add new header panel, because user logged in.
-			this.view.addActiveHeaderPanel();
+			this.view.addHeaderPanel(true);
 
-			// Add categoryPanel.
+			// Add categoryPanel. true the books button disabled. 
 			this.view.addCategoryPanel(true);
 
-			// Add sortPanel.
 			this.view.addSortPanel();
 
 			// Add the booksPanel.
@@ -141,13 +140,13 @@ public class LoginButtonListener implements ActionListener
 	 * 
 	 * @param category
 	 */
-	public void createBooksArray(String category)
+	public void createBooksArray(String categoryName)
 	{
-		// Initialize a categoryButton.
-		categoryObj = new Category();
+		// Initialize a category.
+		Category category = new Category();
 
-		// Initialize books based on category.
-		Book[] books = categoryObj.getBooks(category);
+		// Initialize books based on categoryName.
+		Book[] books = category.getBooks(categoryName);
 
 		// Initialize a bookslist.
 		booksPanel = new BookPanel[books.length - 1];

@@ -4,27 +4,39 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+/**
+ * Lead Author(s):
+ * 
+ * @author Hamid Reza Zamaninasab
+ * 
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 1.5 / 05/12/2022
+ * 
+ * 
+ */
 public class CustomerDatabase
 {
-	// A CustomerDatabase has-an inputFile.
-	private FileInputStream inputFile;
-
-	// A CustomerDatabase has-an outputFile.
-	private FileOutputStream outputFile;
 
 	// A CustomerDatabase has-a customer.
 	private Customer customer;
 
-	// A CustomerDatabase has-a creditCard.
-	private CreditCard creditCard;
-
-	// A CustomerDatabase has-a currentCustomer.
+	// The CustomerDatabase class has-a currentCustomer.
 	private static Customer currentCustomer;
 
 	public CustomerDatabase()
@@ -46,10 +58,10 @@ public class CustomerDatabase
 	{
 		try
 		{
-			this.creditCard = this.customer.getCreditCard();
+			CreditCard creditCard = this.customer.getCreditCard();
 
 			// input the Customer database file.
-			inputFile = new FileInputStream(new File("src/databases/Customers.xlsx"));
+			FileInputStream inputFile = new FileInputStream(new File("src/databases/Customers.xlsx"));
 
 			try (XSSFWorkbook workbook = new XSSFWorkbook(inputFile))
 			{
@@ -96,7 +108,7 @@ public class CustomerDatabase
 				cell.setCellValue(creditCard.getCvv());
 
 				// Initialize the output stream.
-				outputFile = new FileOutputStream(new File("src/databases/Customers.xlsx"));
+				FileOutputStream outputFile = new FileOutputStream(new File("src/databases/Customers.xlsx"));
 
 				// Update the output file.
 				workbook.write(outputFile);
@@ -132,7 +144,7 @@ public class CustomerDatabase
 		try
 		{
 			// input the Customer database file.
-			inputFile = new FileInputStream(new File("src/databases/Customers.xlsx"));
+			FileInputStream inputFile = new FileInputStream(new File("src/databases/Customers.xlsx"));
 
 			try (XSSFWorkbook workbook = new XSSFWorkbook(inputFile))
 			{

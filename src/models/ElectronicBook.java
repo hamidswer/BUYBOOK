@@ -3,21 +3,33 @@ package models;
 /**
  * Lead Author(s):
  * 
- * @author Hamid Reza Zamaninasab.
+ * @author Hamid Reza Zamaninasab
  * 
- *         Version/date: 2.2 / 4/23/2022
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 2.3 / 05/12/2022
  * 
  * 
  */
-// ElectronicBook is-a Book so inherits all of its public methods and variables of Book.
+// An ElectronicBook is-a Book.
 public class ElectronicBook extends Book
 {
-	private final static int left = 0;
+
 	// ElectronicBook constructor 
 	public ElectronicBook(Book book)
 	{
-		
-		super(book.getId(), book.getName(), book.getAuthor(), book.getRate(), book.getPrice(), book.getYear(), left,
+
+		super(book.getId(), book.getName(), book.getAuthor(), book.getRate(), book.getPrice(), book.getYear(),
 				book.getGenre());
 	}
 

@@ -1,48 +1,54 @@
 
-/**
- * Lead Author(s):
- * 
- * @author Hamid Reza Zamaninasab.
- * 
- *         Resource: Regex Retrieved from https://regexr.com/
- * 
- *         Version/date: 1.1 / 05/05/2022
- * 
- * 
- */
 package models;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Lead Author(s):
+ * 
+ * @author Hamid Reza Zamaninasab
+ * 
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         RegExr: Learn, Build, Test RegEx. https://regexr.com/
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 1.3 / 05/12/2022
+ * 
+ * 
+ */
 public class CreateAccount
 {
-	// CreateAccountModel has-an name.
+	// A CreateAccount has-an name.
 	private String name;
 
-	// CreateAccountModel has-an email.
+	// A CreateAccount has-an email.
 	private String email;
 
-	// CreateAccountModel has-a password.
+	// A CreateAccount has-a password.
 	private String password;
 
-	// CreateAccountModel has-a confirmPassword.
+	// A CreateAccount has-a confirmPassword.
 	private String confirmPassword;
 
-	// CreateAccountModel has-a creditCardNumber.
+	// A CreateAccount has-a creditCardNumber.
 	private String creditCardNumber;
 
-	// CreateAccountModel has-a expirationDate.
+	// A CreateAccount has-a expirationDate.
 	private String expirationDate;
 
-	// CreateAccountModel has-a cvv.
+	// A CreateAccount has-a cvv.
 	private String cvv;
-
-	// CreateAccountModel has-a customer.
-	private Customer customer;
-
-	// CreateAccountModel has-a customerDatabase.
-	private CustomerDatabase customerDatabase;
 
 	public CreateAccount()
 	{
@@ -280,8 +286,8 @@ public class CreateAccount
 	 */
 	public void createAccount()
 	{
-		customer = new Customer(name, email, password, creditCardNumber, expirationDate, cvv);
-		customerDatabase = new CustomerDatabase(customer);
+		Customer customer = new Customer(name, email, password, creditCardNumber, expirationDate, cvv);
+		CustomerDatabase customerDatabase = new CustomerDatabase(customer);
 		customerDatabase.createANewAccount();
 	}
 

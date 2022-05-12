@@ -1,24 +1,8 @@
-
-/**
- * Lead Author(s):
- * 
- * @author Hamid Reza Zamaninasab.
- * 
- *         Resources:
- * 
- *         Get button name from ActionListener? Retrieved from:
- *         https://stackoverflow.com/questions/7867834/get-button-name-from-actionlistener
- * 
- *         Version/date: 1.1 / 05/07/2022
- * 
- * 
- */
 package controllers;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import models.Book;
 import models.Category;
 import views.pages.PageView;
@@ -26,23 +10,39 @@ import views.pages.components.BookPanel;
 import views.pages.components.CategoryPanel;
 import views.widgets.Button;
 
+/**
+ * Lead Author(s):
+ * 
+ * @author Hamid Reza Zamaninasab
+ * 
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 1.2 / 05/12/2022
+ * 
+ * 
+ */
+//A CategoryButtonListener is-an ActionListener.
 public class CategoryButtonListener implements ActionListener
 {
 
 	// CategoryButtonListener has-a view.
 	private PageView view;
 
-	// CategoryButtonListener has-a booksButton.
-	private Button booksButton;
-
-	// CategoryButtonListener has-a fictionButton.
-	private Button fictionButton;
-
-	// CategoryButtonListener has-a nonFictionButton.
-	private Button nonFictionButton;
-
 	// CategoryButtonListener has-a categoryButton.
-	private Category categoryButton;
+	private Button categoryButton;
+
+	// CategoryButtonListener has-a panel.
+	private CategoryPanel categoryPanel;
 
 	// CategoryButtonListener has-a booksPanel.
 	private BookPanel[] booksPanel;
@@ -54,28 +54,20 @@ public class CategoryButtonListener implements ActionListener
 	 * @param view  - a PageView.
 	 * @param panel - it's a CategoryPanel.
 	 */
-	public CategoryButtonListener(PageView view, CategoryPanel panel)
+	public CategoryButtonListener(PageView view, CategoryPanel categoryPanel, Button categoryButton)
 	{
 		// Initialize the view.
 		this.view = view;
 
-		// Initialize booksButton.
-		booksButton = panel.getBookButton();
+		// Initialize the categoryPanel.
+		this.categoryPanel = categoryPanel;
 
-		// Initialize booksButton.
-		fictionButton = panel.getFictionButton();
+		// Initialize the categoryButton.
+		this.categoryButton = categoryButton;
 
-		// Initialize booksButton.
-		nonFictionButton = panel.getNonfictionButton();
+		// Listen to categoryButton.
+		this.categoryButton.addActionListener(this);
 
-		// Listen to booksButton.
-		booksButton.addActionListener(this);
-
-		// Listen to fictionButton.
-		fictionButton.addActionListener(this);
-
-		// Listen to nonFictionButton.
-		nonFictionButton.addActionListener(this);
 	}
 
 	/**
@@ -85,8 +77,7 @@ public class CategoryButtonListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
-		// Initialize buttonName.
-		String buttonName = ((Button) event.getSource()).getActionCommand();
+		String buttonName = categoryButton.getText();
 
 		// Update the button style.
 		updateButtonsStyle(buttonName);
@@ -99,6 +90,18 @@ public class CategoryButtonListener implements ActionListener
 	 */
 	public void updateButtonsStyle(String buttonName)
 	{
+		// CategoryButtonListener has-a booksButton.
+		// Initialize booksButton.
+		Button booksButton = categoryPanel.getBooksButton();
+
+		// CategoryButtonListener has-a fictionButton.
+		// Initialize booksButton.
+		Button fictionButton = categoryPanel.getFictionButton();
+
+		// CategoryButtonListener has-a nonFictionButton.
+		// Initialize booksButton.
+		Button nonFictionButton = categoryPanel.getNonfictionButton();
+
 		// Initialize buttons to compare with buttonName and change its elements style.
 		Button[] buttons = new Button[]
 		{ booksButton, fictionButton, nonFictionButton };
@@ -147,7 +150,7 @@ public class CategoryButtonListener implements ActionListener
 
 		// Add sortPanel.
 		this.view.addSortPanel();
-		
+
 		// Create the booksPanel array.
 		createBooksArray(buttonName);
 
@@ -156,16 +159,17 @@ public class CategoryButtonListener implements ActionListener
 	}
 
 	/**
-	 * Create the booksPanel array. 
+	 * Create the booksPanel array.
+	 * 
 	 * @param buttonName - the name of button which is clicked.
 	 */
 	public void createBooksArray(String buttonName)
 	{
-		// Initialize a categoryButton.
-		categoryButton = new Category();
+		// Initialize a category.
+		Category category = new Category();
 
 		// Initialize books based on buttonName.
-		Book[] books = categoryButton.getBooks(buttonName);
+		Book[] books = category.getBooks(buttonName);
 
 		// Initialize a bookslist.
 		booksPanel = new BookPanel[books.length - 1];

@@ -1,34 +1,43 @@
 
-/**
- * Lead Author(s):
- * 
- * @author Hamid Reza Zamaninasab.
- * 
- *         Version/date: 1.1 / 05/08/2022
- * 
- * 
- */
 package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-
 import views.pages.PageView;
 import views.pages.components.HeaderPanel;
 
+/**
+ * Lead Author(s):
+ * 
+ * @author Hamid Reza Zamaninasab
+ * 
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 1.2 / 05/12/2022
+ * 
+ * 
+ */
+//A LogoutButtonListener is-an ActionListener.
 public class LogoutButtonListener implements ActionListener
 {
 
 	// LogoutButtonListener has-a view.
 	private PageView view;
 
-	// LogoutButtonListener has-a logoutButton.
-	private JButton logoutButton;
-
 	/**
-	 * LogoutButtonListener Constructor - It listen to the logoutButton and change the
-	 * view.
+	 * LogoutButtonListener Constructor - It listen to the logoutButton and change
+	 * the view.
 	 * 
 	 * @param view
 	 * @param panel
@@ -40,7 +49,7 @@ public class LogoutButtonListener implements ActionListener
 		this.view = view;
 
 		// Initialize the logoutButton.
-		logoutButton = panel.getLogoutComponent();
+		JButton logoutButton = panel.getLogoutButton();
 
 		// Listen to login button.
 		logoutButton.addActionListener(this);
@@ -67,8 +76,8 @@ public class LogoutButtonListener implements ActionListener
 		// Remove all panels.
 		this.view.getContentPane().removeAll();
 
-		// Add headerPanel.
-		this.view.addHeaderPanel();
+		// Add headerPanel. false passed as an argument because the customer logged out.
+		this.view.addHeaderPanel(false);
 
 		// Add loginPanels.
 		this.view.addLoginPanels();

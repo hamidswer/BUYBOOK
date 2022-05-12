@@ -1,13 +1,3 @@
-
-/**
- * Lead Author(s):
- * 
- * @author Hamid Reza Zamaninasab.
- * 
- *         Version/date: 1.1 / 05/05/2022
- * 
- * 
- */
 package views.pages.components;
 
 import java.awt.Component;
@@ -15,65 +5,103 @@ import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import views.widgets.TextLabel;
 
-@SuppressWarnings("serial")
+/**
+ * Lead Author(s):
+ * 
+ * @author Hamid Reza Zamaninasab
+ * 
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Serializable Interface in Java.
+ *         https://www.geeksforgeeks.org/serializable-interface-in-java
+ * 
+ *         What does it mean: The serializable class does not declare a static
+ *         final serialVersionUID field?
+ *         https://stackoverflow.com/questions/2288937/what-does-it-mean-the-serializable-class-does-not-declare-a-static-final-serial
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 1.3 / 05/12/2022
+ * 
+ * 
+ */
+
+// A RatePanel is-a JPanel.
 public class RatePanel extends JPanel
 {
-	// A RatePanel has-a rateToFive.
-	private int rateToFive;
-	
-	// A RatePanel has-a starLabel.
-	private JLabel starLabel;
+	/**
+	 * Serialization is a mechanism of converting the state of an object into a byte
+	 * stream, and it can be used to make it eligible for saving its state into a
+	 * file. If you are serializing objects and deserializing them in a different
+	 * place (or time) where (when) the class has changed, without creating
+	 * serialVersionUID, you could be faced with InvalidClassException. The JPanel
+	 * class implements java.io.Serializable interface so the it's subclass
+	 * (RatePanel).
+	 */
+	private static final long serialVersionUID = 7677127992298657718L;
 
-	public RatePanel(int rate)
+	// A RatePanel has-a starLabel.
+	private TextLabel starLabel;
+
+	public RatePanel(int bookRate)
 	{
-		// 1 row and unlimited columns, Horizontal gap == 0, Vertical gap == 0.
-		setLayout(new GridLayout(1, 0, 0, 0));
+		GridLayout grid = new GridLayout(1, 0, 0, 0);
+
+		setLayout(grid);
 
 		// Make the panel transparent.
 		setOpaque(false);
 
 		// Set alignment to the left.
 		setAlignmentX(Component.LEFT_ALIGNMENT);
-		
-		// Initialize the rateToFive.
-		rateToFive = rate / 20;
-		
+
+		// Initialize the rate by converting rate to the equivelant 5-star rating.  
+		int rate = bookRate / 20;
+
 		// Update the panel.
-		update(rateToFive);
+		update(rate);
 
 	}
 
 	/**
 	 * Update the panel based on rate.
-	 * @param rateToFive
+	 * 
+	 * @param rate
 	 */
-	public void update(int rateToFive)
+	public void update(int rate)
 	{
 		try
 		{
-			BufferedImage star3 = ImageIO.read(new File("src/views/images/star3.png"));
-			BufferedImage star4 = ImageIO.read(new File("src/views/images/star4.png"));
-			BufferedImage star5 = ImageIO.read(new File("src/views/images/star5.png"));
-			switch (rateToFive)
+			BufferedImage threeStarsImage = ImageIO.read(new File("src/views/images/star3.png"));
+			BufferedImage fourStarsImage = ImageIO.read(new File("src/views/images/star4.png"));
+			BufferedImage fiveStarsImage = ImageIO.read(new File("src/views/images/star5.png"));
+			switch (rate)
 			{
+			case 3:
+				// Initialize star label.
+				starLabel = new TextLabel(new ImageIcon(threeStarsImage));
+				break;
 			case 4:
 				// Initialize star label.
-				starLabel = new JLabel(new ImageIcon(star4));
-				break;
-			case 5:
-				// Initialize star label.
-				starLabel = new JLabel(new ImageIcon(star5));
+				starLabel = new TextLabel(new ImageIcon(fourStarsImage));
 				break;
 			default:
 				// Initialize star label.
-				starLabel = new JLabel(new ImageIcon(star3));
+				starLabel = new TextLabel(new ImageIcon(fiveStarsImage));
 				break;
 
 			}

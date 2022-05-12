@@ -1,18 +1,8 @@
 
-/**
- * Lead Author(s):
- * 
- * @author Hamid Reza Zamaninasab.
- * 
- *         Version/date: 1.1 / 05/07/2022
- * 
- * 
- */
 package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import models.Book;
 import models.Category;
 import models.Sort;
@@ -21,26 +11,39 @@ import views.pages.components.BookPanel;
 import views.pages.components.SortPanel;
 import views.widgets.Button;
 
+/**
+ * Lead Author(s):
+ * 
+ * @author Hamid Reza Zamaninasab
+ * 
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 1.4 / 05/12/2022
+ * 
+ * 
+ */
+//A SortButtonListener is-an ActionListener.
 public class SortButtonListener implements ActionListener
 {
 
-	// SortButtonListener has-a view.
+	// A SortButtonListener has-a view.
 	private PageView view;
 
-	// SortButtonListener has-a nameButton.
-	private Button nameButton;
+	// A SortButtonListener has-a panel.
+	private SortPanel panel;
 
-	// SortButtonListener has-a priceButton.
-	private Button priceButton;
-
-	// SortButtonListener has-a rateButton.
-	private Button rateButton;
-
-	// SortButtonListener has-a books sortButton.
-	private Sort sortButton;
-
-	// SortButtonListener has-a booksByCategory.
-	private Book[] booksByCategory;
+	// A SortButtonListener has-a buttonClicked.
+	private Button sortButton;
 
 	/**
 	 * SortButtonListener Constructor - It listen to the sort buttons and change the
@@ -49,28 +52,17 @@ public class SortButtonListener implements ActionListener
 	 * @param view  - the PageView.
 	 * @param panel
 	 */
-	public SortButtonListener(PageView view, SortPanel panel)
+	public SortButtonListener(PageView view, SortPanel panel, Button sortButton)
 	{
-		// Initialize the view.
+
 		this.view = view;
 
-		// Initialize nameButton.
-		nameButton = panel.getNameButton();
+		this.panel = panel;
 
-		// Initialize priceButton.
-		priceButton = panel.getPriceButton();
+		// the button user clicked on it. e.g. Sort by name, price or rate.
+		this.sortButton = sortButton;
 
-		// Initialize rateButton.
-		rateButton = panel.getRateButton();
-
-		// Listen to nameButton.
-		nameButton.addActionListener(this);
-
-		// Listen to priceButton.
-		priceButton.addActionListener(this);
-
-		// Listen to rateButton.
-		rateButton.addActionListener(this);
+		this.sortButton.addActionListener(this);
 	}
 
 	/**
@@ -81,7 +73,7 @@ public class SortButtonListener implements ActionListener
 	public void actionPerformed(ActionEvent event)
 	{
 		// Initialize buttonName.
-		String buttonName = ((Button) event.getSource()).getActionCommand();
+		String buttonName = sortButton.getText();
 
 		// Update the button style based on buttonName.
 		updateButtonsStyle(buttonName);
@@ -94,6 +86,15 @@ public class SortButtonListener implements ActionListener
 	 */
 	public void updateButtonsStyle(String buttonName)
 	{
+		// Initialize nameButton.
+		Button nameButton = panel.getNameButton();
+
+		// Initialize priceButton.
+		Button priceButton = panel.getPriceButton();
+
+		// Initialize rateButton.
+		Button rateButton = panel.getRateButton();
+
 		// Initialize the buttons.
 		Button[] buttons = new Button[]
 		{ nameButton, priceButton, rateButton };
@@ -101,7 +102,7 @@ public class SortButtonListener implements ActionListener
 		for (int i = 0; i < buttons.length; i++)
 		{
 			// If the customer clicked on the button element in buttons array.
-			if (buttonName.equals(buttons[i].getText()))
+			if (buttons[i].getText().equals(buttonName))
 			{
 				// Disable button.
 				buttons[i].setEnabled(false);
@@ -126,13 +127,13 @@ public class SortButtonListener implements ActionListener
 		this.view.removeBooksPanel();
 
 		// Initialize the categoryName.
-		booksByCategory = new Category().getBooks(name);
+		Book[] booksByCategory = new Category().getBooks(name);
 
 		// Initialize a sortButton.
-		sortButton = new Sort(name, booksByCategory);
+		Sort sort = new Sort(name, booksByCategory);
 
 		// Initialize books.
-		Book[] books = sortButton.getSorted();
+		Book[] books = sort.getSorted();
 
 		// Declare a booksPanel.
 		BookPanel[] booksPanel = new BookPanel[books.length - 1];

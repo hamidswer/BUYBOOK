@@ -1,18 +1,30 @@
 package models;
 
+/**
+ * Lead Author(s):
+ * 
+ * @author Hamid Reza Zamaninasab
+ * 
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 1.4 / 05/12/2022
+ * 
+ * 
+ */
 public class BuyBook
 {
 	// A BuyBook has-a book.
 	private Book book;
-
-	// A BuyBook has-an electronicBook.
-	private ElectronicBook electronicBook;
-
-	// A BuyBook has-a paperBook.
-	private PaperBook paperBook;
-
-	// A BuyBook has-a message.
-	private String message;
 
 	// A BuyBook has-a isPaper.
 	private boolean isPaper;
@@ -30,7 +42,7 @@ public class BuyBook
 	 */
 	public String getMessage()
 	{
-		message = "Thanks for buying the ";
+		String message = "Thanks for buying the ";
 		message += book.getName() + " ";
 		message += "by " + book.getAuthor() + ". ";
 		if (isPaper)
@@ -44,11 +56,11 @@ public class BuyBook
 		if (isPaper)
 		{
 			message = "<html><center>" + message + "</center></html>";
-			paperBook = new PaperBook(book);
+			PaperBook paperBook = new PaperBook(book);
 			paperBook.decLeftInStore();
 		} else
 		{
-			electronicBook = new ElectronicBook(book);
+			ElectronicBook electronicBook = new ElectronicBook(book);
 			message += "<br>" + electronicBook.getAcceptableUsePolicy();
 			message = "<html><center>" + message + "</center></html>";
 		}

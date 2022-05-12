@@ -1,39 +1,48 @@
 
+package models;
+
 /**
  * Lead Author(s):
  * 
- * @author Hamid Reza Zamaninasab.
+ * @author Hamid Reza Zamaninasab
  * 
- *         Version/date: 1.1 / 05/08/2022
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 1.2 / 05/12/2022
  * 
  * 
  */
-package models;
-
 public class Category
 {
-	// Category has-a name.
+	// The Category class has-a name.
 	private static String name = "Books";
-	
-	// Category has-a books.
+
+	// The Category class has many books.
 	private static Book[] books;
-	
-	// Category has-a books.
-	private BooksList booksList;
-	
+
 	/**
-	 * Get books based on their genre.
+	 * Get books based on their categoryName.
 	 * 
-	 * @return books
+	 * @param categoryName
+	 * @return
 	 */
 	public Book[] getBooks(String categoryName)
 	{
-
 		// Initialize name.
 		name = categoryName;
-		
+
 		// Initialize a bookslist.
-		booksList = new BooksList();
+		BooksList booksList = new BooksList();
 
 		switch (name)
 		{
@@ -68,14 +77,9 @@ public class Category
 	{
 		return name;
 	}
-	
+
 	public Book[] getBooks()
 	{
 		return books;
-	}
-	
-	public void setBooks(Book[] booksList)
-	{
-		books = booksList;
 	}
 }

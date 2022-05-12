@@ -1,43 +1,41 @@
+package models;
 
 /**
  * Lead Author(s):
  * 
- * @author Hamid Reza Zamaninasab.
+ * @author Hamid Reza Zamaninasab
  * 
- *         Version/date: 1.0 / 05/05/2022
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 1.2 / 05/12/2022
  * 
  * 
  */
-package models;
 
 public class Login
 {
 
-	// Login has-an email.
-	private String email;
-
-	// Login has-a password.
-	private String password;
-
 	// Login has-a isACustomerExist.
 	private boolean isACustomerExist;
 
-	// Login has-a customerDatabase.
-	private CustomerDatabase customerDatabase;
-
 	public Login(String email, String password)
 	{
-		// Initialize email.
-		this.email = email;
-
-		// Initialize password.
-		this.password = password;
 
 		// Initialize a customerDatabase.
-		this.customerDatabase = new CustomerDatabase();
+		CustomerDatabase customerDatabase = new CustomerDatabase();
 
 		// Initialize a isACustomerExist.
-		isACustomerExist = customerDatabase.isCustomer(this.email, this.password);
+		isACustomerExist = customerDatabase.isCustomer(email, password);
 	}
 
 	/**

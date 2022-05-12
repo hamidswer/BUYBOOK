@@ -1,20 +1,31 @@
-
-/**
- * Lead Author(s):
- * 
- * @author Hamid Reza Zamaninasab.
- * 
- *         Version/date: 1.2 / 05/08/2022
- * 
- * 
- */
 package models;
 
 import java.util.Arrays;
 import java.util.Comparator;
-
 import interfaces.Sortable;
 
+/**
+ * Lead Author(s):
+ * 
+ * @author Hamid Reza Zamaninasab
+ * 
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 1.3 / 05/12/2022
+ * 
+ * 
+ */
+// A Sort is-a Sortable.
 public class Sort implements Sortable
 {
 	// Sort has-a name.
@@ -57,7 +68,6 @@ public class Sort implements Sortable
 			sortByRate(booksByCategory);
 		}
 
-		
 		return booksByCategory;
 	}
 

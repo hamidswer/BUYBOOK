@@ -1,33 +1,51 @@
-
-/**
- * Lead Author(s):
- * 
- * @author Hamid Reza Zamaninasab.
- * 
- *         Version/date: 1.1 / 05/06/2022
- * 
- * 
- */
 package views.pages.components;
 
 import java.awt.Dimension;
 import javax.swing.JPanel;
 
-@SuppressWarnings("serial")
+/**
+ * Lead Author(s):
+ * 
+ * @author Hamid Reza Zamaninasab
+ * 
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Serializable Interface in Java.
+ *         https://www.geeksforgeeks.org/serializable-interface-in-java
+ * 
+ *         What does it mean: The serializable class does not declare a static
+ *         final serialVersionUID field?
+ *         https://stackoverflow.com/questions/2288937/what-does-it-mean-the-serializable-class-does-not-declare-a-static-final-serial
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 1.2 / 05/12/2022
+ * 
+ * 
+ */
+
+// A BooksPanel is-a JPanel.
 public class BooksPanel extends JPanel
 {
-	
-	// BooksPanel has-a xCoordinate.
-	private int xCoordinate; 
-	
-	// BooksPanel has-a yCoordinate.
-	private int yCoordinate;
-	
-	// BooksPanel has-a width.
-	private final int width = 343; 
-	
-	// BooksPanel has-a height.
-	private int height = 100; 
+
+	/**
+	 * Serialization is a mechanism of converting the state of an object into a byte
+	 * stream, and it can be used to make it eligible for saving its state into a
+	 * file. If you are serializing objects and deserializing them in a different
+	 * place (or time) where (when) the class has changed, without creating
+	 * serialVersionUID, you could be faced with InvalidClassException. The JPanel
+	 * class implements java.io.Serializable interface so the it's subclass
+	 * (BooksPanel).
+	 */
+	private static final long serialVersionUID = 7555327188223947100L;
 
 	public BooksPanel(BookPanel[] bookPanels)
 	{
@@ -38,10 +56,14 @@ public class BooksPanel extends JPanel
 		setOpaque(false);
 
 		// Initialize a xCoordinate.
-		xCoordinate = 35;
+		int xCoordinate = 35;
 
 		// Initialize a yCoordinate.
-		yCoordinate = 25;
+		int yCoordinate = 25;
+		
+		int width = 343;
+		
+		int height = 100;
 
 		// Add all bookPanels to booksPanel.
 		for (BookPanel bookPanel : bookPanels)
@@ -50,7 +72,7 @@ public class BooksPanel extends JPanel
 			add(bookPanel);
 			yCoordinate += 125;
 		}
-		
+
 		// Set the size of a BooksPanel object.
 		setPreferredSize(new Dimension(width, yCoordinate + 25));
 	}

@@ -1,18 +1,39 @@
 package models;
 
+/**
+ * Lead Author(s):
+ * 
+ * @author Hamid Reza Zamaninasab
+ * 
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 1.4 / 05/12/2022
+ * 
+ * 
+ */
 public class Customer
 {
 	// A Customer has-a name.
-	private String name; 
-	
+	private String name;
+
 	// A Customer has-an email.
-	private String email; 
-	
+	private String email;
+
 	// A Customer has-a password.
-	private String password; 
-	
+	private String password;
+
 	// A Customer has-a creditCard.
-	private CreditCard creditCard; 
+	private CreditCard creditCard;
 
 	public Customer(String name, String email, String password, String creditCardNumber, String expirationDate,
 			String cvv)

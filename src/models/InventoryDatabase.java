@@ -1,14 +1,5 @@
 package models;
 
-/**
- * Lead Author(s):
- * 
- * @author Hamid Reza Zamaninasab.
- * 
- *         Version/date: 2.2 / 4/23/2022
- * 
- * 
- */
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -18,23 +9,33 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+/**
+ * Lead Author(s):
+ * 
+ * @author Hamid Reza Zamaninasab
+ * 
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 2.3 / 05/12/2022
+ * 
+ * 
+ */
+
 public class InventoryDatabase
 {
 
-	// An InventoryDatabase has-an inputFile.
-	private FileInputStream inputFile; 
-	
-	// An InventoryDatabase has-an outputFile.
-	private FileOutputStream outputFile; 
-	
-	// An InventoryDatabase has-a book.
-	private Book book; 
-	
 	// An InventoryDatabase has-a books.
-	private Book[] books; 
-	
-	// An InventoryDatabase has-a rowCounter.
-	private int rowCounter = 0; 
+	private Book[] books;
 
 	// Database constructor
 	public InventoryDatabase()
@@ -51,7 +52,7 @@ public class InventoryDatabase
 		try
 		{
 			// Initialize inputFile. Input bytes from a file in a file system.
-			inputFile = new FileInputStream(new File("src/databases/Inventory.xlsx"));
+			FileInputStream inputFile = new FileInputStream(new File("src/databases/Inventory.xlsx"));
 
 			try (XSSFWorkbook workbook = new XSSFWorkbook(inputFile))
 			{
@@ -69,9 +70,12 @@ public class InventoryDatabase
 				// to iterate through rows of excel file.
 				java.util.Iterator<Row> rowIterator = sheet.iterator();
 
+				int rowCounter = 0;
+				
 				// while there isn't any blank row.
 				while (rowIterator.hasNext())
 				{
+					
 					// Initialize row.
 					Row row = rowIterator.next();
 					if (row.getRowNum() == 0)
@@ -111,6 +115,8 @@ public class InventoryDatabase
 
 					// Initialize a genre.
 					String genre = "";
+					
+					
 
 					// while there isn't any blank cell.
 					while (cellIterator.hasNext())
@@ -198,7 +204,7 @@ public class InventoryDatabase
 							// Assign cell value to the genre.
 							genre = type(cell);
 
-							book = new Book(id, name, author, rate, price, year, leftInStore, genre);
+							Book book = new Book(id, name, author, rate, price, year, leftInStore, genre);
 							books[rowCounter] = book;
 
 							rowCounter++;
@@ -241,7 +247,7 @@ public class InventoryDatabase
 		try
 		{
 			// Initialize inputFile. Input bytes from a file in a file system.
-			inputFile = new FileInputStream(new File("src/databases/Inventory.xlsx"));
+			FileInputStream inputFile = new FileInputStream(new File("src/databases/Inventory.xlsx"));
 
 			try (XSSFWorkbook workbook = new XSSFWorkbook(inputFile))
 			{
@@ -283,14 +289,14 @@ public class InventoryDatabase
 					}
 
 					// Initialize the outputFile.
-					outputFile = new FileOutputStream(new File("bestsellers.xlsx"));
+					FileOutputStream outputFile = new FileOutputStream(new File("bestsellers.xlsx"));
 
 					// Update the file.
 					workbook.write(outputFile);
+					// Close the outputFile.
+					outputFile.close();
 				}
 
-				// Close the outputFile.
-				outputFile.close();
 			}
 
 			// Close the inputFile.

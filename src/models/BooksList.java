@@ -5,16 +5,21 @@ import java.util.Arrays;
 /**
  * Lead Author(s):
  * 
- * @author Hamid Reza Zamaninasab.
- * @Resources: Class FileInputStream, retrieved from
- *             https://docs.oracle.com/javase/7/docs/api/java/io/FileInputStream.html
- *             Class XSSFWorkbook retrieved from
- *             https://poi.apache.org/apidocs/dev/org/apache/poi/xssf/usermodel/XSSFWorkbook.html
- *             Java Iterator retrieved from
- *             https://www.w3schools.com/java/java_iterator.asp
+ * @author Hamid Reza Zamaninasab
  * 
+ *         Other contributors: Allan Schougaard
  * 
- *             Version/date: 2.2 / 4/23/2022
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 2.3 / 05/12/2022
  * 
  * 
  */
@@ -24,15 +29,13 @@ public class BooksList
 	// A BooksList has-a database.
 	private InventoryDatabase database;
 
-	// I'M NOT SURE! static used to increase the speed in category and sort.
-
-	// A BooksList has-a books. 
+	// The BooksList class has many books. 
 	private static Book[] books;
 
-	// A BooksList has-a fictions.
+	// The BooksList class has many fictions.
 	private static Book[] fictions;
 
-	// A BooksList has-a nonFictions.
+	// The BooksList has many nonFictions.
 	private static Book[] nonFictions;
 
 	// BooksList constructor
@@ -114,7 +117,7 @@ public class BooksList
 	{
 		Book[] allBooks = new Book[books.length];
 		for (int i = 0; i < books.length - 1; i++)
-			
+
 			// add book to fictionList Array
 			allBooks[i] = books[i];
 

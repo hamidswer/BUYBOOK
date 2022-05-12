@@ -1,13 +1,3 @@
-
-/**
- * Lead Author(s):
- * 
- * @author Hamid Reza Zamaninasab.
- * 
- *         Version/date: 1.3 / 05/09/2022
- * 
- * 
- */
 package controllers;
 
 import java.awt.event.ActionEvent;
@@ -17,6 +7,29 @@ import models.Book;
 import views.pages.PageView;
 import views.widgets.Button;
 
+/**
+ * Lead Author(s):
+ * 
+ * @author Hamid Reza Zamaninasab
+ * 
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Responsibilities of class:
+ * 
+ *        
+ * 
+ *         Version/date: 1.4 / 05/12/2022
+ * 
+ * 
+ */
+
+// A BookButtonListener is-an ActionListener.
 public class BookButtonListener implements ActionListener
 {
 
@@ -30,53 +43,50 @@ public class BookButtonListener implements ActionListener
 	 * `BookButtonListener Constructor - It listen to book's name button and change
 	 * the view.
 	 * 
-	 * @param view       - a PageView
-	 * @param bookButton - Indicate which button clicked.
-	 * @param book       - it's a book object.
+	 * @param view          - a PageView
+	 * @param buttonClicked - indicate which button clicked.
+	 * @param book          - it's a book object.
 	 */
-	public BookButtonListener(PageView view, Button bookButton, Book book)
+	public BookButtonListener(PageView view, Button buttonClicked, Book book)
 	{
 		// Assign the view value.
 		this.view = view;
 
-		// Assign the book value.
+		// Assign the book value. the view use the book object for giving more information about the book, and providing purchase options.
 		this.book = book;
 
-		// Listen to bookButton.
-		bookButton.addActionListener(this);
+		buttonClicked.addActionListener(this);
 
 	}
 
 	/**
-	 * It overrides actionPerformed method of ActionListener.
-	 * Polymorphism (dynamically bind)
+	 * It overrides actionPerformed method of ActionListener. Polymorphism
+	 * (dynamically bind)
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
-		// Update the view.
-		update();
+		// Update the UI(the view).
+		updateUI();
 	}
 
 	/**
 	 * Update the view.
 	 */
-	public void update()
+	public void updateUI()
 	{
 		// Remove the booksPanel.
 		this.view.removeBooksPanel();
 
-		// Remove the categoryPanel.
-		this.view.removeCategoryPanel();
-
 		// Remove the sortPanel.
 		this.view.removeSortPanel();
-
-		// Add the categoryPanel.
-		this.view.addCategoryPanel(false);
+		// Remove the old categoryPanel.
 
 		// Add the fullBookPanel.
 		this.view.addFullBookPanel(book);
+
+		// Add categoryPanel. false the books button enabled. 
+		this.view.addCategoryPanel(false);
 
 	}
 

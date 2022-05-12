@@ -2,9 +2,8 @@ package views.widgets;
 
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import javax.swing.JLabel;
 
 /**
  * Lead Author(s):
@@ -30,13 +29,13 @@ import javax.swing.JButton;
  * 
  *         
  * 
- *         Version/date: 1.3 / 05/12/2022
+ *         Version/date: 1.1 / 05/12/2022
  * 
  * 
  */
 
-// A Button is-a JButton.
-public class Button extends JButton
+// A TextLabel is-a JLabel.
+public class TextLabel extends JLabel
 {
 
 	/**
@@ -44,50 +43,26 @@ public class Button extends JButton
 	 * stream, and it can be used to make it eligible for saving its state into a
 	 * file. If you are serializing objects and deserializing them in a different
 	 * place (or time) where (when) the class has changed, without creating
-	 * serialVersionUID, you could be faced with InvalidClassException. The JButton
-	 * class implements java.io.Serializable interface so the it's subclass
-	 * (Button).
+	 * serialVersionUID, you could be faced with InvalidClassException. The
+	 * JLabel class implements java.io.Serializable interface so the it's
+	 * subclass (TextLabel).
 	 */
-	private static final long serialVersionUID = -4059844035938244665L;
+	private static final long serialVersionUID = -2068023178626384625L;
 
-	// overrides the constructor without any parameter in JButton Superclass (Polymorphism).
-	public Button()
+	public TextLabel(String text, Font font, Color color)
 	{
-	}
-
-	/**
-	 * Constructor for creating a button.
-	 * 
-	 * @param text    - button's text.
-	 * @param font    - button's font.
-	 * @param bgcolor - button's background color.
-	 * @param fgColor - button's text color.
-	 */
-	public Button(String text, Font font, Color bgcolor, Color fgColor)
-	{
-		// calling JButton Superclass and set the text of Button.
+		// initialize the text.
 		super(text);
 
-		// Set text font.
+		// Set the font.
 		setFont(font);
 
-		// Set text color.
-		setForeground(fgColor);
-
-		// Set background color.
-		setBackground(bgcolor);
-
-		// Remove border around a button.
-		setBorder(BorderFactory.createEmptyBorder());
-
-		// Remove border around a button's text after mouse clicking.
-		setFocusable(false);
+		// Set the text color.
+		setForeground(color);
 	}
 
-	// overrides the constructor with ImageIcon parameter in JButton Superclass (Polymorphism).
-	public Button(ImageIcon imageIcon)
+	public TextLabel(ImageIcon imageIcon)
 	{
 		super(imageIcon);
 	}
-
 }

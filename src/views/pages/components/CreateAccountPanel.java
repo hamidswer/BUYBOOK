@@ -1,33 +1,62 @@
-
-/**
- * Lead Author(s):
- * 
- * @author Hamid Reza Zamaninasab.
- * 
- *         Version/date: 1.1 / 05/05/2022
- * 
- * 
- */
 package views.pages.components;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-
+import java.util.Hashtable;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-
 import controllers.CreateAccountButtonListener;
-import controllers.CreateAccountFormListener;
+import controllers.FormListener;
 import views.pages.PageView;
 import views.widgets.FormPassword;
 import views.widgets.FormText;
 import views.widgets.Button;
 
-@SuppressWarnings("serial")
+/**
+ * Lead Author(s):
+ * 
+ * @author Hamid Reza Zamaninasab
+ * 
+ *         Other contributors: Allan Schougaard
+ * 
+ *         Resources:
+ * 
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Serializable Interface in Java.
+ *         https://www.geeksforgeeks.org/serializable-interface-in-java
+ * 
+ *         What does it mean: The serializable class does not declare a static
+ *         final serialVersionUID field?
+ *         https://stackoverflow.com/questions/2288937/what-does-it-mean-the-serializable-class-does-not-declare-a-static-final-serial
+ * 
+ *         Responsibilities of class:
+ * 
+ *         
+ * 
+ *         Version/date: 1.2 / 05/12/2022
+ * 
+ * 
+ */
+
+// A CreateAccountPanel is-a JPanel.
 public class CreateAccountPanel extends JPanel
 {
+	/**
+	 * Serialization is a mechanism of converting the state of an object into a byte
+	 * stream, and it can be used to make it eligible for saving its state into a
+	 * file. If you are serializing objects and deserializing them in a different
+	 * place (or time) where (when) the class has changed, without creating
+	 * serialVersionUID, you could be faced with InvalidClassException. The JPanel
+	 * class implements java.io.Serializable interface so the it's subclass
+	 * (CreateAccountPanel).
+	 */
+	private static final long serialVersionUID = -5636583615110640231L;
+
 	// A CreateAccountPanel has-a name.
 	private FormText name;
 
@@ -52,13 +81,13 @@ public class CreateAccountPanel extends JPanel
 	// A CreateAccountPanel has-a createAccountButton.
 	private Button createAccountButton;
 
-	// A CreateAccountPanel has-a font.
-	private Font font;
-
 	public CreateAccountPanel(PageView view)
 	{
 		// unlimited rows and 1 column, Horizontal gap == 0, Vertical gap == 15.
-		setLayout(new GridLayout(0, 1, 0, 15));
+		GridLayout grid = new GridLayout(0, 1, 0, 15);
+
+		// Set the layout.
+		setLayout(grid);
 
 		// Make the panel transparent.
 		setOpaque(false);
@@ -67,7 +96,7 @@ public class CreateAccountPanel extends JPanel
 		setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 50));
 
 		// Initialize the textFont.
-		font = new Font("Times New Roman", Font.PLAIN, 18);
+		Font font = new Font("Times New Roman", Font.PLAIN, 18);
 
 		// Initialize the name.
 		name = new FormText("First & Last name..", font, 5);
@@ -120,81 +149,53 @@ public class CreateAccountPanel extends JPanel
 		// Add the createAccountButton to the createAccountPanel.
 		add(createAccountButton);
 
-		// Listen to the createAccountForm texts.
-		new CreateAccountFormListener(this);
+		// listen to the name component and remove it's text when the user clicks on it.
+		new FormListener(name);
+
+		// listen to the email component and remove it's text when the user clicks on it.
+		new FormListener(email);
+
+		// listen to the password component and remove it's text when the user clicks on it.
+		new FormListener(password);
+
+		// listen to the confirmPassword component and remove it's text when the user clicks on it.
+		new FormListener(confirmPassword);
+
+		// listen to the creditCardNumber component and remove it's text when the user clicks on it.
+		new FormListener(creditCardNumber);
+
+		// listen to the expirationDate component and remove it's text when the user clicks on it.
+		new FormListener(expirationDate);
+
+		// listen to the cvv component and remove it's text when the user clicks on it.
+		new FormListener(cvv);
 
 		// Listen to the createAccountButton.
 		new CreateAccountButtonListener(view, this);
 	}
 
-	/**
-	 * Get the name component.
-	 * 
-	 * @return the name component.
-	 */
-	public FormText getNameComponent()
+	public Hashtable<String, FormText> getTextComponents()
 	{
-		return name;
+		// Initialization of a Hashtable. using Str
+		Hashtable<String, FormText> textComponents = new Hashtable<String, FormText>();
+
+		// Inserting the Elements. Adding Key and Value pairs to Hashtable.
+		textComponents.put("name", name);
+		textComponents.put("email", email);
+		textComponents.put("creditCardNumber", creditCardNumber);
+		textComponents.put("expirationDate", expirationDate);
+
+		// Returning the textComponents.
+		return textComponents;
 	}
 
-	/**
-	 * Get the email component.
-	 * 
-	 * @return the email component.
-	 */
-	public FormText getEmailComponent()
+	public Hashtable<String, FormPassword> getPasswordComponents()
 	{
-		return email;
-	}
-
-	/**
-	 * Get the password component.
-	 * 
-	 * @return the password component.
-	 */
-	public FormPassword getPasswordComponent()
-	{
-		return password;
-	}
-
-	/**
-	 * Get the confirmPassword component.
-	 * 
-	 * @return the confirmPassword component.
-	 */
-	public FormPassword getConfirmPasswordComponent()
-	{
-		return confirmPassword;
-	}
-
-	/**
-	 * Get the creditCardNumber component.
-	 * 
-	 * @return the creditCardNumber component.
-	 */
-	public FormText getCreditCardNumberComponent()
-	{
-		return creditCardNumber;
-	}
-
-	/**
-	 * Get the expirationDate component.
-	 * 
-	 * @return the expirationDate component.
-	 */
-	public FormText getExpirationDateComponent()
-	{
-		return expirationDate;
-	}
-
-	/**
-	 * Get the cvv component.
-	 * 
-	 * @return the cvv component.
-	 */
-	public FormPassword getCvvComponent()
-	{
-		return cvv;
+		Hashtable<String, FormPassword> passwordComponents = new Hashtable<String, FormPassword>();
+		passwordComponents.put("password", password);
+		passwordComponents.put("confirmPassword", confirmPassword);
+		passwordComponents.put("cvv", cvv);
+		return passwordComponents;
 	}
 
 	/**
@@ -202,7 +203,7 @@ public class CreateAccountPanel extends JPanel
 	 * 
 	 * @return the button component.
 	 */
-	public Button getCreateAccountComponent()
+	public Button getCreateAccountButton()
 	{
 		return createAccountButton;
 	}
@@ -212,22 +213,27 @@ public class CreateAccountPanel extends JPanel
 	 */
 
 	/**
-	 * Update the UI.
+	 * Purpose: To change textComponent's border color to red.
 	 * 
-	 * @param text
+	 * @param textComponent - used to change its border color.
 	 */
-	public void updateUI(FormText text)
+	public void updateUI(FormText textComponent)
 	{
 		// Change the border color to red.
 		Border border = BorderFactory.createLineBorder(Color.RED, 2);
-		text.setBorder(border);
+		textComponent.setBorder(border);
 	}
 
-	public void updateUI(FormPassword text)
+	/**
+	 * Purpose: To change passwordComponent's border color to red.
+	 * 
+	 * @param passwordComponent - used to change its border color.
+	 */
+	public void updateUI(FormPassword passwordComponent)
 	{
 		// Change the border color to red.
 		Border border = BorderFactory.createLineBorder(Color.RED, 2);
-		text.setBorder(border);
+		passwordComponent.setBorder(border);
 	}
 
 }
