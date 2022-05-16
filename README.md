@@ -29,7 +29,8 @@ Categories & Price - 18<br>
 Error - 16<br>
 
 5. Libraries<br>
-![path](https://user-images.githubusercontent.com/86551137/167447070-932e2d8b-ab36-4c0d-ba14-04d7a5e787b9.JPG)
+![libraries](https://user-images.githubusercontent.com/86551137/168542384-58b14d9c-7e7e-4f86-8391-b14ee1d63f20.JPG)
+
 
 #Preview
 ![All](https://user-images.githubusercontent.com/86551137/167443772-2836e895-36be-4a50-9039-eb115f055e76.JPG)
