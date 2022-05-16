@@ -13,11 +13,10 @@ package models;
  *         Problem Solving.
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It creates customer. It gets the name,
+ *         email, password and creditCard of a customer.
  * 
- *         
- * 
- *         Version/date: 1.4 / 05/12/2022
+ *         Version/date: 1.5 / 05/15/2022
  * 
  * 
  */
@@ -38,14 +37,21 @@ public class Customer
 	public Customer(String name, String email, String password, String creditCardNumber, String expirationDate,
 			String cvv)
 	{
+		// Assign the name value.
 		this.name = name;
+
+		// Assign the email value.
 		this.email = email;
+
+		// Assign the password value.
 		this.password = password;
+
+		// Create a new CreditCard.
 		this.creditCard = new CreditCard(creditCardNumber, expirationDate, cvv);
 	}
 
 	/**
-	 * Get name.
+	 * Purpose: Get name.
 	 * 
 	 * @return name
 	 */
@@ -55,7 +61,7 @@ public class Customer
 	}
 
 	/**
-	 * Get email.
+	 * Purpose: Get email.
 	 * 
 	 * @return email.
 	 */
@@ -65,7 +71,7 @@ public class Customer
 	}
 
 	/**
-	 * Get password.
+	 * Purpose: Get password.
 	 * 
 	 * @return password.
 	 */
@@ -75,7 +81,7 @@ public class Customer
 	}
 
 	/**
-	 * Get creditCard.
+	 * Purpose: Get creditCard.
 	 * 
 	 * @return creditCard.
 	 */

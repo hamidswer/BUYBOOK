@@ -26,11 +26,11 @@ import javax.swing.JButton;
  *         final serialVersionUID field?
  *         https://stackoverflow.com/questions/2288937/what-does-it-mean-the-serializable-class-does-not-declare-a-static-final-serial
  * 
- *         Responsibilities of class:
- * 
+ *         Responsibilities of class: It's responsible to create a button and
+ *         sets it's background, and foreground color, it's text value and it's
+ *         font.
  *         
- * 
- *         Version/date: 1.3 / 05/12/2022
+ *         Version/date: 1.4 / 05/15/2022
  * 
  * 
  */
@@ -48,6 +48,7 @@ public class Button extends JButton
 	 * class implements java.io.Serializable interface so the it's subclass
 	 * (Button).
 	 */
+	// The Button class has-a serialVersionUID.
 	private static final long serialVersionUID = -4059844035938244665L;
 
 	// overrides the constructor without any parameter in JButton Superclass (Polymorphism).
@@ -55,27 +56,19 @@ public class Button extends JButton
 	{
 	}
 
-	/**
-	 * Constructor for creating a button.
-	 * 
-	 * @param text    - button's text.
-	 * @param font    - button's font.
-	 * @param bgcolor - button's background color.
-	 * @param fgColor - button's text color.
-	 */
-	public Button(String text, Font font, Color bgcolor, Color fgColor)
+	public Button(String text, Font font, Color backgroundColor, Color foregroundColor)
 	{
-		// calling JButton Superclass and set the text of Button.
+		// calling JButton(Superclass) and set the text of Button.
 		super(text);
 
 		// Set text font.
 		setFont(font);
 
 		// Set text color.
-		setForeground(fgColor);
+		setForeground(foregroundColor);
 
 		// Set background color.
-		setBackground(bgcolor);
+		setBackground(backgroundColor);
 
 		// Remove border around a button.
 		setBorder(BorderFactory.createEmptyBorder());

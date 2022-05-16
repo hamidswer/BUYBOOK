@@ -23,98 +23,94 @@ import views.widgets.Button;
  *         Problem Solving.
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It listens to the categoryButton, and if
+ *         the categoryButton is clicked, It updates the button's style, then It
+ *         removes booksPanel, sortPanel, fullBookPanel, and buyPanel from the
+ *         page view. Then it adds sortPanel, and booksPanel based on the chosen
+ *         category.
  * 
- *         
- * 
- *         Version/date: 1.2 / 05/12/2022
+ *         Version/date: 1.2 / 05/15/2022
  * 
  * 
  */
-//A CategoryButtonListener is-an ActionListener.
+// A CategoryButtonListener is-an ActionListener.
 public class CategoryButtonListener implements ActionListener
 {
 
-	// CategoryButtonListener has-a view.
-	private PageView view;
+	// A CategoryButtonListener has-a pageView.
+	private PageView pageView;
 
-	// CategoryButtonListener has-a categoryButton.
+	// A CategoryButtonListener has-a categoryButton.
 	private Button categoryButton;
 
-	// CategoryButtonListener has-a panel.
+	// A CategoryButtonListener has-a categoryPanel.
 	private CategoryPanel categoryPanel;
 
-	// CategoryButtonListener has-a booksPanel.
+	// CategoryButtonListener has many booksPanel.
 	private BookPanel[] booksPanel;
 
-	/**
-	 * `CategoryButtonListener Constructor - It listen to categories buttons and
-	 * change the view based on that.
-	 * 
-	 * @param view  - a PageView.
-	 * @param panel - it's a CategoryPanel.
-	 */
-	public CategoryButtonListener(PageView view, CategoryPanel categoryPanel, Button categoryButton)
+	public CategoryButtonListener(PageView pageView, CategoryPanel categoryPanel, Button categoryButton)
 	{
-		// Initialize the view.
-		this.view = view;
+		// Assign the pageView value.
+		this.pageView = pageView;
 
-		// Initialize the categoryPanel.
+		// Assign the categoryPanel value.
 		this.categoryPanel = categoryPanel;
 
-		// Initialize the categoryButton.
+		// Assign the categoryButton value.
 		this.categoryButton = categoryButton;
 
-		// Listen to categoryButton.
+		// Listen to the categoryButton.
 		this.categoryButton.addActionListener(this);
 
 	}
 
 	/**
-	 * It overrides actionPerformed method of ActionListener. Polymorphism
-	 * (dynamically bind)
+	 * Purpose: It Invokes when an action occurs. The action of this method is to
+	 * click on the categoryButton. It gets the categoryButton text and calls
+	 * updateButtonsStyle method. It overrides actionPerformed method of
+	 * ActionListener. Polymorphism (dynamically bind)
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
-		String buttonName = categoryButton.getText();
+		// Initialize the categoryButtonText
+		String categoryButtonText = categoryButton.getText();
 
-		// Update the button style.
-		updateButtonsStyle(buttonName);
+		// Update the button style based on the categoryButtonText.
+		updateButtonsStyle(categoryButtonText);
 	}
 
 	/**
-	 * Update the button style.
+	 * Purpose: It updates the category buttons UI style. It changes the color of
+	 * the clicked button and disable it at the same time.
 	 * 
-	 * @param buttonName - the button name
+	 * @param categoryButtonText - the button text value which is clicked.
 	 */
-	public void updateButtonsStyle(String buttonName)
+	public void updateButtonsStyle(String categoryButtonText)
 	{
-		// CategoryButtonListener has-a booksButton.
 		// Initialize booksButton.
 		Button booksButton = categoryPanel.getBooksButton();
 
-		// CategoryButtonListener has-a fictionButton.
-		// Initialize booksButton.
+		// Initialize fictionButton.
 		Button fictionButton = categoryPanel.getFictionButton();
 
-		// CategoryButtonListener has-a nonFictionButton.
-		// Initialize booksButton.
+		// Initialize nonFictionButton.
 		Button nonFictionButton = categoryPanel.getNonfictionButton();
 
-		// Initialize buttons to compare with buttonName and change its elements style.
+		// Initialize the buttons array to compare with buttonName and change the category buttons style.
 		Button[] buttons = new Button[]
 		{ booksButton, fictionButton, nonFictionButton };
 
 		for (int i = 0; i < buttons.length; i++)
 		{
 			// If the customer clicked on the same button element in buttons array.
-			if (buttonName.equals(buttons[i].getText()))
+			if (categoryButtonText.equals(buttons[i].getText()))
 			{
-				// Disable button.
+				// Disable the clicked button.
 				buttons[i].setEnabled(false);
 
-				// Set Raspberry Sorbet Shade background color.
+				// Set the background color.
 				buttons[i].setBackground(new Color(131, 56, 87));
 			} else
 			{
@@ -122,60 +118,64 @@ public class CategoryButtonListener implements ActionListener
 				// Enable button.
 				buttons[i].setEnabled(true);
 
-				// Set Mint shade background color.
+				// Set background color for enable button.
 				buttons[i].setBackground(new Color(27, 108, 89));
 			}
 		}
 
 		// Update the view.
-		update(buttonName);
+		update(categoryButtonText);
 	}
 
 	/**
-	 * Update the view.
+	 * Purpose: It removes booksPanel, sortPanel, fullBookPanel, and buyPanel from
+	 * the page view. It adds sortPanel and new booksPanel based on buttonName in
+	 * the page view.
+	 * 
+	 * @param categoryButtonText - the button text value which is clicked.
 	 */
-	public void update(String buttonName)
+	public void update(String categoryButtonText)
 	{
 		// Remove booksPanel.
-		this.view.removeBooksPanel();
+		this.pageView.removeBooksPanel();
 
 		// Remove sortPanel.
-		this.view.removeSortPanel();
+		this.pageView.removeSortPanel();
 
 		// Remove fullBookPanel.
-		this.view.removeFullBookPanel();
+		this.pageView.removeFullBookPanel();
 
 		// Remove buyPanel.
-		this.view.removeBuyPanel();
+		this.pageView.removeBuyPanel();
 
 		// Add sortPanel.
-		this.view.addSortPanel();
+		this.pageView.addSortPanel();
 
-		// Create the booksPanel array.
-		createBooksArray(buttonName);
+		// Create the BooksPanel array.
+		createBooksPanel(categoryButtonText);
 
 		// Add the booksPanel to the view.
-		this.view.addBooksPanel(booksPanel);
+		this.pageView.addBooksPanel(booksPanel);
 	}
 
 	/**
-	 * Create the booksPanel array.
+	 * Purpose: It Creates the booksPanel for adding to the page view.
 	 * 
-	 * @param buttonName - the name of button which is clicked.
+	 * @param categoryButtonText - the button text value which is clicked.
 	 */
-	public void createBooksArray(String buttonName)
+	public void createBooksPanel(String categoryButtonText)
 	{
 		// Initialize a category.
 		Category category = new Category();
 
-		// Initialize books based on buttonName.
-		Book[] books = category.getBooks(buttonName);
+		// Initialize books based on buttonText. This method gives us books based on the desired category.
+		Book[] books = category.getBooks(categoryButtonText);
 
-		// Initialize a bookslist.
+		// Initialize a booksPanel.
 		booksPanel = new BookPanel[books.length - 1];
 
-		// For loop to initialize booksPanel.
+		// For loop to assign booksPanel elements value.
 		for (int i = 0; i < booksPanel.length; i++)
-			booksPanel[i] = new BookPanel(this.view, books[i]);
+			booksPanel[i] = new BookPanel(this.pageView, books[i]);
 	}
 }

@@ -13,18 +13,15 @@ package models;
  *         Problem Solving.
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It can decrement the number of a book in the inventory database. 
  * 
- *         
- * 
- *         Version/date: 2.3 / 05/12/2022
+ *         Version/date: 2.4 / 05/15/2022
  * 
  * 
  */
 // A PaperBook is-a Book.
 public class PaperBook extends Book
 {
-	// PaperBook constructor 
 	public PaperBook(Book book)
 	{
 		// Assign the value to variables when an object creates
@@ -33,11 +30,14 @@ public class PaperBook extends Book
 	}
 
 	/**
-	 * Decrement the number of same books in database.
+	 * Purpose: It decrements the number of a book in the inventory database.
 	 */
 	public void decLeftInStore()
 	{
+		// Initialize a database from the Inventory database.
 		InventoryDatabase database = new InventoryDatabase();
+
+		// Update the inventory database based on a book id.
 		database.updateInventory(getId());
 	}
 }

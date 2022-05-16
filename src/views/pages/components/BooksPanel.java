@@ -23,11 +23,10 @@ import javax.swing.JPanel;
  *         final serialVersionUID field?
  *         https://stackoverflow.com/questions/2288937/what-does-it-mean-the-serializable-class-does-not-declare-a-static-final-serial
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It is responsible to create a panel from
+ *         bookPanels array elements.
  * 
- *         
- * 
- *         Version/date: 1.2 / 05/12/2022
+ *         Version/date: 1.2 / 05/15/2022
  * 
  * 
  */
@@ -45,6 +44,7 @@ public class BooksPanel extends JPanel
 	 * class implements java.io.Serializable interface so the it's subclass
 	 * (BooksPanel).
 	 */
+	// The BooksPanel class has-a serialVersionUID.
 	private static final long serialVersionUID = 7555327188223947100L;
 
 	public BooksPanel(BookPanel[] bookPanels)
@@ -60,12 +60,14 @@ public class BooksPanel extends JPanel
 
 		// Initialize a yCoordinate.
 		int yCoordinate = 25;
-		
+
+		// Initialize the width.
 		int width = 343;
-		
+
+		// Initialize the height.
 		int height = 100;
 
-		// Add all bookPanels to booksPanel.
+		// Add all bookPanels to the booksPanel.
 		for (BookPanel bookPanel : bookPanels)
 		{
 			bookPanel.setBounds(xCoordinate, yCoordinate, width, height);

@@ -34,11 +34,10 @@ import views.widgets.TextLabel;
  *         final serialVersionUID field?
  *         https://stackoverflow.com/questions/2288937/what-does-it-mean-the-serializable-class-does-not-declare-a-static-final-serial
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It is responsible to create fullBookPanel
+ *         to gives more information about a book to the customer.
  * 
- *         
- * 
- *         Version/date: 1.2 / 05/12/2022
+ *         Version/date: 1.2 / 05/15/2022
  * 
  * 
  */
@@ -55,31 +54,31 @@ public class FullBookPanel extends JPanel
 	 * class implements java.io.Serializable interface so the it's subclass
 	 * (FullBookPanel).
 	 */
+	// The FullBookPanel class has-a serialVersionUID.
 	private static final long serialVersionUID = 8221159403787184417L;
 
 	public FullBookPanel(PageView view, Book book)
 	{
-		// Initialize the name.
+		// Initialize the name and assign book's name to it.
 		String name = book.getName();
 
-		// Initialize the author.
+		// Initialize the author and assign book's author to it.
 		String author = "Author: " + book.getAuthor();
 
-		// Initialize the year.
+		// Initialize the year and assign book's published year to it..
 		String year = "Published in: " + String.valueOf(book.getYear());
 
-		// Initialize the rate.
+		// Initialize the rate and assign book's rate to it.
 		int rate = book.getRate();
 
-		// Initialize the price.
+		// Initialize the price and assign book's price to it.
 		String price = "$" + String.valueOf(book.getPrice());
 
+		// Initialize the leftInStore and assign the number of books left in the store to it.
 		int leftInStore = book.getLeftInStore();
 
-		// Initialize bgColor with Raspberry Sorbet Shade color.
 		Color backgroundColor = new Color(131, 56, 87);
 
-		// Set background color.
 		setBackground(backgroundColor);
 
 		// Intialize grid as GridBagLayout.
@@ -94,11 +93,10 @@ public class FullBookPanel extends JPanel
 		constraints.weighty = 1;
 		constraints.fill = GridBagConstraints.VERTICAL;
 
-		// Initialize the font for nameLabel.
 		Font font = new Font("Times New Roman", Font.PLAIN, 20);
 
-		// Turn name in Html format.
-		name = "<html><center>" + printName(name, 0) + "</center></html>";
+		// Turn name in multiline Html format.
+		name = "<html><center>" + multilineName(name, 0) + "</center></html>";
 
 		// Initialize nameLabel.
 		TextLabel nameLabel = new TextLabel(name, font, Color.white);
@@ -111,14 +109,13 @@ public class FullBookPanel extends JPanel
 
 		add(nameLabel, constraints);
 
-		// Initialize the font for descriptionLabel.
 		font = new Font("Times New Roman", Font.PLAIN, 18);
 
 		// Initialize the descriptionText.
-		String description = "<html>" + author + "<br>" + year + "</htl>";
+		String descriptionText = "<html>" + author + "<br>" + year + "</htl>";
 
 		// Initialize descriptionLabel.
-		TextLabel descriptionLabel = new TextLabel(description, font, Color.white);
+		TextLabel descriptionLabel = new TextLabel(descriptionText, font, Color.white);
 
 		// Set constraints settings for descriptionText.
 		constraints.gridy = 5;
@@ -132,7 +129,7 @@ public class FullBookPanel extends JPanel
 
 		add(descriptionLabel, constraints);
 
-		// Initialize bgColor with Mint color.
+		// Initialize backgroundColor with Mint color.
 		backgroundColor = new Color(0, 161, 112);
 
 		// Initialize the electronicButton.
@@ -152,9 +149,9 @@ public class FullBookPanel extends JPanel
 		// Add insets to the electronicButton for margin.
 		constraints.insets = new Insets(0, 20, 0, 0);
 
-		// Add the electronicButton to the fullBookPanel;
 		add(electronicButton, constraints);
 
+		// If there is any book left in the store.
 		if (leftInStore > 0)
 		{
 			// Initialize the paperButton.
@@ -172,7 +169,6 @@ public class FullBookPanel extends JPanel
 			// Add insets to the paperButton for margin.
 			constraints.insets = new Insets(0, 0, 0, 20);
 
-			// Add the paperButton to the fullBookPanel;
 			add(paperButton, constraints);
 		}
 
@@ -203,25 +199,24 @@ public class FullBookPanel extends JPanel
 		// Add insets to the priceText for margin.
 		constraints.insets = new Insets(0, 0, 0, 30);
 
-		// Add the priceText to the fullBookPanel;
 		add(priceLabel, constraints);
 	}
 
 	/**
-	 * Recursive method to turn name in Html format.
+	 * Purpose: Recursive method to turn name in Html format.
 	 * 
 	 * @param name  book's name
-	 * @param start it's the start point
-	 * @return name in html format
+	 * @param start it's the start point which is the index number in a name
+	 * @return name in multiline html format
 	 */
-	public String printName(String name, int start)
+	public String multilineName(String name, int start)
 	{
 		int end = name.length();
 		if (end < 30)
 		{
 			return name + "";
 		}
-		return name.substring(start, 30) + "<br>" + printName(name.substring(start + 30, end), start);
+		return name.substring(start, 30) + "<br>" + multilineName(name.substring(start + 30, end), start);
 
 	}
 }

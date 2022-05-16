@@ -2,7 +2,6 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import models.Book;
 import views.pages.PageView;
 import views.widgets.Button;
@@ -20,11 +19,13 @@ import views.widgets.Button;
  *         Problem Solving.
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It listens to the bookNameButton. If the
+ *         bookNameButton is clicked, it removes the booksPanel and sortPanel.
+ *         then adds fullBookPanel and category panel.
  * 
- *        
  * 
- *         Version/date: 1.4 / 05/12/2022
+ * 
+ *         Version/date: 1.5 / 05/15/2022
  * 
  * 
  */
@@ -33,60 +34,55 @@ import views.widgets.Button;
 public class BookButtonListener implements ActionListener
 {
 
-	// BookButtonListener has-a view.
-	private PageView view;
+	// A BookButtonListener has-a pageView.
+	private PageView pageView;
 
-	// BookButtonListener has-a book.
+	// A BookButtonListener has-a book.
 	private Book book;
 
-	/**
-	 * `BookButtonListener Constructor - It listen to book's name button and change
-	 * the view.
-	 * 
-	 * @param view          - a PageView
-	 * @param buttonClicked - indicate which button clicked.
-	 * @param book          - it's a book object.
-	 */
-	public BookButtonListener(PageView view, Button buttonClicked, Book book)
+	public BookButtonListener(PageView pageView, Button bookNameButton, Book book)
 	{
-		// Assign the view value.
-		this.view = view;
+		// Assign the pageView value.
+		this.pageView = pageView;
 
 		// Assign the book value. the view use the book object for giving more information about the book, and providing purchase options.
 		this.book = book;
 
-		buttonClicked.addActionListener(this);
+		// Listen to a bookNameButton.
+		bookNameButton.addActionListener(this);
 
 	}
 
 	/**
-	 * It overrides actionPerformed method of ActionListener. Polymorphism
-	 * (dynamically bind)
+	 * Purpose: It Invokes when an action occurs. The action of this method is to
+	 * click on the bookNameButton. It overrides actionPerformed method of
+	 * ActionListener. Polymorphism (dynamically bind)
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
-		// Update the UI(the view).
-		updateUI();
+		// Update the page view.
+		update();
 	}
 
 	/**
-	 * Update the view.
+	 * Purpose: It removes booksPanel and sortPanel. It adds a new categoryPanel and
+	 * fullBookPanel which gives more information about a book.
 	 */
-	public void updateUI()
+	public void update()
 	{
 		// Remove the booksPanel.
-		this.view.removeBooksPanel();
+		this.pageView.removeBooksPanel();
 
 		// Remove the sortPanel.
-		this.view.removeSortPanel();
+		this.pageView.removeSortPanel();
 		// Remove the old categoryPanel.
 
 		// Add the fullBookPanel.
-		this.view.addFullBookPanel(book);
+		this.pageView.addFullBookPanel(book);
 
-		// Add categoryPanel. false the books button enabled. 
-		this.view.addCategoryPanel(false);
+		// Add categoryPanel. false means the books button enabled. 
+		this.pageView.addCategoryPanel(false);
 
 	}
 

@@ -25,11 +25,10 @@ import javax.swing.JLabel;
  *         final serialVersionUID field?
  *         https://stackoverflow.com/questions/2288937/what-does-it-mean-the-serializable-class-does-not-declare-a-static-final-serial
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It's responsible for creating a textLable
+ *         and sets its text, font and foregroundColor.
  * 
- *         
- * 
- *         Version/date: 1.1 / 05/12/2022
+ *         Version/date: 1.2 / 05/16/2022
  * 
  * 
  */
@@ -43,26 +42,28 @@ public class TextLabel extends JLabel
 	 * stream, and it can be used to make it eligible for saving its state into a
 	 * file. If you are serializing objects and deserializing them in a different
 	 * place (or time) where (when) the class has changed, without creating
-	 * serialVersionUID, you could be faced with InvalidClassException. The
-	 * JLabel class implements java.io.Serializable interface so the it's
-	 * subclass (TextLabel).
+	 * serialVersionUID, you could be faced with InvalidClassException. The JLabel
+	 * class implements java.io.Serializable interface so the it's subclass
+	 * (TextLabel).
 	 */
+	// The TextLabel class has-a serialVersionUID.
 	private static final long serialVersionUID = -2068023178626384625L;
 
-	public TextLabel(String text, Font font, Color color)
+	public TextLabel(String text, Font font, Color foregroundColor)
 	{
-		// initialize the text.
+		// calling JLabel(Superclass) and set the text of it.
 		super(text);
 
 		// Set the font.
 		setFont(font);
 
 		// Set the text color.
-		setForeground(color);
+		setForeground(foregroundColor);
 	}
 
 	public TextLabel(ImageIcon imageIcon)
 	{
+		// calling JLabel(Superclass) and set the imageIcon of it.
 		super(imageIcon);
 	}
 }

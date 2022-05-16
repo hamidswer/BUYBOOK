@@ -41,11 +41,9 @@ import views.widgets.Scroll;
  *         https://stackoverflow.com/questions/2288937/what-does-it-mean-the-serializable-class-does-not-declare-a-static-final-serial
  * 
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It creates the pageView.
  * 
- *         
- * 
- *         Version/date: 1.7 / 05/12/2022
+ *         Version/date: 1.8 / 05/15/2022
  * 
  * 
  */
@@ -63,6 +61,7 @@ public class PageView extends JFrame
 	 * class implements java.io.Serializable interface so the it's subclass
 	 * (PageView).
 	 */
+	// The PageView class has-a serialVersionUID.
 	private static final long serialVersionUID = 3292032292637496818L;
 
 	// A PageView has-a width.
@@ -107,11 +106,11 @@ public class PageView extends JFrame
 	public PageView()
 	{
 
-		// Initialize the img.
-		ImageIcon img = new ImageIcon("src/views/images/logo.png");
+		// Initialize the logoImage.
+		ImageIcon logoImage = new ImageIcon("src/views/images/logo.png");
 
 		// Set this window's icon.
-		setIconImage(img.getImage());
+		setIconImage(logoImage.getImage());
 
 		// Set Login page window's title.
 		setTitle("BUYBOOK");
@@ -122,13 +121,13 @@ public class PageView extends JFrame
 		// The absolute positioning.
 		setLayout(null);
 
-		// Add headerPanel to JFrame.
+		// Add headerPanel without the logout button.
 		addHeaderPanel(false);
 
-		// Add Panels to JFrame.
+		// Add the loginPanels.
 		addLoginPanels();
 
-		// Set the size of this window, width == 428, height == 926.
+		// Set the size of this window.
 		setSize(width, height);
 
 		// Move the window to the center position of the screen.
@@ -141,7 +140,7 @@ public class PageView extends JFrame
 		setResizable(false);
 
 		// Set the Inkwell color as the application background color.
-		this.getContentPane().setBackground(new Color(54, 57, 69));
+		getContentPane().setBackground(new Color(54, 57, 69));
 
 	}
 
@@ -155,9 +154,9 @@ public class PageView extends JFrame
 	{
 		if (headerPanel != null)
 			// Remove old header panel.
-			this.remove(headerPanel);
+			remove(headerPanel);
 
-		// Add new header panel to the page view.
+		// Create a headerPanel.
 		headerPanel = new HeaderPanel(this, isUserloggedIn);
 
 		headerPanel.setBounds(0, 0, width, 130);
@@ -169,26 +168,23 @@ public class PageView extends JFrame
 	}
 
 	/**
-	 * Add the loginPanels to the pageView.
+	 * Purpose: It adds the loginPanel, loginErrorPanel, and loginAccountPanel to
+	 * the page view.
 	 */
 	public void addLoginPanels()
 	{
-		// Add the login form panel to the application.
+		// Create a loginPanel.
 		loginPanel = new LoginPanel(this);
-		// x == 0, y == 280, width == 428, height == 240.
+
 		loginPanel.setBounds(0, 280, width, 240);
+
 		add(loginPanel);
 
-		// Add the error panel to the application.
-		loginErrorPanel = new LoginErrorPanel();
-		// x == 0, y == 530, width == 428, height == 200.
-		loginErrorPanel.setBounds(0, 530, width, 200);
-		add(loginErrorPanel);
-
-		// Add create account panel to the application.
+		// create a loginAccountPanel.
 		loginAccountPanel = new LoginAccountPanel(this);
-		// x == 0, y == 750, width == 428, height == 70.
+
 		loginAccountPanel.setBounds(0, 750, width, 70);
+
 		add(loginAccountPanel);
 
 		// Repaint the page view.
@@ -196,30 +192,40 @@ public class PageView extends JFrame
 	}
 
 	/**
-	 * add the loginErrorPanel.
+	 * Purpose: It removes the old loginErrorPanel and adds the new loginErrorPanel
+	 * with the default error message to the page view.
 	 * 
-	 * @return
+	 * @param errorMessaage - It's a message to inform the customer can't login to
+	 *                      the application.
 	 */
-	public void addLoginErrorPanel()
+	public void addLoginErrorPanel(String errorMessaage)
 	{
-		loginErrorPanel.setErrorMessage();
+		// remove the old loginErrorPanel.
+		if (loginErrorPanel != null)
+			remove(loginErrorPanel);
+
+		// create a loginErrorPanel.
+		loginErrorPanel = new LoginErrorPanel(errorMessaage);
+
+		loginErrorPanel.setBounds(0, 530, width, 200);
+
+		add(loginErrorPanel);
 
 		// Repaint the page view.
 		repaintPageView();
 	}
 
 	/**
-	 * Add the createAccountPanel.
-	 * 
-	 * @param view
+	 * Purpose: It adds the createAccountPanel to the page view.
 	 */
 	public void addCreateAccountPanel()
 	{
 
-		// Add the login form panel to the application.
+		// create a createAccountPanel.
 		createAccountPanel = new CreateAccountPanel(this);
-		// x == 0, y == 130, width == 428, height == 600.
+
 		createAccountPanel.setBounds(0, 170, width, 600);
+
 		add(createAccountPanel);
 
 		// Repaint the page view.
@@ -227,18 +233,22 @@ public class PageView extends JFrame
 	}
 
 	/**
-	 * Add the categoryPanel.
+	 * Purpose: It removes the old categoryPanel and adds a new categoryPanel with
+	 * the option to make the books button disabled or enabled to the page view.
+	 * 
+	 * @param booksButtonDisabled the books button would be disabled if it's true,
+	 *                            or enabled if its false.
 	 */
 	public void addCategoryPanel(boolean booksButtonDisabled)
 	{
-		if (categoryPanel != null)
-			this.removeCategoryPanel();
-		// Initialize the categoryPanel.
+		// Remove the old categoryPanel.
+		removeCategoryPanel();
+
+		// create a categoryPanel.
 		categoryPanel = new CategoryPanel(this, booksButtonDisabled);
 
 		categoryPanel.setBounds(0, 130, width, 40);
 
-		// Add the categoryPanel.
 		add(categoryPanel);
 
 		// Repaint the page view.
@@ -246,34 +256,40 @@ public class PageView extends JFrame
 	}
 
 	/**
-	 * Add the sort panel.
+	 * It adds the sortPanel to the page view.
 	 */
 	public void addSortPanel()
 	{
+		// create a sortPanel.
 		sortPanel = new SortPanel(this);
-		// x == 0, y == 180, width == 428, height == 35.
+
 		sortPanel.setBounds(0, 180, width, 35);
+
 		add(sortPanel);
+
 		// Repaint the page view.
 		repaintPageView();
 	}
 
 	/**
-	 * Add the booksPanel.
+	 * Purpose: It receives a list of bookPanel. then create a new booksPanel.then
+	 * add the new booksPanel to the scroll panel. finally add the scroll panel to
+	 * the page view to show the list of books.
+	 * 
+	 * @param books - a list of bookPanel to show a brief information of each book
+	 *              to the customer.
 	 */
 	public void addBooksPanel(BookPanel[] books)
 	{
 
-		// Initialize the booksPanel.
+		// create a booksPanel.
 		booksPanel = new BooksPanel(books);
 
-		// Initialize scrollPane
+		// create a scroll.
 		scroll = new Scroll(booksPanel);
 
-		// x ==0, y == 225, width == 418, height == 700.
 		scroll.setBounds(0, 214, width - 10, 676);
 
-		// Add scrollPane to the BooksPanel.
 		add(scroll);
 
 		// Repaint the page view.
@@ -281,13 +297,18 @@ public class PageView extends JFrame
 	}
 
 	/**
-	 * Add the fullBookPanel.
+	 * Purpose: It adds the fullBookPanel to the page view to show more information
+	 * about a book to customer.
+	 * 
+	 * @param book - To give more information about a book to customer.
 	 */
 	public void addFullBookPanel(Book book)
 	{
+		// create a fullBookPanel.
 		fullBookPanel = new FullBookPanel(this, book);
-		// x == 0, y == 180, width == 428, height == 250.
+
 		fullBookPanel.setBounds(35, 180, 340, 320);
+
 		add(fullBookPanel);
 
 		// Repaint the page view.
@@ -295,13 +316,17 @@ public class PageView extends JFrame
 	}
 
 	/**
-	 * Add the buyPanel.
+	 * Purpose: Add the buyPanel to the page view.
+	 * 
+	 * @param postPurchaseMessage - for displaying post purchase message.
 	 */
-	public void addBuyPanel(String text)
+	public void addBuyPanel(String postPurchaseMessage)
 	{
-		buyPanel = new BuyPanel(this, text);
-		// x == 0, y == 180, width == 428, height == 250.
+		// create a buyPanel.
+		buyPanel = new BuyPanel(this, postPurchaseMessage);
+
 		buyPanel.setBounds(35, 180, 340, 320);
+
 		add(buyPanel);
 
 		// Repaint the page view.
@@ -309,104 +334,110 @@ public class PageView extends JFrame
 	}
 
 	/**
-	 * Remove loginPanels.
+	 * Purpose: It removes loginPanel, loginErrorPanel, and loginAccountPanel from
+	 * the page view if they're existed in the page view.
 	 */
 	public void removeLoginPanels()
 	{
 		if (loginPanel != null)
-			this.remove(loginPanel);
+			remove(loginPanel);
 		if (loginErrorPanel != null)
-			this.remove(loginErrorPanel);
+			remove(loginErrorPanel);
 		if (loginAccountPanel != null)
-			this.remove(loginAccountPanel);
+			remove(loginAccountPanel);
 
 		// Repaint the page view.
 		repaintPageView();
 	}
 
 	/**
-	 * Remove createAccountPanels.
+	 * Purpose: It removes the createAccountPanel from the page view.
 	 */
 	public void removeCreateAccountPanel()
 	{
 		if (createAccountPanel != null)
-			this.remove(createAccountPanel);
+			remove(createAccountPanel);
 
 		// Repaint the page view.
 		repaintPageView();
 	}
 
 	/**
-	 * Remove the categoryPanel.
+	 * Purpose: It removes the categoryPanel from the page view if it's existed in
+	 * the page view.
 	 */
 	public void removeCategoryPanel()
 	{
 		if (categoryPanel != null)
-			this.remove(categoryPanel);
+			remove(categoryPanel);
 
 		// Repaint the page view.
 		repaintPageView();
 	}
 
 	/**
-	 * Remove the sortPanel.
+	 * Purpose: It removes the sortPanel from the page view if it's existed in the
+	 * page view.
 	 */
 	public void removeSortPanel()
 	{
 		if (sortPanel != null)
-			this.remove(sortPanel);
+			remove(sortPanel);
 
 		// Repaint the page view.
 		repaintPageView();
 	}
 
 	/**
-	 * Remove the booksPanel.
+	 * Purpose: It removes the booksPanel and scroll from the page view if they are
+	 * existed in the page view.
 	 */
 	public void removeBooksPanel()
 	{
 		if (booksPanel != null)
-			this.remove(booksPanel);
+			remove(booksPanel);
 		if (scroll != null)
-			this.remove(scroll);
+			remove(scroll);
 
 		// Repaint the page view.
 		repaintPageView();
 	}
 
 	/**
-	 * Remove the fullBookPanel.
+	 * Purpose: It removes the fullBookPanel from the page view if it's existed in
+	 * the page view.
 	 */
 	public void removeFullBookPanel()
 	{
 		if (fullBookPanel != null)
-			this.remove(fullBookPanel);
+			remove(fullBookPanel);
 
 		// Repaint the page view.
 		repaintPageView();
 	}
 
 	/**
-	 * Remove the buyPanel.
+	 * Purpose: It removes the buyPanel from the page view if it's existed in the
+	 * page view.
 	 */
 	public void removeBuyPanel()
 	{
 		if (buyPanel != null)
-			this.remove(buyPanel);
+			remove(buyPanel);
 
 		// Repaint the page view.
 		repaintPageView();
 	}
 
 	/**
-	 * Repaint the page view.
+	 * Purpose: It repaints the page view.
 	 */
 	private void repaintPageView()
 	{
 		// update the UI.
-		this.revalidate();
-		this.validate();
-		this.repaint();
+		revalidate();
+		validate();
+		repaint();
 	}
 
 }

@@ -31,11 +31,10 @@ import views.widgets.TextLabel;
  *         final serialVersionUID field?
  *         https://stackoverflow.com/questions/2288937/what-does-it-mean-the-serializable-class-does-not-declare-a-static-final-serial
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It creates a ratePanel for showing
+ *         star-rate component for a book to the user.
  * 
- *         
- * 
- *         Version/date: 1.3 / 05/12/2022
+ *         Version/date: 1.4 / 05/15/2022
  * 
  * 
  */
@@ -52,6 +51,7 @@ public class RatePanel extends JPanel
 	 * class implements java.io.Serializable interface so the it's subclass
 	 * (RatePanel).
 	 */
+	// The RatePanel class has-a serialVersionUID.
 	private static final long serialVersionUID = 7677127992298657718L;
 
 	// A RatePanel has-a starLabel.
@@ -78,7 +78,7 @@ public class RatePanel extends JPanel
 	}
 
 	/**
-	 * Update the panel based on rate.
+	 * Purpose: creates star-rate images for the panel based on a book's rate.
 	 * 
 	 * @param rate
 	 */
@@ -86,8 +86,13 @@ public class RatePanel extends JPanel
 	{
 		try
 		{
+			// Initialize a threeStarsImage.
 			BufferedImage threeStarsImage = ImageIO.read(new File("src/views/images/star3.png"));
+
+			// Initialize a fourStarsImage.
 			BufferedImage fourStarsImage = ImageIO.read(new File("src/views/images/star4.png"));
+
+			// Initialize a fiveStarsImage.
 			BufferedImage fiveStarsImage = ImageIO.read(new File("src/views/images/star5.png"));
 			switch (rate)
 			{

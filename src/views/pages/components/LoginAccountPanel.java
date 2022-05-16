@@ -29,11 +29,10 @@ import views.widgets.Button;
  *         final serialVersionUID field?
  *         https://stackoverflow.com/questions/2288937/what-does-it-mean-the-serializable-class-does-not-declare-a-static-final-serial
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It is responsible to build createAccount
+ *         button to let user have a chance to create a new account.
  * 
- *         
- * 
- *         Version/date: 1.3 / 05/12/2022
+ *         Version/date: 1.4 / 05/15/2022
  * 
  * 
  */
@@ -49,6 +48,7 @@ public class LoginAccountPanel extends JPanel
 	 * class implements java.io.Serializable interface so the it's subclass
 	 * (LoginAccountPanel).
 	 */
+	// The LoginAccountPanel class has-a serialVersionUID.
 	private static final long serialVersionUID = -6784010483425734426L;
 
 	// A LoginAccountPanel has-a createAccountButton.
@@ -59,21 +59,19 @@ public class LoginAccountPanel extends JPanel
 		// Make the panel transparent.
 		setOpaque(false);
 
-		// 1 row and 1 column, Horizontal gap == 0, Vertical gap == 10.
+		// Initialize the grid.
 		GridLayout grid = new GridLayout(1, 1, 0, 10);
 
+		// Set the grid layout.
 		setLayout(grid);
 
-		// border => top == 0, left == 35, bottom == 0, right == 50.
 		setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 50));
 
-		// Initialize the font for createAccountButton.
 		Font font = new Font("Times New Roman", Font.PLAIN, 32);
 
-		// Initialize the button for create account. 
+		// Initialize the createAccountButton. 
 		createAccountButton = new Button("Create Account", font, new Color(27, 108, 89), Color.white);
 
-		// Add the createAccountButton to the createAccountPanel.
 		add(createAccountButton);
 
 		// Listen to the createAccountButton.
@@ -81,7 +79,7 @@ public class LoginAccountPanel extends JPanel
 	}
 
 	/**
-	 * Get the create account button component.
+	 * Purpose: Get the create account button component.
 	 * 
 	 * @return the create account button component.
 	 */

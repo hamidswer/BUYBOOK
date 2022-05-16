@@ -3,6 +3,7 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import exceptions.invalidCredentialsException;
 import models.Book;
 import models.BooksList;
 import models.Category;
@@ -25,124 +26,143 @@ import views.widgets.Button;
  *         Problem Solving.
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It listens to the loginButton in the
+ *         loginPanel. If the loginButton is clicked, it uses login to check if
+ *         the customer provides the right credentials or not. If the customer
+ *         exist in database, it removes loginPanels and adds headerPanels,
+ *         categoryPanel, sortedPanel, and booksPanel to the page view. Note:
+ *         books in booksPanel would be all the books in the inventory.
  * 
- *         
- * 
- *         Version/date: 1.2 / 05/12/2022
+ *         Version/date: 1.3 / 05/15/2022
  * 
  * 
  */
-//A LoginButtonListener is-an ActionListener.
-public class LoginButtonListener implements ActionListener
+// A LoginButtonListener is-an Exception and an ActionListener.
+public class LoginButtonListener extends Exception implements ActionListener
 {
 
-	// LoginButtonListener has-a view
-	private PageView view;
+	/**
+	 * Serialization is a mechanism of converting the state of an object into a byte
+	 * stream, and it can be used to make it eligible for saving its state into a
+	 * file. If you are serializing objects and deserializing them in a different
+	 * place (or time) where (when) the class has changed, without creating
+	 * serialVersionUID, you could be faced with InvalidClassException. The
+	 * Exception class implements java.io.Serializable interface so the it's
+	 * subclass (LoginButtonListener).
+	 */
+	private static final long serialVersionUID = -2464791958699263060L;
 
-	// LoginButtonListener has-a model
-	private Login model;
+	// A LoginButtonListener has-a pageView.
+	private PageView pageView;
 
-	// LoginButtonListener has-a panel
-	private LoginPanel panel;
+	// A LoginButtonListener has-a login.
+	private Login login;
 
-	// LoginButtonListener has-a categoryButton.
+	// A LoginButtonListener has-a loginPanel.
+	private LoginPanel loginPanel;
+
+	// A LoginButtonListener has many booksPanel.
 	private BookPanel[] booksPanel;
 
-	/**
-	 * LoginButtonListener Constructor - It listen to the login button.
-	 * 
-	 * @param view  the PageView.
-	 * @param panel the LoginPanel.
-	 */
-	public LoginButtonListener(PageView view, LoginPanel panel)
+	public LoginButtonListener(PageView pageView, LoginPanel loginPanel)
 	{
-		// Initialize the view.
-		this.view = view;
+		// Assign the pageView value.
+		this.pageView = pageView;
 
-		// Initialize the panel.
-		this.panel = panel;
+		// Assign the loginPanel value.
+		this.loginPanel = loginPanel;
 
-		// Initialize the loginButton.
-		Button loginButton = panel.getLoginButton();
+		// Initialize the loginButton by invoking the getLoginButton method from loginPanel.
+		Button loginButton = loginPanel.getLoginButton();
 
 		// Listen to the loginButton.
 		loginButton.addActionListener(this);
 	}
 
 	/**
-	 * It overrides actionPerformed method of ActionListener. Polymorphism
-	 * (dynamically bind)
+	 * Purpose: It Invokes when an action occurs. The action of this method is to
+	 * click on the loginButton. It overrides actionPerformed method of
+	 * ActionListener. Polymorphism (dynamically bind)
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
-		// Get the updated email.
-		String email = panel.getEmailComponent().getText();
+		// Initialize the email.
+		String email = loginPanel.getEmailComponent().getText();
 
-		// Get the updated password.
-		String password = new String(panel.getPasswordComponent().getPassword());
+		// Initialize the password.
+		String password = new String(loginPanel.getPasswordComponent().getPassword());
 
-		// Initialize the model.
-		this.model = new Login(email, password);
+		// Initialize the login based on email and password.
+		this.login = new Login(email, password);
 
-		// Update the login page view and model.
-		update();
-
-	}
-
-	/**
-	 * Update the view.
-	 */
-	public void update()
-	{
-		// If the customer provides right credentials remove login panel and go to the home page.
-		if (model.getIsACustomerExist())
+		// It tries to update page view, and if the customer didn't provide right credentials throw an invalidCredentialsException. 
+		// then adds loginErrorPanel with customized error message from the invalidCredentialsException error message.
+		try
 		{
-			// Remove the login, error and create account panel.
-			this.view.removeLoginPanels();
-
-			// Remove old header panel, and add new header panel, because user logged in.
-			this.view.addHeaderPanel(true);
-
-			// Add categoryPanel. true the books button disabled. 
-			this.view.addCategoryPanel(true);
-
-			this.view.addSortPanel();
-
-			// Add the booksPanel.
-			addBookPanel();
-
-		} else
+			update();
+		} catch (invalidCredentialsException error)
 		{
-			// Display the error message.
-			this.view.addLoginErrorPanel();
+			// Add loginErrorPanel if customer provides wrong credentials with customized message from invalidCredentialsException.
+			this.pageView.addLoginErrorPanel(error.getMessage());
 		}
+
 	}
 
 	/**
-	 * Add the booksPanel.
+	 * Purpose: It removes loginPanels, and adds the HeaderPanel, CategoryPanel, and
+	 * sortPanel to the page view. It throws invalidCredentialsException if a
+	 * customer provides wrong credentials.
+	 * 
+	 * @throws invalidCredentialsException used to throw an exception when a
+	 *                                     customer provides wrong credentials.
+	 */
+	public void update() throws invalidCredentialsException
+	{
+		// If the customer provides input wrong credentials throw an invalidCredentialsException.
+		if (!login.getIsACustomerExist())
+			throw new invalidCredentialsException();
+
+		// Remove the login, error and create account panel.
+		this.pageView.removeLoginPanels();
+
+		// Remove old header panel, and add new header panel, because user logged in.
+		this.pageView.addHeaderPanel(true);
+
+		// Add categoryPanel. true the books button disabled. 
+		this.pageView.addCategoryPanel(true);
+
+		// Add sortPanel to the page view.
+		this.pageView.addSortPanel();
+
+		// Add the booksPanel.
+		addBookPanel();
+
+	}
+
+	/**
+	 * Purpose: It creates a new BooksList and adds the booksPanel to the page view.
 	 */
 	public void addBookPanel()
 	{
-		// Initialize a bookslist.
+		// Create a new Bookslist.
 		new BooksList(true);
 
-		// Create the booksPanel array in books category.
+		// Create the booksPanel array by books category.
 		createBooksArray("Books");
 
-		// Add the booksPanel to the view.
-		this.view.addBooksPanel(booksPanel);
+		// Add the booksPanel to the page view.
+		this.pageView.addBooksPanel(booksPanel);
 	}
 
 	/**
-	 * Create the booksPanel array.
+	 * Purpose: This method gives us books based on the categoryName.
 	 * 
-	 * @param category
+	 * @param categoryName - It could be books, fictions, or non fictions.
 	 */
 	public void createBooksArray(String categoryName)
 	{
-		// Initialize a category.
+		// Create a category.
 		Category category = new Category();
 
 		// Initialize books based on categoryName.
@@ -153,6 +173,6 @@ public class LoginButtonListener implements ActionListener
 
 		// For loop to initialize booksPanel.
 		for (int i = 0; i < booksPanel.length; i++)
-			booksPanel[i] = new BookPanel(this.view, books[i]);
+			booksPanel[i] = new BookPanel(this.pageView, books[i]);
 	}
 }

@@ -20,51 +20,48 @@ import views.widgets.Button;
  *         Problem Solving.
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It listens to the createAccountButton in
+ *         loginAccountPanel. If the createAccountButton is clicked, It removes
+ *         the loginPanels and adds the createAccountPanel to the page view.
  * 
- *         
- * 
- *         Version/date: 1.2 / 05/12/2022
+ *         Version/date: 1.3 / 05/15/2022
  * 
  * 
  */
-//A LoginAccountButtonListener is-an ActionListener.
+// A LoginAccountButtonListener is-an ActionListener.
 public class LoginAccountButtonListener implements ActionListener
 {
-	// LoginAccountButtonListener has-a view.
-	private PageView view;
+	// A LoginAccountButtonListener has-a pageView.
+	private PageView pageView;
 
-	/**
-	 * LoginAccountButtonListener Constructor - It listen to the create account
-	 * button.
-	 * 
-	 * @param view  the PageView.
-	 * @param panel the LoginAccountPanel.
-	 */
-	public LoginAccountButtonListener(PageView view, LoginAccountPanel panel)
+	public LoginAccountButtonListener(PageView pageView, LoginAccountPanel loginAccountPanel)
 	{
-		// Set the view.
-		this.view = view;
+		// Assign the pageView value.
+		this.pageView = pageView;
 
-		// Initialize createAccountButton for creating a new account.
-		Button createAccountButton = panel.getCreateAccountButton();
+		// Initialize createAccountButton by getting accountButton component from the loginAccountPanel.
+		Button createAccountButton = loginAccountPanel.getCreateAccountButton();
 
 		// Listen to the createAccountButton.
 		createAccountButton.addActionListener(this);
 	}
 
 	/**
-	 * It overrides actionPerformed method of ActionListener. Polymorphism
-	 * (dynamically bind)
+	 * Purpose: It removes the loginPanels from the page view and adds the
+	 * createAccountPanel to the page view.
+	 * 
+	 * It Invokes when an action occurs. The action of this method is to click on
+	 * the createAccountButton. It overrides actionPerformed method of
+	 * ActionListener. Polymorphism (dynamically bind)
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 		// Remove loginPanels.
-		this.view.removeLoginPanels();
+		this.pageView.removeLoginPanels();
 
 		// Add createAccountPanel.
-		this.view.addCreateAccountPanel();
+		this.pageView.addCreateAccountPanel();
 
 	}
 }

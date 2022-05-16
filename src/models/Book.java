@@ -13,12 +13,9 @@ package models;
  *         Problem Solving.
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
- *         Responsibilities of class:
- * 
- *         
+ *         Responsibilities of class: It creates book objects.. 
  * 
  *         Version/date: 1.5 / 05/12/2022
- * 
  * 
  */
 public class Book
@@ -49,7 +46,6 @@ public class Book
 
 	public Book(int id, String name, String author, int rate, int price, int year, int leftInStore, String genre)
 	{
-		// Assign the value to variables when an object creates
 		this.id = id;
 		this.name = name;
 		this.author = author;
@@ -59,10 +55,9 @@ public class Book
 		this.leftInStore = leftInStore;
 		this.genre = genre;
 	}
-	
+
 	public Book(int id, String name, String author, int rate, int price, int year, String genre)
 	{
-		// Assign the value to variables when an object creates
 		this.id = id;
 		this.name = name;
 		this.author = author;
@@ -73,7 +68,7 @@ public class Book
 	}
 
 	/**
-	 * Get the id.
+	 * Purpose: Get the id.
 	 * 
 	 * @return id
 	 */
@@ -83,7 +78,7 @@ public class Book
 	}
 
 	/**
-	 * Get the name.
+	 * Purpose: Get the name.
 	 * 
 	 * @return name
 	 */
@@ -93,7 +88,7 @@ public class Book
 	}
 
 	/**
-	 * Get the author.
+	 * Purpose: Get the author.
 	 * 
 	 * @return author
 	 */
@@ -103,7 +98,7 @@ public class Book
 	}
 
 	/**
-	 * Get the rate.
+	 * Purpose: Get the rate.
 	 * 
 	 * @return rate
 	 */
@@ -113,7 +108,7 @@ public class Book
 	}
 
 	/**
-	 * Get the price.
+	 * Purpose: Get the price.
 	 * 
 	 * @return price
 	 */
@@ -123,7 +118,7 @@ public class Book
 	}
 
 	/**
-	 * Get the genre.
+	 * Purpose: Get the genre.
 	 * 
 	 * @return genre
 	 */
@@ -133,7 +128,7 @@ public class Book
 	}
 
 	/**
-	 * Get the year.
+	 * Purpose: Get the year.
 	 * 
 	 * @return year
 	 */
@@ -143,7 +138,7 @@ public class Book
 	}
 
 	/**
-	 * Get left in store.
+	 * Purpose: Get left in store (How many of this book exists in the store).
 	 * 
 	 * @return leftInStore.
 	 */

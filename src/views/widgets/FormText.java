@@ -25,11 +25,10 @@ import java.awt.Insets;
  *         final serialVersionUID field?
  *         https://stackoverflow.com/questions/2288937/what-does-it-mean-the-serializable-class-does-not-declare-a-static-final-serial
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It's responsible to create a formText and
+ *         set's its text, font and margin.
  * 
- *         
- * 
- *         Version/date: 1.1 / 05/12/2022
+ *         Version/date: 1.3 / 05/16/2022
  * 
  * 
  */
@@ -47,6 +46,7 @@ public class FormText extends JTextField
 	 * JTextField class implements java.io.Serializable interface so the it's
 	 * subclass (FormText).
 	 */
+	// The FormText class has-a serialVersionUID.
 	private static final long serialVersionUID = 5779771745533988802L;
 
 	public FormText(String text, Font font, int margin)
@@ -58,7 +58,7 @@ public class FormText extends JTextField
 		// Set text color.
 		setForeground(new Color(147, 149, 151));
 
-		// Set text.
+		// Set text value.
 		setText(text);
 
 		// Set the cursor color to white.

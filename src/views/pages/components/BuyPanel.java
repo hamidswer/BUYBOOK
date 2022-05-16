@@ -28,11 +28,10 @@ import views.widgets.TextLabel;
  *         final serialVersionUID field?
  *         https://stackoverflow.com/questions/2288937/what-does-it-mean-the-serializable-class-does-not-declare-a-static-final-serial
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It's responsible to create a panel to show
+ *         post purchase message to the customer.
  * 
- *         
- * 
- *         Version/date: 1.3 / 05/12/2022
+ *         Version/date: 1.3 / 05/15/2022
  * 
  * 
  */
@@ -49,6 +48,7 @@ public class BuyPanel extends JPanel
 	 * class implements java.io.Serializable interface so the it's subclass
 	 * (BuyPanel).
 	 */
+	// The BuyPanel class has-a serialVersionUID.
 	private static final long serialVersionUID = 3275083896254627824L;
 
 	public BuyPanel(PageView view, String postPurchaseMessage)
@@ -60,19 +60,14 @@ public class BuyPanel extends JPanel
 		// Set the grid as the layout.
 		setLayout(grid);
 
-		// Set the border to the layout.
 		setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 50));
 
-		// A BuyPanel has-a backgroundColor.
 		Color backgroundColor = new Color(131, 56, 87);
 
-		// Set background color to the layout.
 		setBackground(backgroundColor);
 
-		// A BuyPanel has-a font.
 		Font font = new Font("Times New Roman", Font.PLAIN, 18);
 
-		// A BuyPanel has-a postPurchaseTextLabel.
 		// Initialize postPurchaseTextLabel for displaying post purchase message.
 		TextLabel postPurchaseTextLabel = new TextLabel(postPurchaseMessage, font, Color.white);
 

@@ -22,11 +22,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  *         Problem Solving.
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
- *         Responsibilities of class:
- * 
+ *         Responsibilities of class: It gets the Inventory databse and updates
+ *         it. It gets the books.
  *         
- * 
- *         Version/date: 2.3 / 05/12/2022
+ *         Version/date: 2.4 / 05/15/2022
  * 
  * 
  */
@@ -34,17 +33,16 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class InventoryDatabase
 {
 
-	// An InventoryDatabase has-a books.
+	// An InventoryDatabase has many books.
 	private Book[] books;
 
-	// Database constructor
 	public InventoryDatabase()
 	{
 		getInventory();
 	}
 
 	/**
-	 * Get inventory.
+	 * Get books from the Inventory database.
 	 * 
 	 */
 	public void getInventory()
@@ -71,11 +69,11 @@ public class InventoryDatabase
 				java.util.Iterator<Row> rowIterator = sheet.iterator();
 
 				int rowCounter = 0;
-				
+
 				// while there isn't any blank row.
 				while (rowIterator.hasNext())
 				{
-					
+
 					// Initialize row.
 					Row row = rowIterator.next();
 					if (row.getRowNum() == 0)
@@ -115,8 +113,6 @@ public class InventoryDatabase
 
 					// Initialize a genre.
 					String genre = "";
-					
-					
 
 					// while there isn't any blank cell.
 					while (cellIterator.hasNext())
@@ -228,7 +224,7 @@ public class InventoryDatabase
 	}
 
 	/**
-	 * Get the books.
+	 * Purpose: Get the books.
 	 * 
 	 * @return books.
 	 */
@@ -238,9 +234,10 @@ public class InventoryDatabase
 	}
 
 	/**
-	 * Update databse - just update the leftInStore column
+	 * Purpose: Update the leftInStore column in the inventory database by finding a
+	 * book based on its id.
 	 * 
-	 * @param bookId
+	 * @param bookId - an id of a book
 	 */
 	public void updateInventory(int bookId)
 	{
@@ -311,24 +308,45 @@ public class InventoryDatabase
 	}
 
 	/**
-	 * Give string value of each cell of excel file row
+	 * Purpose: Give string value of each cell of an excel file. Each cell could
+	 * have String or Numeric values so we should handle it somehow to assign the
+	 * String value to our properties.
 	 * 
-	 * @param cell - each cell of excel row
+	 * @param cell - each cell of excel file.
 	 * @return cell value as String
 	 */
-	@SuppressWarnings("deprecation")
-	public static String type(Cell cell) // each cell could have String or Int values so we should handle it somehow to assign the correct value to our properties.
+	public static String type(Cell cell)
 	{
-		switch (cell.getCellType()) // getCellType method to see which type is the value. (It could be String, Numeric, or richString, ...)
+		// The getCellTypeEnum method check the type of each cell's value. (It could be String, Numeric, or ...)
+		switch (cell.getCellTypeEnum())
 		{
+		// If the type of input is string.
+		case STRING:
 
-		case Cell.CELL_TYPE_STRING: // If the type of input is string
-			return cell.getStringCellValue(); // Return the String value
+			// Return the String value.
+			return cell.getStringCellValue();
 
-		case Cell.CELL_TYPE_NUMERIC: // If the type of input is Numeric
-			return String.valueOf((int) cell.getNumericCellValue()); // Return the Numeric value(double) and then turn it to Int, and then turn it to String.
+		// If the type of input is Numeric
+		case NUMERIC:
+
+			// Return the Numeric value(double) and then turn it to Int, and then turn it to String.
+			return String.valueOf((int) cell.getNumericCellValue());
+		case BLANK:
+			break;
+		case BOOLEAN:
+			break;
+		case ERROR:
+			break;
+		case FORMULA:
+			break;
+		case _NONE:
+			break;
+		default:
+			break;
 		}
-		return " "; // return empty Space if the cell has different type of values.
+
+		// return empty Space if the cell has different type of values.
+		return " ";
 	}
 
 }

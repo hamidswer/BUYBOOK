@@ -14,11 +14,10 @@ package models;
  *         Problem Solving.
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It creates the creditCard. It gets the
+ *         creditCardNumber, expirationDate, and cvv.
  * 
- *         
- * 
- *         Version/date: 1.3 / 05/12/2022
+ *         Version/date: 1.4 / 05/15/2022
  * 
  * 
  */
@@ -36,13 +35,18 @@ public class CreditCard
 
 	public CreditCard(String creditCardNumber, String expirationDate, String cvv)
 	{
+		// Assign the creditCardNumber value.
 		this.creditCardNumber = creditCardNumber;
+
+		// Assign the expirationDate value.
 		this.expirationDate = expirationDate;
+
+		// Assign the cvv value.
 		this.cvv = cvv;
 	}
 
 	/**
-	 * Get creditCardNumber.
+	 * Purpose: Get creditCardNumber.
 	 * 
 	 * @return creditCardNumber.
 	 */
@@ -52,7 +56,7 @@ public class CreditCard
 	}
 
 	/**
-	 * Get expirationDate.
+	 * Purpose: Get expirationDate.
 	 * 
 	 * @return expirationDate.
 	 */
@@ -62,7 +66,7 @@ public class CreditCard
 	}
 
 	/**
-	 * Get cvv.
+	 * Purpose: Get cvv.
 	 * 
 	 * @return cvv.
 	 */

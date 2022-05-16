@@ -1,5 +1,7 @@
 package views.pages.components;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -8,6 +10,8 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+
+import controllers.AboutButtonListener;
 import controllers.LogoutButtonListener;
 import views.pages.PageView;
 import views.widgets.Button;
@@ -32,11 +36,10 @@ import views.widgets.Button;
  *         final serialVersionUID field?
  *         https://stackoverflow.com/questions/2288937/what-does-it-mean-the-serializable-class-does-not-declare-a-static-final-serial
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It creates the headerPanel which includes
+ *         logo image, about and logout button.
  * 
- *         
- * 
- *         Version/date: 1.4 / 05/12/2022
+ *         Version/date: 1.5 / 05/15/2022
  * 
  * 
  */
@@ -53,6 +56,7 @@ public class HeaderPanel extends JPanel
 	 * class implements java.io.Serializable interface so the it's subclass
 	 * (HeaderPanel).
 	 */
+	// The HeaderPanel class has-a serialVersionUID.
 	private static final long serialVersionUID = -2651358270064871405L;
 
 	// A HeaderPanel has-a logoImage.
@@ -69,6 +73,7 @@ public class HeaderPanel extends JPanel
 		// Make the panel transparent.
 		setOpaque(false);
 
+		// Set null layout/absolute layout.
 		setLayout(null);
 
 		try
@@ -76,14 +81,14 @@ public class HeaderPanel extends JPanel
 			logoImage = ImageIO.read(new File("src/views/images/logo.png"));
 		} catch (IOException ex)
 		{
-			System.out.println("The application can not access the logo file.");
+			System.out.println("The application can not access to the logo file.");
 		}
 		try
 		{
 			logoutImage = ImageIO.read(new File("src/views/images/logout.png"));
 		} catch (IOException ex)
 		{
-			System.out.println("The application can not access the logout file.");
+			System.out.println("The application can not access to the logout file.");
 		}
 		if (isUserloggedIn)
 		{
@@ -106,6 +111,18 @@ public class HeaderPanel extends JPanel
 			new LogoutButtonListener(view, this);
 		}
 
+		Font font = new Font("Times New Roman", Font.PLAIN, 18);
+
+		// Initializing an aboutButton.
+		Button aboutButton = new Button("About", font, new Color(54, 57, 69), new Color(255, 255, 255));
+
+		aboutButton.setBounds(0, 0, 100, 50);
+
+		add(aboutButton);
+
+		// Listen to the aboutButton
+		new AboutButtonListener(aboutButton);
+
 	}
 
 	/**
@@ -119,7 +136,7 @@ public class HeaderPanel extends JPanel
 	}
 
 	/**
-	 * Get logout button.
+	 * Purpose: Get logout button.
 	 * 
 	 * @return logoutButton.
 	 */

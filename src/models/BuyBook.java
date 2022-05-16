@@ -13,11 +13,12 @@ package models;
  *         Problem Solving.
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
- *         Responsibilities of class:
+ *         Generating 10 digits unique random number in java.
+ *         https://stackoverflow.com/questions/5328822/generating-10-digits-unique-random-number-in-java
  * 
- *         
+ *         Responsibilities of class: It gets the post purchased message.
  * 
- *         Version/date: 1.4 / 05/12/2022
+ *         Version/date: 1.5 / 05/15/2022
  * 
  * 
  */
@@ -31,46 +32,71 @@ public class BuyBook
 
 	public BuyBook(Book book, String buttonName)
 	{
+		// Assign the value of book.
 		this.book = book;
+
+		// It would be true if the customer picked to buy paper book version.
 		isPaper = buttonName.equals("Paper Book");
 	}
 
 	/**
-	 * Get the shopping message in HTML format.
+	 * Purpose: Get the post purchased message in HTML format.
 	 * 
 	 * @return message.
 	 */
-	public String getMessage()
+	public String getPostPurchasedMessage()
 	{
-		String message = "Thanks for buying the ";
-		message += book.getName() + " ";
-		message += "by " + book.getAuthor() + ". ";
+		// Create a postPurchasedMessage.
+		String postPurchasedMessage = "Thanks for buying the ";
+
+		// Adds the book's name to the postPurchasedMessage.
+		postPurchasedMessage += book.getName() + " ";
+
+		// Adds the book's author to the postPurchasedMessage.
+		postPurchasedMessage += "by " + book.getAuthor() + ". ";
+
+		// If the customer picked to buy a paper book
 		if (isPaper)
 		{
-			message += "You can receive your book from the cashier with this receipt number." + "<br>";
+			postPurchasedMessage += "You can receive your book from the cashier with this receipt number." + "<br>";
 		} else
 		{
-			message += "An email with more information about your purchase will send to your email." + "<br>";
+			postPurchasedMessage += "An email with more information about your purchase will send to your email."
+					+ "<br>";
 		}
-		message += "The receipt number: " + getRandomNumber();
+
+		// Adds a random 10 digits number as a receipt to the postPurchasedMessage.
+		postPurchasedMessage += "The receipt number: " + getRandomNumber();
+
+		// If the customer picked to buy a paper book
 		if (isPaper)
 		{
-			message = "<html><center>" + message + "</center></html>";
+
+			postPurchasedMessage = "<html><center>" + postPurchasedMessage + "</center></html>";
+
+			// Create a paperBook.
 			PaperBook paperBook = new PaperBook(book);
+
+			// decrement the number of books in inventory database.
 			paperBook.decLeftInStore();
+
 		} else
 		{
+			// Create an electronicBook.
 			ElectronicBook electronicBook = new ElectronicBook(book);
-			message += "<br>" + electronicBook.getAcceptableUsePolicy();
-			message = "<html><center>" + message + "</center></html>";
+
+			// Add acceptableUsePolicy to the postPurchasedMessage.
+			postPurchasedMessage += "<br>" + electronicBook.getAcceptableUsePolicy();
+
+			postPurchasedMessage = "<html><center>" + postPurchasedMessage + "</center></html>";
 		}
-		return message;
+		return postPurchasedMessage;
 	}
 
 	/**
-	 * Get a 10 digits random number.
+	 * Purpose: Get a 10 digits random number.
 	 * 
-	 * @return
+	 * @return a 10 digits random number.
 	 */
 	public String getRandomNumber()
 	{

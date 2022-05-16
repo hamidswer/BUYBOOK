@@ -3,9 +3,9 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
 import views.pages.PageView;
 import views.pages.components.HeaderPanel;
+import views.widgets.Button;
 
 /**
  * Lead Author(s):
@@ -20,67 +20,69 @@ import views.pages.components.HeaderPanel;
  *         Problem Solving.
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It listens to the logoutButton, and if the
+ *         logoutButton is clicked, it removes all the components in the page
+ *         view, then it adds headerPanel and loginPanels to the page view.
  * 
- *         
- * 
- *         Version/date: 1.2 / 05/12/2022
+ *         Version/date: 1.3 / 05/15/2022
  * 
  * 
  */
-//A LogoutButtonListener is-an ActionListener.
+// A LogoutButtonListener is-an ActionListener.
 public class LogoutButtonListener implements ActionListener
 {
 
-	// LogoutButtonListener has-a view.
-	private PageView view;
+	// A LogoutButtonListener has-a pageView.
+	private PageView pageView;
 
 	/**
 	 * LogoutButtonListener Constructor - It listen to the logoutButton and change
 	 * the view.
 	 * 
 	 * @param view
-	 * @param panel
+	 * @param headerPanel
 	 */
-	public LogoutButtonListener(PageView view, HeaderPanel panel)
+	public LogoutButtonListener(PageView pageView, HeaderPanel headerPanel)
 	{
 
-		// Initialize the view.
-		this.view = view;
+		// Assign the pageView value.
+		this.pageView = pageView;
 
 		// Initialize the logoutButton.
-		JButton logoutButton = panel.getLogoutButton();
+		Button logoutButton = headerPanel.getLogoutButton();
 
-		// Listen to login button.
+		// Listen to logoutButton.
 		logoutButton.addActionListener(this);
 	}
 
 	/**
-	 * It overrides actionPerformed method of ActionListener. Polymorphism
-	 * (dynamically bind)
+	 * Purpose: It Invokes when an action occurs. The action of this method is to
+	 * click on the logoutButton. It overrides actionPerformed method of
+	 * ActionListener. Polymorphism (dynamically bind)
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
-		// Update the view.
+		// Update the page view.
 		update();
 
 	}
 
 	/**
-	 * Update the view and transfer to the login page.
+	 * Purpose: It removes all components from the page view and add the headerPanel
+	 * and LoginPanels to the page view.
 	 */
 	public void update()
 	{
 
 		// Remove all panels.
-		this.view.getContentPane().removeAll();
+		this.pageView.getContentPane().removeAll();
 
 		// Add headerPanel. false passed as an argument because the customer logged out.
-		this.view.addHeaderPanel(false);
+		this.pageView.addHeaderPanel(false);
 
 		// Add loginPanels.
-		this.view.addLoginPanels();
+		this.pageView.addLoginPanels();
 
 	}
 

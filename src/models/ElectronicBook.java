@@ -13,11 +13,12 @@ package models;
  *         Problem Solving.
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It's responsible to create ElectronicBook.
+ *         It gets the acceptable use policy.
  * 
- *         
  * 
- *         Version/date: 2.3 / 05/12/2022
+ * 
+ *         Version/date: 2.4 / 05/15/2022
  * 
  * 
  */
@@ -25,7 +26,6 @@ package models;
 public class ElectronicBook extends Book
 {
 
-	// ElectronicBook constructor 
 	public ElectronicBook(Book book)
 	{
 
@@ -34,9 +34,9 @@ public class ElectronicBook extends Book
 	}
 
 	/**
-	 * Provides accept user policy to customer
+	 * Purpose: Get the acceptable user policy.
 	 * 
-	 * @return Accept user policy
+	 * @return Acceptable user policy.
 	 */
 	public String getAcceptableUsePolicy()
 	{

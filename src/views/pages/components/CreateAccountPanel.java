@@ -34,11 +34,10 @@ import views.widgets.Button;
  *         final serialVersionUID field?
  *         https://stackoverflow.com/questions/2288937/what-does-it-mean-the-serializable-class-does-not-declare-a-static-final-serial
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It creates the accountPanel. It contains a
+ *         form for creating a new account.
  * 
- *         
- * 
- *         Version/date: 1.2 / 05/12/2022
+ *         Version/date: 1.3 / 05/15/2022
  * 
  * 
  */
@@ -55,6 +54,7 @@ public class CreateAccountPanel extends JPanel
 	 * class implements java.io.Serializable interface so the it's subclass
 	 * (CreateAccountPanel).
 	 */
+	// The CreateAccountPanel class has-a serialVersionUID.
 	private static final long serialVersionUID = -5636583615110640231L;
 
 	// A CreateAccountPanel has-a name.
@@ -83,19 +83,17 @@ public class CreateAccountPanel extends JPanel
 
 	public CreateAccountPanel(PageView view)
 	{
-		// unlimited rows and 1 column, Horizontal gap == 0, Vertical gap == 15.
+		// Initialize the grid.
 		GridLayout grid = new GridLayout(0, 1, 0, 15);
 
-		// Set the layout.
+		// Set the grid layout for the frame.
 		setLayout(grid);
 
 		// Make the panel transparent.
 		setOpaque(false);
 
-		// border => top == 0, left == 35, bottom == 0, right == 50.
 		setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 50));
 
-		// Initialize the textFont.
 		Font font = new Font("Times New Roman", Font.PLAIN, 18);
 
 		// Initialize the name.
@@ -108,75 +106,59 @@ public class CreateAccountPanel extends JPanel
 		password = new FormPassword("Password...", font, 5);
 
 		// Initialize the confirmPassword. 
-		confirmPassword = new FormPassword("Password...", font, 5);
+		confirmPassword = new FormPassword("Password!..", font, 5);
 
 		// Initialize the creditCardNumber.
 		creditCardNumber = new FormText("Credit Card Number..", font, 5);
 
 		// Initialize the expirationDate.
-		expirationDate = new FormText("05/23", font, 5);
+		expirationDate = new FormText("05/23.", font, 5);
 
 		// Initialize the CVV. 
 		cvv = new FormPassword("CVV", font, 5);
 
-		// Initialize the buttonFont.
-		Font buttonFont = new Font("Times New Roman", Font.PLAIN, 32);
-
-		// Add the name to the createAccountPanel.
 		add(name);
 
-		// Add the email to the createAccountPanel.
 		add(email);
 
-		// Add the password to the createAccountPanel.
 		add(password);
 
-		// Add the confirmPassword to the createAccountPanel.
 		add(confirmPassword);
 
-		// Add the creditCardNumber to the createAccountPanel.
 		add(creditCardNumber);
 
-		// Add the expirationDate to the createAccountPanel.
 		add(expirationDate);
 
-		// Add the cvv to the createAccountPanel.
 		add(cvv);
 
-		// Initialize the createAccountButton. 
-		createAccountButton = new Button("Create Account", buttonFont, new Color(27, 108, 89), Color.white);
+		font = new Font("Times New Roman", Font.PLAIN, 32);
 
-		// Add the createAccountButton to the createAccountPanel.
+		// Initialize the createAccountButton. 
+		createAccountButton = new Button("Create Account", font, new Color(27, 108, 89), Color.white);
+
 		add(createAccountButton);
 
-		// listen to the name component and remove it's text when the user clicks on it.
+		// listen to the components to remove their text when the user clicks on them.
 		new FormListener(name);
-
-		// listen to the email component and remove it's text when the user clicks on it.
 		new FormListener(email);
-
-		// listen to the password component and remove it's text when the user clicks on it.
 		new FormListener(password);
-
-		// listen to the confirmPassword component and remove it's text when the user clicks on it.
 		new FormListener(confirmPassword);
-
-		// listen to the creditCardNumber component and remove it's text when the user clicks on it.
 		new FormListener(creditCardNumber);
-
-		// listen to the expirationDate component and remove it's text when the user clicks on it.
 		new FormListener(expirationDate);
-
-		// listen to the cvv component and remove it's text when the user clicks on it.
 		new FormListener(cvv);
 
-		// Listen to the createAccountButton.
+		// Listen to the createAccountButton to evaluate the input and if their valid, creates a new account.
 		new CreateAccountButtonListener(view, this);
 	}
 
+	/**
+	 * Purpose: Create a hashtable for FormText components.
+	 * 
+	 * @return a hashtable.
+	 */
 	public Hashtable<String, FormText> getTextComponents()
 	{
-		// Initialization of a Hashtable. using Str
+		// Initialization of a Hashtable.
 		Hashtable<String, FormText> textComponents = new Hashtable<String, FormText>();
 
 		// Inserting the Elements. Adding Key and Value pairs to Hashtable.
@@ -189,6 +171,11 @@ public class CreateAccountPanel extends JPanel
 		return textComponents;
 	}
 
+	/**
+	 * Purpose: Creates a hashtable for FormPassword components.
+	 * 
+	 * @return a hashtable.
+	 */
 	public Hashtable<String, FormPassword> getPasswordComponents()
 	{
 		Hashtable<String, FormPassword> passwordComponents = new Hashtable<String, FormPassword>();
@@ -199,9 +186,9 @@ public class CreateAccountPanel extends JPanel
 	}
 
 	/**
-	 * Get the button component.
+	 * Purpose: Get the create account button.
 	 * 
-	 * @return the button component.
+	 * @return createAccountButton
 	 */
 	public Button getCreateAccountButton()
 	{

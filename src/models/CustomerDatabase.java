@@ -22,11 +22,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  *         Problem Solving.
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It's responsible to check if a customer
+ *         exist in the Customer database based on email and password provided
+ *         by a customer. It is responsible for creating a new account in the
+ *         customer database.
  * 
- *         
- * 
- *         Version/date: 1.5 / 05/12/2022
+ *         Version/date: 1.6 / 05/15/2022
  * 
  * 
  */
@@ -49,10 +50,8 @@ public class CustomerDatabase
 	}
 
 	/**
-	 * Create a new account.
+	 * Purpose: Create a new account.
 	 * 
-	 * @param customer   A customer who created account.
-	 * @param creditCard A customer's creditCard.
 	 */
 	public void createANewAccount()
 	{
@@ -134,10 +133,18 @@ public class CustomerDatabase
 	}
 
 	/**
-	 * Find a customer exist or not.
+	 * Purpose: Find a customer exist or not.
 	 * 
 	 * @return true if there is a customer with credentials in database, false if
 	 *         there is not.
+	 */
+	/**
+	 * Purpose: Find a customer exist or not.
+	 * 
+	 * @param userEmail    - it's a use email address.
+	 * @param userPassword - it's a user password.
+	 * @return true if the user exist in the Customer database, false if the user is
+	 *         not exist in the database.
 	 */
 	public boolean isCustomer(String userEmail, String userPassword)
 	{
@@ -180,12 +187,22 @@ public class CustomerDatabase
 						// If the password is the same with provided password from the customer.
 						if (password.equals(userPassword))
 						{
+							// Assign the name from the first column of the row.
 							String name = row.getCell(0).getStringCellValue();
+
+							// Assign the creditCardNumber from the fourth column of the row. 
 							String creditCardNumber = row.getCell(3).getStringCellValue();
+
+							// Assign the expirationDate from the fifth column of the row. 
 							String expirationDate = row.getCell(4).getStringCellValue();
+
+							// Assign the cvv from the sixth column of the row. 
 							String cvv = row.getCell(5).getStringCellValue();
+
+							// Create the currentCustomer from the Customer class. 
 							currentCustomer = new Customer(name, email, password, creditCardNumber, expirationDate,
 									cvv);
+
 							return true;
 						}
 					}
@@ -209,7 +226,7 @@ public class CustomerDatabase
 	}
 
 	/**
-	 * Get the current customer.
+	 * Purpose: Get the current customer.
 	 * 
 	 * @return currentCustomer
 	 */

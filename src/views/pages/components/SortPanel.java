@@ -30,12 +30,10 @@ import views.widgets.TextLabel;
  *         final serialVersionUID field?
  *         https://stackoverflow.com/questions/2288937/what-does-it-mean-the-serializable-class-does-not-declare-a-static-final-serial
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It is responsible for creating a sortPanel
+ *         to give the sorting option to the customer.
  * 
- *         
- * 
- *         Version/date: 1.3 / 05/12/2022
- * 
+ *         Version/date: 1.4 / 05/15/2022
  * 
  */
 
@@ -51,15 +49,16 @@ public class SortPanel extends JPanel
 	 * class implements java.io.Serializable interface so the it's subclass
 	 * (SortPanel).
 	 */
+	// The SortPanel class has-a serialVersionUID.
 	private static final long serialVersionUID = 8486334592672057818L;
 
-	// SortPanel has-a nameButton. 
+	// A SortPanel has-a nameButton. 
 	private Button nameButton;
 
-	// SortPanel has-a priceButton.
+	// A SortPanel has-a priceButton.
 	private Button priceButton;
 
-	// SortPanel has-a rateButton.
+	// A SortPanel has-a rateButton.
 	private Button rateButton;
 
 	public SortPanel(PageView view)
@@ -73,16 +72,12 @@ public class SortPanel extends JPanel
 		// Set background color to white.
 		setBackground(Color.white);
 
-		// border => top == 0, left == 50, bottom == 0, right == 50.
 		setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 50));
 
-		// Initialize the buttonFont.
 		Font font = new Font("Times New Roman", Font.PLAIN, 20);
 
 		// Initialize the sortLabel.
 		TextLabel sortLabel = new TextLabel("Sort", font, Color.black);
-
-		add(sortLabel);
 
 		// Initialize the nameButton.
 		nameButton = new Button("Name", font, new Color(255, 255, 255), new Color(27, 108, 89));
@@ -93,13 +88,12 @@ public class SortPanel extends JPanel
 		// Initialize the rateButton.
 		rateButton = new Button("Rate", font, new Color(255, 255, 255), new Color(27, 108, 89));
 
-		// Add the nameButton to the panel.
+		add(sortLabel);
+
 		add(nameButton);
 
-		// Add the priceButton to the panel.
 		add(priceButton);
 
-		// Add the rateButton to the panel.
 		add(rateButton);
 
 		// Listen to the nameButton.
@@ -114,7 +108,7 @@ public class SortPanel extends JPanel
 	}
 
 	/**
-	 * Get the name button.
+	 * Purpose: Get the name button.
 	 * 
 	 * @return nameButton.
 	 */
@@ -124,7 +118,7 @@ public class SortPanel extends JPanel
 	}
 
 	/**
-	 * Get the price button.
+	 * Purpose: Get the price button.
 	 * 
 	 * @return priceButton.
 	 */
@@ -134,7 +128,7 @@ public class SortPanel extends JPanel
 	}
 
 	/**
-	 * Get the rate button.
+	 * Purpose: Get the rate button.
 	 * 
 	 * @return rateButton.
 	 */

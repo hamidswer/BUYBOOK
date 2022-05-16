@@ -2,7 +2,6 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import models.Book;
 import models.BuyBook;
 import views.pages.PageView;
@@ -21,79 +20,77 @@ import views.widgets.Button;
  *         Problem Solving.
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It listens to the purchaseOptionButton,
+ *         and if the purchaseOptionButton is clicked, It removes the full book
+ *         panel and adds the buy panel.
  * 
- *         
- * 
- *         Version/date: 1.4 / 05/12/2022
+ *         Version/date: 1.4 / 05/15/2022
  * 
  * 
  */
-//A BuyButtonListener is-an ActionListener.
+// A BuyButtonListener is-an ActionListener.
 public class BuyButtonListener implements ActionListener
 {
 
-	// BuyButtonListener has-a view.
-	private PageView view;
+	// A BuyButtonListener has-a pageView.
+	private PageView pageView;
 
-	// BuyButtonListener has-a book.
+	// A BuyButtonListener has-a book.
 	private Book book;
 
-	// BuyButtonListener has-a button.
-	private Button button;
+	// A BuyButtonListener has-a purchaseOptionButton.
+	private Button purchaseOptionButton;
 
-	/**
-	 * `BuyButtonListener Constructor - It listen to book's buy button and change
-	 * the view.
-	 * 
-	 * @param view       - a PageView
-	 * @param bookButton - Indicate which button clicked.
-	 * @param book       - it's a book object.
-	 */
-	public BuyButtonListener(PageView view, Button bookButton, Book book)
+	public BuyButtonListener(PageView pageView, Button purchaseOptionButton, Book book)
 	{
-		// Assign the view value.
-		this.view = view;
+		// Assign the pageView value.
+		this.pageView = pageView;
+
+		// Assign the purchaseOptionButton value.
+		this.purchaseOptionButton = purchaseOptionButton;
 
 		// Assign the book value.
 		this.book = book;
 
-		// Listen to bookButton.
-		bookButton.addActionListener(this);
-
-		button = bookButton;
+		// Listen to the purchaseOptionButton.
+		this.purchaseOptionButton.addActionListener(this);
 
 	}
 
 	/**
-	 * It overrides actionPerformed method of ActionListener. Polymorphism
-	 * (dynamically bind)
+	 * Purpose: It Invokes when an action occurs. The action of this method is to
+	 * click on the purchaseOptionButton. It overrides actionPerformed method of
+	 * ActionListener. Polymorphism (dynamically bind)
 	 */
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
-		// Initialize buttonText with the button's text value.
-		String buttonText = button.getText();
+		// Initialize buttonText with the purchaseOptionButton text value.
+		String buttonText = purchaseOptionButton.getText();
 
-		// BuyButtonListener has-a buyBook.
-		// Initialize a buyBook model with book and buttonName as arguments.
+		// Initialize a buyBook model with book and buttonText as arguments. The buyBook use this information for 
+		// giving the post purchased message and if the customer asks for a paper book, updating the inventory database.
 		BuyBook buyBook = new BuyBook(book, buttonText);
 
-		// Update the view by getting message from buyBook model.
-		update(buyBook.getMessage());
+		// Update the view by getting getPostPurchasedMessage from buyBook.
+		update(buyBook.getPostPurchasedMessage());
 
 	}
 
 	/**
-	 * Update the view.
+	 * Purpose: It removes the fullBookPanel and adds buyPanel with
+	 * postPurchasedMessage as an argument.
+	 * 
+	 * @param postPurchasedMessage - the message to show the customer after buying a
+	 *                             book.
 	 */
-	public void update(String text)
+	public void update(String postPurchasedMessage)
 	{
 		// Remove the fullBookPanel.
-		this.view.removeFullBookPanel();
+		this.pageView.removeFullBookPanel();
 
 		// Add the buyPanel.
-		this.view.addBuyPanel(text);
+		this.pageView.addBuyPanel(postPurchasedMessage);
 
 	}
 

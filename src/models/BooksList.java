@@ -1,6 +1,6 @@
 package models;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 /**
  * Lead Author(s):
@@ -15,11 +15,15 @@ import java.util.Arrays;
  *         Problem Solving.
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
- *         Responsibilities of class:
+ *         ArrayList toArray method class cast exception [duplicate]
+ *         https://stackoverflow.com/questions/21322478/arraylist-toarray-method-class-cast-exception
  * 
- *         
+ *         Responsibilities of class:It is responsible for initializing an
+ *         inventory database and creating and getting all books, fiction and
+ *         non-fiction books.
  * 
- *         Version/date: 2.3 / 05/12/2022
+ * 
+ *         Version/date: 2.4 / 05/12/2022
  * 
  * 
  */
@@ -38,10 +42,10 @@ public class BooksList
 	// The BooksList has many nonFictions.
 	private static Book[] nonFictions;
 
-	// BooksList constructor
-	public BooksList(boolean login)
+	public BooksList(boolean loggedIn)
 	{
-		if (login)
+		// If customer logged in.
+		if (loggedIn)
 		{
 			// Initialize database.
 			database = new InventoryDatabase();
@@ -49,11 +53,15 @@ public class BooksList
 			// Initialize books.
 			books = database.getBooks();
 
-			// Initialize fictions.
-			fictions = getFicionsList();
+			// Set a book list for all books.
+			setBooks();
 
-			// Initialize nonfictions.
-			nonFictions = getNonFictionsList();
+			// Set a book list with fiction genre.
+			setFicions();
+
+			// Set a book list with non fiction genre.
+			setNonFictions();
+
 		}
 	}
 
@@ -63,74 +71,83 @@ public class BooksList
 	}
 
 	/**
-	 * Get the fiction list.
+	 * Purpose: Set the books with fiction genre.
 	 * 
 	 * @return fictionList
 	 */
-	public Book[] getFicionsList()
+	public void setFicions()
 	{
-		Book[] fictions = new Book[books.length];
+		ArrayList<Book> fictionsArrayList = new ArrayList<Book>();
 		for (int i = 0; i < books.length - 1; i++)
-		{
-			// If the book's genre is Fiction.
+
+			// If the genre is Fiction.
 			if (books[i].getGenre().equals("Fiction"))
 
-				// add book to fictionList Array
-				fictions[i] = books[i];
-		}
+				// Add books elements to fictionsArrayList.
+				fictionsArrayList.add(books[i]);
 
-		// Remove null elements and resize array.
-		fictions = (Book[]) Arrays.stream(fictions).filter(s -> (s != null)).toArray(Book[]::new);
+		// Create a regular array from fictionsArrayList.
+		fictions = fictionsArrayList.toArray(new Book[fictionsArrayList.size()]);
 
-		return fictions;
 	}
 
 	/**
-	 * Get the non fiction list.
+	 * Purpose: Set the books with non fiction genre.
 	 * 
 	 * @return nonFictionList
 	 */
-	public Book[] getNonFictionsList()
+	public void setNonFictions()
 	{
-		Book[] nonFictions = new Book[books.length];
+		// Initialize a nonFictionsArrayList.
+		ArrayList<Book> nonFictionsArrayList = new ArrayList<Book>();
+
 		for (int i = 0; i < books.length - 1; i++)
-		{
-			// if the book's genre is Non Fiction
+
+			// If the genre is Non Fiction.
 			if (books[i].getGenre().equals("Non Fiction"))
 
-				// add book to nonFictions Array
-				nonFictions[i] = books[i];
-		}
+				// Add books elements to nonFictionsArrayList.
+				nonFictionsArrayList.add(books[i]);
 
-		// Remove null elements and resize array.
-		nonFictions = (Book[]) Arrays.stream(nonFictions).filter(s -> (s != null)).toArray(Book[]::new);
+		// Converting the nonFictionsArrayList to a regular array.
+		nonFictions = nonFictionsArrayList.toArray(new Book[nonFictionsArrayList.size()]);
 
-		return nonFictions;
 	}
 
 	/**
-	 * Get all books.
+	 * Purpose: Set the books with non fiction genre.
+	 * 
+	 * @return nonFictionList
+	 */
+	public void setBooks()
+	{
+		// Initialize a nonFictionsArrayList.
+		ArrayList<Book> booksArrayList = new ArrayList<Book>();
+
+		for (int i = 0; i < books.length - 1; i++)
+
+			// Add books elements to nonFictionsArrayList.
+			booksArrayList.add(books[i]);
+
+		// Converting the nonFictionsArrayList to a regular array.
+		books = booksArrayList.toArray(new Book[booksArrayList.size()]);
+
+	}
+
+	/**
+	 * Purpose: Get all books.
 	 * 
 	 * @return books.
 	 */
 	public Book[] getBooks()
 	{
-		Book[] allBooks = new Book[books.length];
-		for (int i = 0; i < books.length - 1; i++)
-
-			// add book to fictionList Array
-			allBooks[i] = books[i];
-
-		// Remove null elements and resize array.
-		allBooks = (Book[]) Arrays.stream(allBooks).filter(s -> (s != null)).toArray(Book[]::new);
-
-		return allBooks;
+		return books;
 	}
 
 	/**
-	 * Get all books.
+	 * Purpose: Get all books in fictions category.
 	 * 
-	 * @return books.
+	 * @return fictions.
 	 */
 	public Book[] getFictions()
 	{
@@ -138,9 +155,9 @@ public class BooksList
 	}
 
 	/**
-	 * Get all books.
+	 * Purpose: Get all books in non fictions category.
 	 * 
-	 * @return books.
+	 * @return nonFictions.
 	 */
 	public Book[] getNonFictions()
 	{

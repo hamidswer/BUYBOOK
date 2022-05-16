@@ -29,7 +29,7 @@ import views.widgets.TextLabel;
  * 
  *         Responsibilities of class:
  * 
- *         
+ * 
  * 
  *         Version/date: 1.2 / 05/12/2022
  * 
@@ -48,6 +48,7 @@ public class LoginErrorPanel extends JPanel
 	 * class implements java.io.Serializable interface so the it's subclass
 	 * (LoginErrorPanel).
 	 */
+	// The LoginErrorPanel class has-a serialVersionUID.
 	private static final long serialVersionUID = -7885383771258589142L;
 
 	// A LoginErrorPanel has a font.
@@ -55,8 +56,8 @@ public class LoginErrorPanel extends JPanel
 
 	// A LoginErrorPanel has-an errorLabel.
 	private TextLabel errorLabel;
-
-	public LoginErrorPanel()
+	
+	public LoginErrorPanel(String errorMessage)
 	{
 		// Make the panel transparent.
 		setOpaque(false);
@@ -73,25 +74,7 @@ public class LoginErrorPanel extends JPanel
 		font = new Font("Times New Roman", Font.PLAIN, 18);
 
 		// Initialize the errorLabel. 
-		errorLabel = new TextLabel(" ", font, Color.white);
-
-		add(errorLabel);
-	}
-
-	/**
-	 * Set the error message.
-	 */
-	public void setErrorMessage()
-	{
-		// Remove the errorLabel.
-		this.remove(errorLabel);
-
-		// Initialize the errorLabel.
-		errorLabel = new TextLabel(
-				"<html>Something is wrong!<br> If you don't have an account, Please first create one.<br> "
-						+ "If you have already an account, Please check your Email or Password.",
-				font, Color.white);
-
+		errorLabel = new TextLabel(errorMessage, font, Color.white);
 		add(errorLabel);
 	}
 

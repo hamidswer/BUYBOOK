@@ -31,7 +31,7 @@ import views.widgets.Button;
  * 
  *         Responsibilities of class:
  * 
- *         
+ * 
  * 
  *         Version/date: 1.3 / 05/12/2022
  * 
@@ -49,6 +49,7 @@ public class CategoryPanel extends JPanel
 	 * class implements java.io.Serializable interface so the it's subclass
 	 * (CategoryPanel).
 	 */
+	// The CategoryPanel class has-a serialVersionUID.
 	private static final long serialVersionUID = 2882009846855201959L;
 
 	// A CategoryPanel has-a booksButton.
@@ -62,39 +63,37 @@ public class CategoryPanel extends JPanel
 
 	public CategoryPanel(PageView view, boolean booksButtonDisabled)
 	{
-		// 1 row and 3 columns, Horizontal gap == 10, Vertical gap == 0.
+		// A CategoryPanel has-a grid.
 		GridLayout grid = new GridLayout(1, 3, 10, 0);
 
-		// Add grid layout to CategoryPanel.
+		// Set the grid layout.
 		setLayout(grid);
 
 		// Make the panel transparent.
 		setOpaque(false);
 
-		// border => top == 0, left == 35, bottom == 0, right == 50.
 		setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 50));
 
-		// Initialize the buttonFont.
 		Font font = new Font("Times New Roman", Font.PLAIN, 18);
 
-		if (booksButtonDisabled)
-		{
-			// Initialize the bookButton.
-			booksButton = new Button("Books", font, new Color(131, 56, 87), Color.white);
-
-			// Disable button.
-			booksButton.setEnabled(false);
-		} else
-		{
-			// Initialize the bookButton.
-			booksButton = new Button("Books", font, new Color(27, 108, 89), Color.white);
-		}
+		// Initialize the bookButton.
+		booksButton = new Button("Books", font, new Color(27, 108, 89), Color.white);
 
 		// Initialize the fictionButton.
 		fictionButton = new Button("Fiction", font, new Color(27, 108, 89), Color.white);
 
 		// Initialize the nonfictionButton.
 		nonfictionButton = new Button("Nonfiction", font, new Color(27, 108, 89), Color.white);
+
+		// if the constructor indicates that books button must be disabled
+		if (booksButtonDisabled)
+		{
+			// Change the background of booksButton.
+			booksButton.setBackground(new Color(131, 56, 87));
+
+			// Disable booksButton.
+			booksButton.setEnabled(false);
+		}
 
 		// Add the bookButton to the panel.
 		add(booksButton);
@@ -105,16 +104,19 @@ public class CategoryPanel extends JPanel
 		// Add the nonfictionButton to the panel.
 		add(nonfictionButton);
 
+		// Listen to the booksButton. 
 		new CategoryButtonListener(view, this, booksButton);
 
+		// Listen to the fictionButton.
 		new CategoryButtonListener(view, this, fictionButton);
 
+		// Listen to the nonfictionButton.
 		new CategoryButtonListener(view, this, nonfictionButton);
 
 	}
 
 	/**
-	 * Get the booksButton.
+	 * Purpose: Get the booksButton.
 	 * 
 	 * @return booksButton.
 	 */
@@ -124,7 +126,7 @@ public class CategoryPanel extends JPanel
 	}
 
 	/**
-	 * Get the fictionButton.
+	 * Purpose: Get the fictionButton.
 	 * 
 	 * @return fictionButton.
 	 */
@@ -134,7 +136,7 @@ public class CategoryPanel extends JPanel
 	}
 
 	/**
-	 * Get the nonfictionButton.
+	 * Purpose: Get the nonfictionButton.
 	 * 
 	 * @return nonfictionButton.
 	 */

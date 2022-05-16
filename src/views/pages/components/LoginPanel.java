@@ -53,6 +53,7 @@ public class LoginPanel extends JPanel
 	 * class implements java.io.Serializable interface so the it's subclass
 	 * (LoginPanel).
 	 */
+	// The LoginPanel class has-a serialVersionUID.
 	private static final long serialVersionUID = 8710933131209149707L;
 
 	// A LoginPanel has-a loginButton.

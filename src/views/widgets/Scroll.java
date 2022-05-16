@@ -32,11 +32,9 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
  *         final serialVersionUID field?
  *         https://stackoverflow.com/questions/2288937/what-does-it-mean-the-serializable-class-does-not-declare-a-static-final-serial
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It creates a customized scroll.
  * 
- *         
- * 
- *         Version/date: 1.2 / 05/12/2022
+ *         Version/date: 1.3 / 05/16/2022
  * 
  * 
  */
@@ -53,10 +51,12 @@ public class Scroll extends JScrollPane
 	 * JScrollPane class implements java.io.Serializable interface so the it's
 	 * subclass (Scroll).
 	 */
+	// The Scroll class has-a serialVersionUID.
 	private static final long serialVersionUID = -4346093878409316920L;
 
 	public Scroll(Component view)
 	{
+		// calling JScrollPane(Superclass) and set the view component of Scroll.
 		super(view);
 
 		// Make the panel transparent.
@@ -104,9 +104,9 @@ public class Scroll extends JScrollPane
 	}
 
 	/**
-	 * Remove the button.
+	 * Purpose: Remove the default button n top and bottom of the scroll.
 	 * 
-	 * @return button with size zero.
+	 * @return button with zero size.
 	 */
 	private Button createZeroButton()
 	{

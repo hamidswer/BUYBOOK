@@ -25,11 +25,10 @@ import javax.swing.JPasswordField;
  *         final serialVersionUID field?
  *         https://stackoverflow.com/questions/2288937/what-does-it-mean-the-serializable-class-does-not-declare-a-static-final-serial
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It is responsible to create a formPassword
+ *         and sets it's text, font, and margin.
  * 
- *         
- * 
- *         Version/date: 1.1 / 05/12/2022
+ *         Version/date: 1.2 / 05/16/2022
  * 
  * 
  */
@@ -46,11 +45,14 @@ public class FormPassword extends JPasswordField
 	 * JPasswordField class implements java.io.Serializable interface so the it's
 	 * subclass (FormPassword).
 	 */
+	// The FormPassword class has-a serialVersionUID.
 	private static final long serialVersionUID = 8215160929807479423L;
 
 	public FormPassword(String text, Font font, int margin)
 	{
+		// calling JPasswordField(Superclass) and set its text.
 		super(text);
+
 		// Set text font.
 		setFont(font);
 

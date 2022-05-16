@@ -18,11 +18,11 @@ import views.widgets.FormText;
  *         Problem Solving.
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It listens to the text and password
+ *         components. If the customer clicks on them, it removes that
+ *         components text value.
  * 
- *         
- * 
- *         Version/date: 1.2 / 05/12/2022
+ *         Version/date: 1.3 / 05/15/2022
  * 
  * 
  */
@@ -30,49 +30,60 @@ import views.widgets.FormText;
 // A FormListener is-a MouseListener.
 public class FormListener implements MouseListener
 {
-	// LoginFormListener has-an emailComponent.
-	private FormText formTextComponenet;
+	// A FormListener has-a textComponenet.
+	private FormText textComponenet;
 
-	// LoginFormListener has-an passwordComponent.
-	private FormPassword formPasswordComponenet;
+	// A FormListener has-a passwordComponenet.
+	private FormPassword passwordComponenet;
 
 	/**
 	 * Purpose: FormListener constructs a mouse listener for a FormText component.
 	 * 
-	 * @param formTextComponenet - The component which we want to listen to.
+	 * @param textComponenet - The component which we want to listen to.
 	 */
-	public FormListener(FormText formTextComponenet)
+	public FormListener(FormText textComponenet)
 	{
-		this.formTextComponenet = formTextComponenet;
-		formTextComponenet.addMouseListener(this);
+		// Assign the textComponenet value.
+		this.textComponenet = textComponenet;
+
+		// Listen to the textComponenet.
+		this.textComponenet.addMouseListener(this);
 	}
 
 	/**
 	 * Purpose: FormListener constructs a mouse listener for a FormPassword
 	 * component.
 	 * 
-	 * @param formPasswordComponenet - The component which we want to listen to.
+	 * @param passwordComponenet - The component which we want to listen to.
 	 */
-	public FormListener(FormPassword formPasswordComponenet)
+	public FormListener(FormPassword passwordComponenet)
 	{
-		this.formPasswordComponenet = formPasswordComponenet;
-		formPasswordComponenet.addMouseListener(this);
+		// Assign the passwordComponenet value.
+		this.passwordComponenet = passwordComponenet;
+
+		// Listen to the passwordComponenet.
+		this.passwordComponenet.addMouseListener(this);
 	}
 
 	/**
-	 * It overrides mouseClicked method of MouseListener. Polymorphism (dynamically
-	 * bind)
+	 * Purpose: It Invokes when a mouse click event happened. The event of this
+	 * method is to click on the textComponenet or passwordComponenet. It overrides
+	 * mouseClicked method of MouseListener. Polymorphism (dynamically bind)
 	 */
 	@Override
 	public void mouseClicked(MouseEvent event)
 	{
-		// It removes the field component's text.
+
+		// It tries to removes the textComponenet text value, but if the textComponenet was null, it means the customer didn't click on the textComponenet
+		// and we didn't assign any value to the textComponenet on the constructor, so it throws a NullPointerException. 
+		// It means the mouse click event happened but It wasn't on the textComponenet
+		// so it was on the passwordComponenet. so It removes the passwordComponenet text value.
 		try
 		{
-			formTextComponenet.setText("");
+			textComponenet.setText("");
 		} catch (NullPointerException e)
 		{
-			formPasswordComponenet.setText("");
+			passwordComponenet.setText("");
 		}
 	}
 

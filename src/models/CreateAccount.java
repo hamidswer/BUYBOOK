@@ -19,17 +19,17 @@ import java.util.regex.Pattern;
  * 
  *         RegExr: Learn, Build, Test RegEx. https://regexr.com/
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It creates the new customer in the
+ *         customer databse. It checks all user input for creating a new
+ *         account. It sets the create new account form data.
  * 
- *         
- * 
- *         Version/date: 1.3 / 05/12/2022
+ *         Version/date: 1.5 / 05/15/2022
  * 
  * 
  */
 public class CreateAccount
 {
-	// A CreateAccount has-an name.
+	// A CreateAccount has-a name.
 	private String name;
 
 	// A CreateAccount has-an email.
@@ -50,13 +50,8 @@ public class CreateAccount
 	// A CreateAccount has-a cvv.
 	private String cvv;
 
-	public CreateAccount()
-	{
-
-	}
-
 	/**
-	 * Set the name.
+	 * Purpose: get the name.
 	 * 
 	 * @return the name.
 	 */
@@ -66,9 +61,8 @@ public class CreateAccount
 	}
 
 	/**
-	 * Set the name.
+	 * Purpose: Set the name.
 	 * 
-	 * @return the name.
 	 */
 	public void setName(String name)
 	{
@@ -76,9 +70,8 @@ public class CreateAccount
 	}
 
 	/**
-	 * Set the email.
+	 * Purpose: Set the email.
 	 * 
-	 * @return the email.
 	 */
 	public void setEmail(String email)
 	{
@@ -86,9 +79,8 @@ public class CreateAccount
 	}
 
 	/**
-	 * Set the password.
+	 * Purpose: Set the password.
 	 * 
-	 * @return the password.
 	 */
 	public void setPassword(String password)
 	{
@@ -96,9 +88,8 @@ public class CreateAccount
 	}
 
 	/**
-	 * Set the confirmPassword.
+	 * Purpose: Set the confirmPassword.
 	 * 
-	 * @return the confirmPassword.
 	 */
 	public void setConfirmPassword(String confirmPassword)
 	{
@@ -106,9 +97,8 @@ public class CreateAccount
 	}
 
 	/**
-	 * Set the creditCardNumber.
+	 * Purpose: Set the creditCardNumber.
 	 * 
-	 * @return the creditCardNumber.
 	 */
 	public void setCreditCardNumber(String creditCardNumber)
 	{
@@ -116,9 +106,8 @@ public class CreateAccount
 	}
 
 	/**
-	 * Set the expirationDate.
+	 * Purpose: Set the expirationDate.
 	 * 
-	 * @return the expirationDate.
 	 */
 	public void setExpirationDate(String expirationDate)
 	{
@@ -126,9 +115,8 @@ public class CreateAccount
 	}
 
 	/**
-	 * Set the cvv.
+	 * Purpose: Set the cvv.
 	 * 
-	 * @return the cvv.
 	 */
 	public void setCvv(String cvv)
 	{
@@ -136,7 +124,7 @@ public class CreateAccount
 	}
 
 	/**
-	 * Test if the name is valid.
+	 * Purpose: Test if the name is valid.
 	 * 
 	 * @return true is the name is valid, false if the name is not valid.
 	 */
@@ -144,15 +132,16 @@ public class CreateAccount
 	{
 		if (this.name.length() > 8)
 		{
-			// Initialize the regex..
+			// Initialize the regex. It matches only with text and space.
 			String regex = "^[a-zA-Z_ ]*";
 
 			// Initialize the Pattern object.
 			Pattern pattern = Pattern.compile(regex);
 
-			// Initialize the Matcher object.
+			// Initialize the Matcher object to see if name matches by the regex pattern.
 			Matcher matcher = pattern.matcher(name);
 
+			// return true if it's matches, false if it's not.
 			return matcher.matches();
 		}
 
@@ -160,7 +149,7 @@ public class CreateAccount
 	}
 
 	/**
-	 * Test if the email is valid.
+	 * Purpose: Test if the email is valid.
 	 * 
 	 * @return true is the email is valid, false if the email is not valid.
 	 */
@@ -168,22 +157,23 @@ public class CreateAccount
 	{
 		if (this.email.length() >= 8)
 		{
-			// Initialize the regex..
-			String regex = "^(.+)@(.+)$";
+			// Initialize the regex It matches only with text1@text2.text3 => text3 couldn't have digits. 
+			String regex = ".+@.+\\.[^0-9]*";
 
 			// Initialize the Pattern object.
 			Pattern pattern = Pattern.compile(regex);
 
-			// Initialize the Matcher object.
+			// Initialize the Matcher object to see if email matches by the regex pattern.
 			Matcher matcher = pattern.matcher(email);
 
+			// return true if it's matches, false if it's not.
 			return matcher.matches();
 		}
 		return false;
 	}
 
 	/**
-	 * Test if the password is valid.
+	 * Purpose: Test if the password is valid.
 	 * 
 	 * @return true is the password is valid, false if the password is not valid.
 	 */
@@ -195,7 +185,7 @@ public class CreateAccount
 	}
 
 	/**
-	 * Test if the creditCardNumber is valid.
+	 * Purpose: Test if the creditCardNumber is valid.
 	 * 
 	 * @return true is the creditCardNumber is valid, false if the creditCardNumber
 	 *         is not valid.
@@ -204,13 +194,13 @@ public class CreateAccount
 	{
 		if (creditCardNumber.length() == 16)
 		{
-			// Initialize the regex..
+			// Initialize the regex. It matches only with digits.
 			String regex = "[0-9]+";
 
 			// Initialize the Pattern object.
 			Pattern pattern = Pattern.compile(regex);
 
-			// Initialize the Matcher object.
+			// Initialize the Matcher object to see if creditCardNumber matches by the regex pattern.
 			Matcher matcher = pattern.matcher(creditCardNumber);
 
 			return matcher.matches();
@@ -219,7 +209,7 @@ public class CreateAccount
 	}
 
 	/**
-	 * Test if the expirationDate is valid.
+	 * Purpose: Test if the expirationDate is valid.
 	 * 
 	 * @return true is the expirationDate is valid, false if the expirationDate is
 	 *         not valid.
@@ -228,13 +218,13 @@ public class CreateAccount
 	{
 		if (expirationDate.length() == 5)
 		{
-			// Initialize the regex..
-			String regex = "[0-9]+\\/+[0-9]+";
+			// Initialize the regex. It matches only with two digits followed by slash and two other digits.
+			String regex = "[0-9]{2}\\/+[0-9]{2}";
 
 			// Initialize the Pattern object.
 			Pattern pattern = Pattern.compile(regex);
 
-			// Initialize the Matcher object.
+			// Initialize the Matcher object to see if expirationDate matches by the regex pattern.
 			Matcher matcher = pattern.matcher(expirationDate);
 
 			return matcher.matches();
@@ -243,7 +233,7 @@ public class CreateAccount
 	}
 
 	/**
-	 * Test if the cvv is valid.
+	 * Purpose: Test if the cvv is valid.
 	 * 
 	 * @return true is the cvv is valid, false if the cvv is not valid.
 	 */
@@ -251,13 +241,13 @@ public class CreateAccount
 	{
 		if (cvv.length() == 3)
 		{
-			// Initialize the regex..
+			// Initialize the regex. It matches only with digits.
 			String regex = "[0-9]+";
 
 			// Initialize the Pattern object.
 			Pattern pattern = Pattern.compile(regex);
 
-			// Initialize the Matcher object.
+			// Initialize the Matcher object to see if cvv matches by the regex pattern.
 			Matcher matcher = pattern.matcher(cvv);
 
 			return matcher.matches();
@@ -266,7 +256,7 @@ public class CreateAccount
 	}
 
 	/**
-	 * Test if the all the form inputs are valid.
+	 * Purpose: Test if the all the form inputs are valid.
 	 * 
 	 * @return true is the all the form inputs are valid, false if the all the form
 	 *         inputs are not valid.
@@ -282,12 +272,17 @@ public class CreateAccount
 	}
 
 	/**
-	 * Create a new account.
+	 * Purpose: Create a new account in the Customer database.
 	 */
-	public void createAccount()
+	public void addNewCustomer()
 	{
+		// Initialize a customer.
 		Customer customer = new Customer(name, email, password, creditCardNumber, expirationDate, cvv);
+
+		// Initialize customerDatabase. 
 		CustomerDatabase customerDatabase = new CustomerDatabase(customer);
+
+		// Create a new account in the Customer database.
 		customerDatabase.createANewAccount();
 	}
 

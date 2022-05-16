@@ -32,11 +32,10 @@ import views.widgets.TextLabel;
  *         final serialVersionUID field?
  *         https://stackoverflow.com/questions/2288937/what-does-it-mean-the-serializable-class-does-not-declare-a-static-final-serial
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It is responsible to display the book's
+ *         name, rate and price to the customer.
  * 
- *         
- * 
- *         Version/date: 1.2 / 05/12/2022
+ *         Version/date: 1.3 / 05/15/2022
  * 
  * 
  */
@@ -53,6 +52,7 @@ public class BookPanel extends JPanel
 	 * class implements java.io.Serializable interface so the it's subclass
 	 * (BookPanel).
 	 */
+	// The BookPanel class has-a serialVersionUID.
 	private static final long serialVersionUID = -1463357052369615812L;
 
 	public BookPanel(PageView view, Book book)
@@ -75,40 +75,32 @@ public class BookPanel extends JPanel
 		// Create absolute layout.
 		setLayout(null);
 
-		// Set background color to white.
 		setBackground(new Color(27, 108, 89));
 
-		// Initialize the buttonFont.
 		Font font = new Font("Times New Roman", Font.PLAIN, 18);
 
 		// Initialize the nameButton.
 		Button nameButton = new Button(name, font, new Color(27, 108, 89), new Color(255, 255, 255));
 
-		// x == -35, y == 0, width == 398, height == 50.
 		nameButton.setBounds(-35, 0, 398, 50);
 
 		// Listen to the nameButton
 		new BookButtonListener(view, nameButton, book);
 
-		// Add the nameButton to the BookPanel;
 		add(nameButton);
 
 		// Initialize the ratePanel.
 		RatePanel ratePanel = new RatePanel(rate);
 
-		// x == -30, y == 45, width == 200, height == 50.
 		ratePanel.setBounds(15, 45, 200, 50);
 
-		// Add the ratePanel to the BookPanel;
 		add(ratePanel);
 
 		// Initialize the priceText.
 		TextLabel priceText = new TextLabel(price, font, Color.white);
 
-		// x == 300, y == 45, width == 50, height == 50.
 		priceText.setBounds(300, 45, 50, 50);
 
-		// Add the priceText to the BookPanel;
 		add(priceText);
 	}
 }

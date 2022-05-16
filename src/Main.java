@@ -1,5 +1,4 @@
 import views.pages.PageView;
-
 /**
  * Lead Author(s):
  * 
@@ -41,7 +40,6 @@ public class Main
 		// The Main class has-a PageView.
 		// Creating a new PageView instance without assigning to a local variable.
 		new PageView();
-
 	}
 
 }

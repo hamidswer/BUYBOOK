@@ -14,11 +14,10 @@ package models;
  *         Problem Solving.
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
- *         Responsibilities of class:
+ *         Responsibilities of class: It saves the recently category name picked
+ *         by user. It gives the books based on their genre(or category).
  * 
- *         
- * 
- *         Version/date: 1.2 / 05/12/2022
+ *         Version/date: 1.4 / 05/15/2022
  * 
  * 
  */
@@ -31,10 +30,10 @@ public class Category
 	private static Book[] books;
 
 	/**
-	 * Get books based on their categoryName.
+	 * Purpose: Get books based on their categoryName.
 	 * 
-	 * @param categoryName
-	 * @return
+	 * @param categoryName - It could be Books, Fiction or non fiction.
+	 * @return books - generated books based on their category.
 	 */
 	public Book[] getBooks(String categoryName)
 	{
@@ -48,19 +47,19 @@ public class Category
 		{
 		case "Fiction":
 
-			// Initialize books.
+			// Initialize books by invoking getFictions method from the bookList object.(just fiction books)
 			books = booksList.getFictions();
 			break;
 
 		case "Nonfiction":
 
-			// Initialize books.
+			// Initialize books by invoking getNonFictions method from the bookList object.(just non fiction books)
 			books = booksList.getNonFictions();
 			break;
 
 		case "Books":
 
-			// Initialize books.
+			// Initialize books by invoking getBooks method from the bookList object.(all books)
 			books = booksList.getBooks();
 			break;
 		}
@@ -69,17 +68,18 @@ public class Category
 	}
 
 	/**
-	 * Get the category name.
+	 * Purpose: Get the books that the user has recently selected by category. (Will
+	 * be used in sorting by a Sort object).
 	 * 
-	 * @return name.
+	 * We have two methods with the same name, the above one is for creating a books
+	 * array based on the category. this one used for getting books. polymorphism
+	 * (overloading)
+	 * 
+	 * @return books.
 	 */
-	public String getCategoryName()
-	{
-		return name;
-	}
-
 	public Book[] getBooks()
 	{
 		return books;
 	}
+
 }
