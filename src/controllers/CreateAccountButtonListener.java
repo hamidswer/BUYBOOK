@@ -4,12 +4,12 @@ package controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Hashtable;
-import exceptions.invalidCreditCardNumberException;
-import exceptions.invalidCvvException;
-import exceptions.invalidEmailException;
-import exceptions.invalidExpirationDateException;
-import exceptions.invalidNameException;
-import exceptions.invalidPasswordException;
+import exceptions.InvalidCreditCardNumberException;
+import exceptions.InvalidCvvException;
+import exceptions.InvalidEmailException;
+import exceptions.InvalidExpirationDateException;
+import exceptions.InvalidNameException;
+import exceptions.InvalidPasswordException;
 import models.CreateAccount;
 import views.pages.ErrorView;
 import views.pages.PageView;
@@ -150,7 +150,7 @@ public class CreateAccountButtonListener implements ActionListener
 		try
 		{
 			updateName();
-		} catch (invalidNameException error)
+		} catch (InvalidNameException error)
 		{
 			errorMessage += error.getMessage();
 		}
@@ -160,7 +160,7 @@ public class CreateAccountButtonListener implements ActionListener
 		try
 		{
 			updateEmail();
-		} catch (invalidEmailException error)
+		} catch (InvalidEmailException error)
 		{
 			errorMessage += " " + error.getMessage();
 		}
@@ -170,7 +170,7 @@ public class CreateAccountButtonListener implements ActionListener
 		try
 		{
 			updatePassword();
-		} catch (invalidPasswordException error)
+		} catch (InvalidPasswordException error)
 		{
 			errorMessage += " " + error.getMessage();
 		}
@@ -180,7 +180,7 @@ public class CreateAccountButtonListener implements ActionListener
 		try
 		{
 			updateCreditCardNumber();
-		} catch (invalidCreditCardNumberException error)
+		} catch (InvalidCreditCardNumberException error)
 		{
 			errorMessage += " " + error.getMessage();
 		}
@@ -190,7 +190,7 @@ public class CreateAccountButtonListener implements ActionListener
 		try
 		{
 			updateExpirationDate();
-		} catch (invalidExpirationDateException error)
+		} catch (InvalidExpirationDateException error)
 		{
 			errorMessage += " " + error.getMessage();
 		}
@@ -200,7 +200,7 @@ public class CreateAccountButtonListener implements ActionListener
 		try
 		{
 			updateCvv();
-		} catch (invalidCvvException error)
+		} catch (InvalidCvvException error)
 		{
 			errorMessage += " " + error.getMessage();
 		}
@@ -223,15 +223,15 @@ public class CreateAccountButtonListener implements ActionListener
 	 * Purpose: It updates the name component if the customer didn't provide a valid
 	 * name and throws a invalidNameException.
 	 * 
-	 * @throws invalidNameException - it's an exception with customized error
+	 * @throws InvalidNameException - it's an exception with customized error
 	 *                              message for an invalid name.
 	 */
-	public void updateName() throws invalidNameException
+	public void updateName() throws InvalidNameException
 	{
 		if (!createAccount.isNameValid())
 		{
 			createAccountPanel.updateUI(textComponents.get("name"));
-			throw new invalidNameException();
+			throw new InvalidNameException();
 		}
 	}
 
@@ -239,15 +239,15 @@ public class CreateAccountButtonListener implements ActionListener
 	 * Purpose: It updates the email component if the customer didn't provide a
 	 * valid email and throws a invalidEmailException.
 	 * 
-	 * @throws invalidEmailException - it's an exception with customized error
+	 * @throws InvalidEmailException - it's an exception with customized error
 	 *                               message for an invalid email.
 	 */
-	public void updateEmail() throws invalidEmailException
+	public void updateEmail() throws InvalidEmailException
 	{
 		if (!createAccount.isEmailValid())
 		{
 			createAccountPanel.updateUI(textComponents.get("email"));
-			throw new invalidEmailException();
+			throw new InvalidEmailException();
 		}
 	}
 
@@ -256,17 +256,17 @@ public class CreateAccountButtonListener implements ActionListener
 	 * customer didn't provide a valid password or confirmPassword and throws a
 	 * invalidPasswordException.
 	 * 
-	 * @throws invalidPasswordException - it's an exception with customized error
+	 * @throws InvalidPasswordException - it's an exception with customized error
 	 *                                  message for invalid password or
 	 *                                  confirmPassword.
 	 */
-	public void updatePassword() throws invalidPasswordException
+	public void updatePassword() throws InvalidPasswordException
 	{
 		if (!createAccount.isPasswordValid())
 		{
 			createAccountPanel.updateUI(passwordComponents.get("password"));
 			createAccountPanel.updateUI(passwordComponents.get("confirmPassword"));
-			throw new invalidPasswordException();
+			throw new InvalidPasswordException();
 		}
 	}
 
@@ -275,16 +275,16 @@ public class CreateAccountButtonListener implements ActionListener
 	 * provide a valid creditCardNumber and throws a
 	 * invalidCreditCardNumberException.
 	 * 
-	 * @throws invalidCreditCardNumberException - it's an exception with customized
+	 * @throws InvalidCreditCardNumberException - it's an exception with customized
 	 *                                          error message for an invalid
 	 *                                          creditCardNumber.
 	 */
-	public void updateCreditCardNumber() throws invalidCreditCardNumberException
+	public void updateCreditCardNumber() throws InvalidCreditCardNumberException
 	{
 		if (!createAccount.isCreditCardNumberValid())
 		{
 			createAccountPanel.updateUI(textComponents.get("creditCardNumber"));
-			throw new invalidCreditCardNumberException();
+			throw new InvalidCreditCardNumberException();
 		}
 	}
 
@@ -292,16 +292,16 @@ public class CreateAccountButtonListener implements ActionListener
 	 * Purpose: It updates the expirationDate component if the customer didn't
 	 * provide a valid expirationDate and throws a invalidExpirationDateException.
 	 * 
-	 * @throws invalidExpirationDateException - it's an exception with customized
+	 * @throws InvalidExpirationDateException - it's an exception with customized
 	 *                                        error message for an invalid
 	 *                                        expirationDate.
 	 */
-	public void updateExpirationDate() throws invalidExpirationDateException
+	public void updateExpirationDate() throws InvalidExpirationDateException
 	{
 		if (!createAccount.isexpirationDateValid())
 		{
 			createAccountPanel.updateUI(textComponents.get("expirationDate"));
-			throw new invalidExpirationDateException();
+			throw new InvalidExpirationDateException();
 		}
 	}
 
@@ -309,15 +309,15 @@ public class CreateAccountButtonListener implements ActionListener
 	 * Purpose: It updates the cvv component if the customer didn't provide a valid
 	 * cvv and throws a invalidCvvException.
 	 * 
-	 * @throws invalidCvvException - it's an exception with customized error message
+	 * @throws InvalidCvvException - it's an exception with customized error message
 	 *                             for an invalid cvv.
 	 */
-	public void updateCvv() throws invalidCvvException
+	public void updateCvv() throws InvalidCvvException
 	{
 		if (!createAccount.isexpirationDateValid())
 		{
 			createAccountPanel.updateUI(passwordComponents.get("cvv"));
-			throw new invalidCvvException();
+			throw new InvalidCvvException();
 		}
 	}
 

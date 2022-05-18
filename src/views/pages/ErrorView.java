@@ -23,7 +23,7 @@ import views.widgets.TextLabel;
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
  *         Responsibilities of class: It creates ErrorView to show more details
- *         about the wrong credentials provided by the customer.
+ *         about the wrong input values provided by the customer.
  * 
  *         Version/date: 1.1 / 05/15/2022
  * 

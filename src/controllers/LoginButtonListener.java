@@ -3,7 +3,7 @@ package controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import exceptions.invalidCredentialsException;
+import exceptions.InvalidCredentialsException;
 import models.Book;
 import models.BooksList;
 import models.Category;
@@ -101,7 +101,7 @@ public class LoginButtonListener extends Exception implements ActionListener
 		try
 		{
 			update();
-		} catch (invalidCredentialsException error)
+		} catch (InvalidCredentialsException error)
 		{
 			// Add loginErrorPanel if customer provides wrong credentials with customized message from invalidCredentialsException.
 			this.pageView.addLoginErrorPanel(error.getMessage());
@@ -114,14 +114,14 @@ public class LoginButtonListener extends Exception implements ActionListener
 	 * sortPanel to the page view. It throws invalidCredentialsException if a
 	 * customer provides wrong credentials.
 	 * 
-	 * @throws invalidCredentialsException used to throw an exception when a
+	 * @throws InvalidCredentialsException used to throw an exception when a
 	 *                                     customer provides wrong credentials.
 	 */
-	public void update() throws invalidCredentialsException
+	public void update() throws InvalidCredentialsException
 	{
 		// If the customer provides input wrong credentials throw an invalidCredentialsException.
 		if (!login.getIsACustomerExist())
-			throw new invalidCredentialsException();
+			throw new InvalidCredentialsException();
 
 		// Remove the login, error and create account panel.
 		this.pageView.removeLoginPanels();
