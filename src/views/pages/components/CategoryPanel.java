@@ -105,13 +105,13 @@ public class CategoryPanel extends JPanel
 		add(nonfictionButton);
 
 		// Listen to the booksButton. 
-		new CategoryButtonListener(view, this, booksButton);
+		booksButton.addActionListener(new CategoryButtonListener(view, this, booksButton));
 
 		// Listen to the fictionButton.
-		new CategoryButtonListener(view, this, fictionButton);
+		fictionButton.addActionListener(new CategoryButtonListener(view, this, fictionButton));
 
 		// Listen to the nonfictionButton.
-		new CategoryButtonListener(view, this, nonfictionButton);
+		nonfictionButton.addActionListener(new CategoryButtonListener(view, this, nonfictionButton));
 
 	}
 

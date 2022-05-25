@@ -52,9 +52,6 @@ public class BuyButtonListener implements ActionListener
 		// Assign the book value.
 		this.book = book;
 
-		// Listen to the purchaseOptionButton.
-		this.purchaseOptionButton.addActionListener(this);
-
 	}
 
 	/**

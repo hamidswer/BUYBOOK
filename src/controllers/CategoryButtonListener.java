@@ -60,9 +60,6 @@ public class CategoryButtonListener implements ActionListener
 		// Assign the categoryButton value.
 		this.categoryButton = categoryButton;
 
-		// Listen to the categoryButton.
-		this.categoryButton.addActionListener(this);
-
 	}
 
 	/**

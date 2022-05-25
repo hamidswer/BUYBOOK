@@ -7,6 +7,9 @@ import java.util.Hashtable;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+
 import controllers.CreateAccountButtonListener;
 import controllers.FormListener;
 import views.pages.PageView;
@@ -99,35 +102,56 @@ public class CreateAccountPanel extends JPanel
 		// Initialize the name.
 		name = new FormText("First & Last name..", font, 5);
 
+		// listen to the name field to remove their text when the user clicks on it.
+		name.addMouseListener(new FormListener(name));
+
+		add(name);
+
 		// Initialize the email.
 		email = new FormText("Email...", font, 5);
+
+		// listen to the email field to remove their text when the user clicks on it.
+		email.addMouseListener(new FormListener(email));
+
+		add(email);
 
 		// Initialize the password. 
 		password = new FormPassword("Password...", font, 5);
 
+		// listen to the password field to remove their text when the user clicks on it.
+		password.addMouseListener(new FormListener(password));
+
+		add(password);
+
 		// Initialize the confirmPassword. 
 		confirmPassword = new FormPassword("Password!..", font, 5);
+
+		// listen to the confirmPassword field to remove their text when the user clicks on it.
+		confirmPassword.addMouseListener(new FormListener(confirmPassword));
+
+		add(confirmPassword);
 
 		// Initialize the creditCardNumber.
 		creditCardNumber = new FormText("Credit Card Number..", font, 5);
 
+		// listen to the creditCardNumber field to remove their text when the user clicks on it.
+		creditCardNumber.addMouseListener(new FormListener(creditCardNumber));
+
+		add(creditCardNumber);
+
 		// Initialize the expirationDate.
 		expirationDate = new FormText("05/23.", font, 5);
+
+		// listen to the expirationDate field to remove their text when the user clicks on it.
+		expirationDate.addMouseListener(new FormListener(expirationDate));
+
+		add(expirationDate);
 
 		// Initialize the CVV. 
 		cvv = new FormPassword("CVV", font, 5);
 
-		add(name);
-
-		add(email);
-
-		add(password);
-
-		add(confirmPassword);
-
-		add(creditCardNumber);
-
-		add(expirationDate);
+		// listen to the cvv field to remove their text when the user clicks on it.
+		cvv.addMouseListener(new FormListener(cvv));
 
 		add(cvv);
 
@@ -136,19 +160,11 @@ public class CreateAccountPanel extends JPanel
 		// Initialize the createAccountButton. 
 		createAccountButton = new Button("Create Account", font, new Color(27, 108, 89), Color.white);
 
+		// Listen to the createAccountButton to evaluate the input and if their valid, creates a new account.
+		createAccountButton.addActionListener(new CreateAccountButtonListener(view, this));
+
 		add(createAccountButton);
 
-		// listen to the components to remove their text when the user clicks on them.
-		new FormListener(name);
-		new FormListener(email);
-		new FormListener(password);
-		new FormListener(confirmPassword);
-		new FormListener(creditCardNumber);
-		new FormListener(expirationDate);
-		new FormListener(cvv);
-
-		// Listen to the createAccountButton to evaluate the input and if their valid, creates a new account.
-		new CreateAccountButtonListener(view, this);
 	}
 
 	/**
@@ -186,40 +202,86 @@ public class CreateAccountPanel extends JPanel
 	}
 
 	/**
-	 * Purpose: Get the create account button.
-	 * 
-	 * @return createAccountButton
-	 */
-	public Button getCreateAccountButton()
-	{
-		return createAccountButton;
-	}
-
-	/**
 	 * Polymorphism (Method overloading)
 	 */
 
 	/**
-	 * Purpose: To change textComponent's border color to red.
+	 * Purpose: To change textComponent's border color to red and add margin.
 	 * 
 	 * @param textComponent - used to change its border color.
 	 */
-	public void updateUI(FormText textComponent)
+	public void setBorderRed(FormText textComponent)
 	{
-		// Change the border color to red.
-		Border border = BorderFactory.createLineBorder(Color.RED, 2);
+		// create the line border color
+		Border colorfulBorder = BorderFactory.createLineBorder(Color.RED, 2);
+
+		// create an empty border as a margin
+		Border emptyBorder = new EmptyBorder(7, 7, 7, 7);
+
+		// create a compound border
+		CompoundBorder border = new CompoundBorder(colorfulBorder, emptyBorder);
+
+		// add border to textComponent
 		textComponent.setBorder(border);
+
 	}
 
 	/**
-	 * Purpose: To change passwordComponent's border color to red.
+	 * Purpose: To change passwordComponent's border color to red and add margin.
 	 * 
 	 * @param passwordComponent - used to change its border color.
 	 */
-	public void updateUI(FormPassword passwordComponent)
+	public void setBorderRed(FormPassword passwordComponent)
 	{
-		// Change the border color to red.
-		Border border = BorderFactory.createLineBorder(Color.RED, 2);
+		// create the line border color
+		Border colorfulBorder = BorderFactory.createLineBorder(Color.RED, 2);
+
+		// create an empty border as a margin
+		Border emptyBorder = new EmptyBorder(7, 7, 7, 7);
+
+		// create a compound border
+		CompoundBorder border = new CompoundBorder(colorfulBorder, emptyBorder);
+
+		// add border to passwordComponent
+		passwordComponent.setBorder(border);
+	}
+
+	/**
+	 * Purpose: To change textComponent's border color to green.
+	 * 
+	 * @param textComponent - used to change its border color.
+	 */
+	public void setBorderGreen(FormText textComponent)
+	{
+		// create the line border color
+		Border colorfulBorder = BorderFactory.createLineBorder(Color.GREEN, 2);
+
+		// create an empty border as a margin
+		Border emptyBorder = new EmptyBorder(7, 7, 7, 7);
+
+		// create a compound border
+		CompoundBorder border = new CompoundBorder(colorfulBorder, emptyBorder);
+
+		textComponent.setBorder(border);
+
+	}
+
+	/**
+	 * Purpose: To change passwordComponent's border color to green.
+	 * 
+	 * @param passwordComponent - used to change its border color.
+	 */
+	public void setBorderGreen(FormPassword passwordComponent)
+	{
+		// create the line border color
+		Border colorfulBorder = BorderFactory.createLineBorder(Color.GREEN, 2);
+
+		// create an empty border as a margin
+		Border emptyBorder = new EmptyBorder(7, 7, 7, 7);
+
+		// create a compound border
+		CompoundBorder border = new CompoundBorder(colorfulBorder, emptyBorder);
+		
 		passwordComponent.setBorder(border);
 	}
 

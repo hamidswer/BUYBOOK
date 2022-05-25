@@ -68,7 +68,7 @@ public class PageView extends JFrame
 	private final int width = 428;
 
 	// A PageView has-a height.
-	private final int height = 926;
+	private final int height = 800;
 
 	// A PageView has-a headerPanel.
 	private HeaderPanel headerPanel;
@@ -183,7 +183,7 @@ public class PageView extends JFrame
 		// create a loginAccountPanel.
 		loginAccountPanel = new LoginAccountPanel(this);
 
-		loginAccountPanel.setBounds(0, 750, width, 70);
+		loginAccountPanel.setBounds(0, 550, width, 70);
 
 		add(loginAccountPanel);
 
@@ -224,10 +224,9 @@ public class PageView extends JFrame
 		// create a createAccountPanel.
 		createAccountPanel = new CreateAccountPanel(this);
 
-		createAccountPanel.setBounds(0, 170, width, 600);
+		createAccountPanel.setBounds(0, 140, width, 600);
 
 		add(createAccountPanel);
-
 		// Repaint the page view.
 		repaintPageView();
 	}
@@ -288,7 +287,7 @@ public class PageView extends JFrame
 		// create a scroll.
 		scroll = new Scroll(booksPanel);
 
-		scroll.setBounds(0, 214, width - 10, 676);
+		scroll.setBounds(0, 214, width - 10, 550);
 
 		add(scroll);
 

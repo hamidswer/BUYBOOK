@@ -55,9 +55,6 @@ public class SortButtonListener implements ActionListener
 
 		// Assign the sortButton value. sortButton is the button user clicked on it. e.g. name, price or rate.
 		this.sortButton = sortButton;
-
-		// Listen to the sortButton.
-		this.sortButton.addActionListener(this);
 	}
 
 	/**

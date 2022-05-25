@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import models.About;
 import views.pages.AboutView;
-import views.widgets.Button;
-
 /**
  * Lead Author(s):
  * 
@@ -20,8 +18,8 @@ import views.widgets.Button;
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
  *         Responsibilities of class: It listens to the aboutButton. If the
- *         aboutButton clicked, it creates a new AboutView which is
- *         responsible to show about view pop up.
+ *         aboutButton clicked, it creates a new AboutView which is responsible
+ *         to show about view pop up.
  * 
  *         Version/date: 1.1 / 05/15/2022
  * 
@@ -31,14 +29,6 @@ import views.widgets.Button;
 // An AboutButtonListener is-an ActionListener.
 public class AboutButtonListener implements ActionListener
 {
-
-	public AboutButtonListener(Button aboutButton)
-	{
-
-		// Listen to a aboutButton.
-		aboutButton.addActionListener(this);
-
-	}
 
 	/**
 	 * Purpose: It Invokes when an action occurs. The action of this method is to

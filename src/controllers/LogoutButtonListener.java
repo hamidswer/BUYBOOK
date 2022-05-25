@@ -4,8 +4,6 @@ package controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import views.pages.PageView;
-import views.pages.components.HeaderPanel;
-import views.widgets.Button;
 
 /**
  * Lead Author(s):
@@ -40,19 +38,12 @@ public class LogoutButtonListener implements ActionListener
 	 * the view.
 	 * 
 	 * @param view
-	 * @param headerPanel
 	 */
-	public LogoutButtonListener(PageView pageView, HeaderPanel headerPanel)
+	public LogoutButtonListener(PageView pageView)
 	{
 
 		// Assign the pageView value.
 		this.pageView = pageView;
-
-		// Initialize the logoutButton.
-		Button logoutButton = headerPanel.getLogoutButton();
-
-		// Listen to logoutButton.
-		logoutButton.addActionListener(this);
 	}
 
 	/**

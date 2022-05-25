@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import views.pages.PageView;
 import views.pages.components.LoginAccountPanel;
-import views.widgets.Button;
 
 /**
  * Lead Author(s):
@@ -38,12 +37,6 @@ public class LoginAccountButtonListener implements ActionListener
 	{
 		// Assign the pageView value.
 		this.pageView = pageView;
-
-		// Initialize createAccountButton by getting accountButton component from the loginAccountPanel.
-		Button createAccountButton = loginAccountPanel.getCreateAccountButton();
-
-		// Listen to the createAccountButton.
-		createAccountButton.addActionListener(this);
 	}
 
 	/**

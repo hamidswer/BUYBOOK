@@ -85,7 +85,7 @@ public class BookPanel extends JPanel
 		nameButton.setBounds(-35, 0, 398, 50);
 
 		// Listen to the nameButton
-		new BookButtonListener(view, nameButton, book);
+		nameButton.addActionListener(new BookButtonListener(view, nameButton, book));
 
 		add(nameButton);
 

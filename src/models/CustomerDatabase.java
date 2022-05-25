@@ -55,6 +55,7 @@ public class CustomerDatabase
 	 */
 	public void createANewAccount()
 	{
+		
 		try
 		{
 			CreditCard creditCard = this.customer.getCreditCard();
@@ -122,8 +123,10 @@ public class CustomerDatabase
 			} finally
 			{
 				// The input file closed.
-				inputFile.close();
+				if (inputFile != null)
+					inputFile.close();
 			}
+			
 		}
 		// Handle Input exceptions.
 		catch (IOException e)
@@ -215,7 +218,8 @@ public class CustomerDatabase
 			} finally
 			{
 				// The input file closed.
-				inputFile.close();
+				if (inputFile != null)
+					inputFile.close();
 			}
 		} catch (IOException e)
 		{

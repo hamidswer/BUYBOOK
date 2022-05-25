@@ -139,7 +139,7 @@ public class FullBookPanel extends JPanel
 		electronicButton.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
 		// Listen to the electronicButton
-		new BuyButtonListener(view, electronicButton, book);
+		electronicButton.addActionListener(new BuyButtonListener(view, electronicButton, book));
 
 		// Set constraints settings for electronicButton.
 		constraints.gridy = 10;
@@ -161,7 +161,7 @@ public class FullBookPanel extends JPanel
 			paperButton.setBorder(BorderFactory.createEmptyBorder(0, 25, 0, 25));
 
 			// Listen to the paperButton
-			new BuyButtonListener(view, paperButton, book);
+			paperButton.addActionListener(new BuyButtonListener(view, paperButton, book));
 
 			// align to the right.
 			constraints.anchor = GridBagConstraints.EAST;

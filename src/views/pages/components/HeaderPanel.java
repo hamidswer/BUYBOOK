@@ -68,7 +68,7 @@ public class HeaderPanel extends JPanel
 	// A HeaderPanel has-a logoutButton.
 	private Button logoutButton;
 
-	public HeaderPanel(PageView view, boolean isUserloggedIn)
+	public HeaderPanel(PageView pageView, boolean isUserloggedIn)
 	{
 		// Make the panel transparent.
 		setOpaque(false);
@@ -108,7 +108,7 @@ public class HeaderPanel extends JPanel
 			add(logoutButton);
 
 			// Listen to the logoutButton.
-			new LogoutButtonListener(view, this);
+			logoutButton.addActionListener(new LogoutButtonListener(pageView));
 		}
 
 		Font font = new Font("Times New Roman", Font.PLAIN, 18);
@@ -116,12 +116,12 @@ public class HeaderPanel extends JPanel
 		// Initializing an aboutButton.
 		Button aboutButton = new Button("About", font, new Color(54, 57, 69), new Color(255, 255, 255));
 
-		aboutButton.setBounds(0, 0, 100, 50);
+		aboutButton.setBounds(0, 0, 50, 40);
 
 		add(aboutButton);
 
 		// Listen to the aboutButton
-		new AboutButtonListener(aboutButton);
+		aboutButton.addActionListener(new AboutButtonListener());
 
 	}
 
@@ -133,16 +133,6 @@ public class HeaderPanel extends JPanel
 	{
 		super.paintComponent(graphic);
 		graphic.drawImage(logoImage, 150, 10, 116, 112, this);
-	}
-
-	/**
-	 * Purpose: Get logout button.
-	 * 
-	 * @return logoutButton.
-	 */
-	public Button getLogoutButton()
-	{
-		return logoutButton;
 	}
 
 }

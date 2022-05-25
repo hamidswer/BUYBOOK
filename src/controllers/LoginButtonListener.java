@@ -11,7 +11,6 @@ import models.Login;
 import views.pages.PageView;
 import views.pages.components.BookPanel;
 import views.pages.components.LoginPanel;
-import views.widgets.Button;
 
 /**
  * Lead Author(s):
@@ -71,12 +70,6 @@ public class LoginButtonListener extends Exception implements ActionListener
 
 		// Assign the loginPanel value.
 		this.loginPanel = loginPanel;
-
-		// Initialize the loginButton by invoking the getLoginButton method from loginPanel.
-		Button loginButton = loginPanel.getLoginButton();
-
-		// Listen to the loginButton.
-		loginButton.addActionListener(this);
 	}
 
 	/**

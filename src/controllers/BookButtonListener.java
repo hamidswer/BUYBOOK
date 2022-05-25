@@ -47,10 +47,6 @@ public class BookButtonListener implements ActionListener
 
 		// Assign the book value. the view use the book object for giving more information about the book, and providing purchase options.
 		this.book = book;
-
-		// Listen to a bookNameButton.
-		bookNameButton.addActionListener(this);
-
 	}
 
 	/**

@@ -16,7 +16,6 @@ import views.pages.PageView;
 import views.pages.components.CreateAccountPanel;
 import views.widgets.FormPassword;
 import views.widgets.FormText;
-import views.widgets.Button;
 
 /**
  * Lead Author(s):
@@ -77,17 +76,6 @@ public class CreateAccountButtonListener implements ActionListener
 		// Assign the createAccountPanel value.
 		this.createAccountPanel = createAccountPanel;
 
-		// Assign the textComponents value.
-		textComponents = createAccountPanel.getTextComponents();
-
-		// Assign the passwordComponents value.
-		passwordComponents = createAccountPanel.getPasswordComponents();
-
-		// Initialize the CreateAccountButton.
-		Button createAccountButton = createAccountPanel.getCreateAccountButton();
-
-		// Listen to CreateAccountButton.
-		createAccountButton.addActionListener(this);
 	}
 
 	/**
@@ -98,6 +86,11 @@ public class CreateAccountButtonListener implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
+		// Assign the textComponents value.
+		textComponents = createAccountPanel.getTextComponents();
+
+		// Assign the passwordComponents value.
+		passwordComponents = createAccountPanel.getPasswordComponents();
 
 		// First get the name component from the hashtable and then get it's text value.
 		String name = textComponents.get("name").getText();
@@ -228,9 +221,12 @@ public class CreateAccountButtonListener implements ActionListener
 	 */
 	public void updateName() throws InvalidNameException
 	{
-		if (!createAccount.isNameValid())
+		if (createAccount.isNameValid())
 		{
-			createAccountPanel.updateUI(textComponents.get("name"));
+			createAccountPanel.setBorderGreen(textComponents.get("name"));
+		} else
+		{
+			createAccountPanel.setBorderRed(textComponents.get("name"));
 			throw new InvalidNameException();
 		}
 	}
@@ -244,9 +240,12 @@ public class CreateAccountButtonListener implements ActionListener
 	 */
 	public void updateEmail() throws InvalidEmailException
 	{
-		if (!createAccount.isEmailValid())
+		if (createAccount.isEmailValid())
 		{
-			createAccountPanel.updateUI(textComponents.get("email"));
+			createAccountPanel.setBorderGreen(textComponents.get("email"));
+		} else
+		{
+			createAccountPanel.setBorderRed(textComponents.get("email"));
 			throw new InvalidEmailException();
 		}
 	}
@@ -262,10 +261,14 @@ public class CreateAccountButtonListener implements ActionListener
 	 */
 	public void updatePassword() throws InvalidPasswordException
 	{
-		if (!createAccount.isPasswordValid())
+		if (createAccount.isPasswordValid())
 		{
-			createAccountPanel.updateUI(passwordComponents.get("password"));
-			createAccountPanel.updateUI(passwordComponents.get("confirmPassword"));
+			createAccountPanel.setBorderGreen(passwordComponents.get("password"));
+			createAccountPanel.setBorderGreen(passwordComponents.get("confirmPassword"));
+		} else
+		{
+			createAccountPanel.setBorderRed(passwordComponents.get("password"));
+			createAccountPanel.setBorderRed(passwordComponents.get("confirmPassword"));
 			throw new InvalidPasswordException();
 		}
 	}
@@ -281,9 +284,12 @@ public class CreateAccountButtonListener implements ActionListener
 	 */
 	public void updateCreditCardNumber() throws InvalidCreditCardNumberException
 	{
-		if (!createAccount.isCreditCardNumberValid())
+		if (createAccount.isCreditCardNumberValid())
 		{
-			createAccountPanel.updateUI(textComponents.get("creditCardNumber"));
+			createAccountPanel.setBorderGreen(textComponents.get("creditCardNumber"));
+		} else
+		{
+			createAccountPanel.setBorderRed(textComponents.get("creditCardNumber"));
 			throw new InvalidCreditCardNumberException();
 		}
 	}
@@ -298,9 +304,12 @@ public class CreateAccountButtonListener implements ActionListener
 	 */
 	public void updateExpirationDate() throws InvalidExpirationDateException
 	{
-		if (!createAccount.isexpirationDateValid())
+		if (createAccount.isexpirationDateValid())
 		{
-			createAccountPanel.updateUI(textComponents.get("expirationDate"));
+			createAccountPanel.setBorderGreen(textComponents.get("expirationDate"));
+		} else
+		{
+			createAccountPanel.setBorderRed(textComponents.get("expirationDate"));
 			throw new InvalidExpirationDateException();
 		}
 	}
@@ -314,9 +323,12 @@ public class CreateAccountButtonListener implements ActionListener
 	 */
 	public void updateCvv() throws InvalidCvvException
 	{
-		if (!createAccount.isexpirationDateValid())
+		if (createAccount.isCvvValid())
 		{
-			createAccountPanel.updateUI(passwordComponents.get("cvv"));
+			createAccountPanel.setBorderGreen(passwordComponents.get("cvv"));
+		} else
+		{
+			createAccountPanel.setBorderRed(passwordComponents.get("cvv"));
 			throw new InvalidCvvException();
 		}
 	}

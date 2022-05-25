@@ -24,7 +24,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * 
  *         Responsibilities of class: It gets the Inventory databse and updates
  *         it. It gets the books.
- *         
+ * 
  *         Version/date: 2.4 / 05/15/2022
  * 
  * 
@@ -213,7 +213,8 @@ public class InventoryDatabase
 			}
 
 			// Close the inputFile.
-			inputFile.close();
+			if (inputFile != null)
+				inputFile.close();
 		}
 
 		// Handle Input or Output exceptions.
@@ -297,7 +298,8 @@ public class InventoryDatabase
 			}
 
 			// Close the inputFile.
-			inputFile.close();
+			if (inputFile != null)
+				inputFile.close();
 		}
 
 		// Handle Input or Output exceptions.

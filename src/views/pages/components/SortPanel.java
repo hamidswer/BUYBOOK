@@ -79,31 +79,31 @@ public class SortPanel extends JPanel
 		// Initialize the sortLabel.
 		TextLabel sortLabel = new TextLabel("Sort", font, Color.black);
 
+		add(sortLabel);
+
 		// Initialize the nameButton.
 		nameButton = new Button("Name", font, new Color(255, 255, 255), new Color(27, 108, 89));
+		
+		nameButton.addActionListener(new SortButtonListener(view, this, nameButton));
+		// Listen to the nameButton to sort books by name.
+
+		add(nameButton);
 
 		// Initialize the priceButton.
 		priceButton = new Button("Price", font, new Color(255, 255, 255), new Color(27, 108, 89));
 
+		// Listen to the priceButton to sort books by price.
+		priceButton.addActionListener(new SortButtonListener(view, this, priceButton));
+		
+		add(priceButton);
+
 		// Initialize the rateButton.
 		rateButton = new Button("Rate", font, new Color(255, 255, 255), new Color(27, 108, 89));
 
-		add(sortLabel);
-
-		add(nameButton);
-
-		add(priceButton);
-
+		// Listen to the rateButton to sort books by rate.
+		rateButton.addActionListener(new SortButtonListener(view, this, rateButton));
+		
 		add(rateButton);
-
-		// Listen to the nameButton.
-		new SortButtonListener(view, this, nameButton);
-
-		// Listen to the priceButton.
-		new SortButtonListener(view, this, priceButton);
-
-		// Listen to the rateButton.
-		new SortButtonListener(view, this, rateButton);
 
 	}
 

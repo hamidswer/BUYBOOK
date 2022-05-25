@@ -45,9 +45,6 @@ public class FormListener implements MouseListener
 	{
 		// Assign the textComponenet value.
 		this.textComponenet = textComponenet;
-
-		// Listen to the textComponenet.
-		this.textComponenet.addMouseListener(this);
 	}
 
 	/**
@@ -60,9 +57,6 @@ public class FormListener implements MouseListener
 	{
 		// Assign the passwordComponenet value.
 		this.passwordComponenet = passwordComponenet;
-
-		// Listen to the passwordComponenet.
-		this.passwordComponenet.addMouseListener(this);
 	}
 
 	/**

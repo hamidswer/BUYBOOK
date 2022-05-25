@@ -34,7 +34,7 @@ import views.widgets.Button;
  * 
  *         Responsibilities of class:
  * 
- *         
+ * 
  * 
  *         Version/date: 1.3 / 05/12/2022
  * 
@@ -75,7 +75,6 @@ public class LoginPanel extends JPanel
 		// Make the panel transparent.
 		setOpaque(false);
 
-		// border => top == 0, left == 35, bottom == 0, right == 50.
 		setBorder(BorderFactory.createEmptyBorder(0, 35, 0, 50));
 
 		// Initialize the font for text.
@@ -84,31 +83,31 @@ public class LoginPanel extends JPanel
 		// Initialize the email.
 		email = new FormText("john@gmail.com", font, 10);
 
+		// Listen to the email text field.
+		email.addMouseListener(new FormListener(email));
+
+		add(email);
+
 		// Initialize the password. 
 		password = new FormPassword("123456791", font, 10);
 
-		// Initialize the font for button.
+		// Listen to the password text field.
+		password.addMouseListener(new FormListener(password));
+
+		// Add the password to the loginPanel.
+		add(password);
+
 		font = new Font("Times New Roman", Font.PLAIN, 32);
 
 		// Initialize the button for login. 
 		loginButton = new Button("Login", font, new Color(27, 108, 89), Color.white);
 
-		// Add the email to the loginPanel.
-		add(email);
-
-		// Add the password to the loginPanel.
-		add(password);
+		// Listen to the login buttons.
+		loginButton.addActionListener(new LoginButtonListener(view, this));
 
 		// Add the loginButton to the loginPanel.
 		add(loginButton);
 
-		// Listen to the login form texts.
-		new FormListener(email);
-
-		new FormListener(password);
-
-		// Listen to the login buttons.
-		new LoginButtonListener(view, this);
 	}
 
 	/**
@@ -129,16 +128,6 @@ public class LoginPanel extends JPanel
 	public FormPassword getPasswordComponent()
 	{
 		return password;
-	}
-
-	/**
-	 * Get the button component.
-	 * 
-	 * @return the button component.
-	 */
-	public Button getLoginButton()
-	{
-		return loginButton;
 	}
 
 }

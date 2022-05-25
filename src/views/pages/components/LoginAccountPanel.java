@@ -72,19 +72,10 @@ public class LoginAccountPanel extends JPanel
 		// Initialize the createAccountButton. 
 		createAccountButton = new Button("Create Account", font, new Color(27, 108, 89), Color.white);
 
+		// Listen to the createAccountButton.
+		createAccountButton.addActionListener(new LoginAccountButtonListener(view, this));
+
 		add(createAccountButton);
 
-		// Listen to the createAccountButton.
-		new LoginAccountButtonListener(view, this);
-	}
-
-	/**
-	 * Purpose: Get the create account button component.
-	 * 
-	 * @return the create account button component.
-	 */
-	public Button getCreateAccountButton()
-	{
-		return createAccountButton;
 	}
 }
