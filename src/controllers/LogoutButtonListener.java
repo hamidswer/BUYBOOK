@@ -26,7 +26,7 @@ import views.pages.PageView;
  * 
  * 
  */
-// A LogoutButtonListener is-an ActionListener.
+// A LogoutButtonListener is ActionListener.
 public class LogoutButtonListener implements ActionListener
 {
 

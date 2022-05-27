@@ -21,13 +21,21 @@ package models;
  * 
  * 
  */
-public class Category
-{
+public class Category {
 	// The Category class has-a name.
 	private static String name = "Books";
 
 	// The Category class has many books.
 	private static Book[] books;
+
+	// The Category has-a booksList.
+	private BooksList booksList;
+
+
+	public Category() {
+		// Initialize a bookslist.
+		booksList = new BooksList();
+	}
 
 	/**
 	 * Purpose: Get books based on their categoryName.
@@ -35,31 +43,30 @@ public class Category
 	 * @param categoryName - It could be Books, Fiction or non fiction.
 	 * @return books - generated books based on their category.
 	 */
-	public Book[] getBooks(String categoryName)
-	{
+	public Book[] getBooks(String categoryName) {
+
 		// Initialize name.
 		name = categoryName;
 
-		// Initialize a bookslist.
-		BooksList booksList = new BooksList();
-
-		switch (name)
-		{
+		switch (name) {
 		case "Fiction":
 
-			// Initialize books by invoking getFictions method from the bookList object.(just fiction books)
+			// Initialize books by invoking getFictions method from the bookList
+			// object.(just fiction books)
 			books = booksList.getFictions();
 			break;
 
 		case "Nonfiction":
 
-			// Initialize books by invoking getNonFictions method from the bookList object.(just non fiction books)
+			// Initialize books by invoking getNonFictions method from the bookList
+			// object.(just non fiction books)
 			books = booksList.getNonFictions();
 			break;
 
 		case "Books":
 
-			// Initialize books by invoking getBooks method from the bookList object.(all books)
+			// Initialize books by invoking getBooks method from the bookList object.(all
+			// books)
 			books = booksList.getBooks();
 			break;
 		}
@@ -77,8 +84,7 @@ public class Category
 	 * 
 	 * @return books.
 	 */
-	public Book[] getBooks()
-	{
+	public Book[] getBooks() {
 		return books;
 	}
 

@@ -33,7 +33,7 @@ import views.widgets.Button;
  * 
  * 
  */
-// A CategoryButtonListener is-an ActionListener.
+// A CategoryButtonListener is ActionListener.
 public class CategoryButtonListener implements ActionListener
 {
 

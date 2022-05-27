@@ -28,12 +28,11 @@ import java.util.ArrayList;
  * 
  */
 
-public class BooksList
-{
+public class BooksList {
 	// A BooksList has-a database.
 	private InventoryDatabase database;
 
-	// The BooksList class has many books. 
+	// The BooksList class has many books.
 	private static Book[] books;
 
 	// The BooksList class has many fictions.
@@ -42,31 +41,35 @@ public class BooksList
 	// The BooksList has many nonFictions.
 	private static Book[] nonFictions;
 
-	public BooksList(boolean loggedIn)
-	{
+	private String databaseErrorMessage;
+
+	public BooksList(boolean loggedIn) {
 		// If customer logged in.
-		if (loggedIn)
-		{
+		if (loggedIn) {
 			// Initialize database.
 			database = new InventoryDatabase();
 
-			// Initialize books.
-			books = database.getBooks();
+			// If we catch an error by reading the database file.
+			if (database.isError())
+				databaseErrorMessage = database.getErrorMessage();
+			else {
+				// Initialize books.
+				books = database.getBooks();
 
-			// Set a book list for all books.
-			setBooks();
+				// Set a book list for all books.
+				setBooks();
 
-			// Set a book list with fiction genre.
-			setFicions();
+				// Set a book list with fiction genre.
+				setFicions();
 
-			// Set a book list with non fiction genre.
-			setNonFictions();
+				// Set a book list with non fiction genre.
+				setNonFictions();
+			}
 
 		}
 	}
 
-	public BooksList()
-	{
+	public BooksList() {
 
 	}
 
@@ -75,8 +78,7 @@ public class BooksList
 	 * 
 	 * @return fictionList
 	 */
-	public void setFicions()
-	{
+	public void setFicions() {
 		ArrayList<Book> fictionsArrayList = new ArrayList<Book>();
 		for (int i = 0; i < books.length - 1; i++)
 
@@ -96,8 +98,7 @@ public class BooksList
 	 * 
 	 * @return nonFictionList
 	 */
-	public void setNonFictions()
-	{
+	public void setNonFictions() {
 		// Initialize a nonFictionsArrayList.
 		ArrayList<Book> nonFictionsArrayList = new ArrayList<Book>();
 
@@ -119,8 +120,7 @@ public class BooksList
 	 * 
 	 * @return nonFictionList
 	 */
-	public void setBooks()
-	{
+	public void setBooks() {
 		// Initialize a nonFictionsArrayList.
 		ArrayList<Book> booksArrayList = new ArrayList<Book>();
 
@@ -139,8 +139,7 @@ public class BooksList
 	 * 
 	 * @return books.
 	 */
-	public Book[] getBooks()
-	{
+	public Book[] getBooks() {
 		return books;
 	}
 
@@ -149,8 +148,7 @@ public class BooksList
 	 * 
 	 * @return fictions.
 	 */
-	public Book[] getFictions()
-	{
+	public Book[] getFictions() {
 		return fictions;
 	}
 
@@ -159,10 +157,29 @@ public class BooksList
 	 * 
 	 * @return nonFictions.
 	 */
-	public Book[] getNonFictions()
-	{
+	public Book[] getNonFictions() {
 
 		return nonFictions;
+	}
+
+	/**
+	 * Purpose: Check if an error happened when reading the database file.
+	 * 
+	 * @return true if there is some error false if it's not.
+	 */
+	public boolean isError() {
+		if (databaseErrorMessage != null)
+			return true;
+		return false;
+	}
+
+	/**
+	 * Purpose: Get database file error message.
+	 * 
+	 * @return error message
+	 */
+	public String getDatabaseFileErrorMessage() {
+		return databaseErrorMessage;
 	}
 
 }

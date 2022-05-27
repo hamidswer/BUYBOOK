@@ -26,7 +26,7 @@ package exceptions;
  * 
  */
 
-// An invalidNameException is-a Exception.
+// An invalidNameException is-an Exception.
 public class InvalidNameException extends Exception
 {
 	/**

@@ -30,7 +30,7 @@ import views.widgets.Button;
  * 
  */
 
-// A BookButtonListener is-an ActionListener.
+// A BookButtonListener is ActionListener.
 public class BookButtonListener implements ActionListener
 {
 

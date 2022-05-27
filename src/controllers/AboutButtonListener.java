@@ -26,7 +26,7 @@ import views.pages.AboutView;
  * 
  */
 
-// An AboutButtonListener is-an ActionListener.
+// An AboutButtonListener is ActionListener.
 public class AboutButtonListener implements ActionListener
 {
 

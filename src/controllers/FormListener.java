@@ -27,7 +27,7 @@ import views.widgets.FormText;
  * 
  */
 
-// A FormListener is-a MouseListener.
+// A FormListener is MouseListener.
 public class FormListener implements MouseListener
 {
 	// A FormListener has-a textComponenet.

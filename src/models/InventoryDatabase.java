@@ -30,14 +30,15 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * 
  */
 
-public class InventoryDatabase
-{
+public class InventoryDatabase {
 
 	// An InventoryDatabase has many books.
 	private Book[] books;
 
-	public InventoryDatabase()
-	{
+	// An InventoryDatabase has-an errorMessage.
+	private String errorMessage = "";
+
+	public InventoryDatabase() {
 		getInventory();
 	}
 
@@ -45,15 +46,12 @@ public class InventoryDatabase
 	 * Get books from the Inventory database.
 	 * 
 	 */
-	public void getInventory()
-	{
-		try
-		{
+	public void getInventory() {
+		try {
 			// Initialize inputFile. Input bytes from a file in a file system.
 			FileInputStream inputFile = new FileInputStream(new File("src/databases/Inventory.xlsx"));
 
-			try (XSSFWorkbook workbook = new XSSFWorkbook(inputFile))
-			{
+			try (XSSFWorkbook workbook = new XSSFWorkbook(inputFile)) {
 				// Get the first sheet of excel file.
 				XSSFSheet sheet = workbook.getSheetAt(0);
 
@@ -63,7 +61,8 @@ public class InventoryDatabase
 				// Initialize books array.
 				books = new Book[numberOfRows];
 
-				// use iterator object to loop through collections like ArrayList. <Row> means each row of spreadsheet, 
+				// use iterator object to loop through collections like ArrayList. <Row> means
+				// each row of spreadsheet,
 				// so the program start to iterate for each row
 				// to iterate through rows of excel file.
 				java.util.Iterator<Row> rowIterator = sheet.iterator();
@@ -71,22 +70,20 @@ public class InventoryDatabase
 				int rowCounter = 0;
 
 				// while there isn't any blank row.
-				while (rowIterator.hasNext())
-				{
+				while (rowIterator.hasNext()) {
 
 					// Initialize row.
 					Row row = rowIterator.next();
-					if (row.getRowNum() == 0)
-					{
-						continue; //just skip the rows if row number is 0
+					if (row.getRowNum() == 0) {
+						continue; // just skip the rows if row number is 0
 					}
 
-					// use iterator object to loop through collections like ArrayList. 
-					// <Cell> means each cell of spreadsheet. 
+					// use iterator object to loop through collections like ArrayList.
+					// <Cell> means each cell of spreadsheet.
 					// So the program start to iterate for each cell.
 					java.util.Iterator<Cell> cellIterator = row.cellIterator();
 
-					// the column used to see in which column of row the rowItrator is, 
+					// the column used to see in which column of row the rowItrator is,
 					// So we can assign value to right variable.
 					int column = 0;
 
@@ -115,46 +112,44 @@ public class InventoryDatabase
 					String genre = "";
 
 					// while there isn't any blank cell.
-					while (cellIterator.hasNext())
-					{
+					while (cellIterator.hasNext()) {
 
 						// Initialize the cell.
 						Cell cell = cellIterator.next();
 
 						// Determine a cell is in which column.
-						switch (column)
-						{
+						switch (column) {
 
 						// if it's the first column.
 						case 0:
-							// Assign cell value to the id. 
+							// Assign cell value to the id.
 							id = Integer.parseInt(type(cell));
 
 							// Increment the column.
 							column++;
 							break;
 
-						// if it's in the second column.	
+						// if it's in the second column.
 						case 1:
 
-							// Assign cell value to the name. 
+							// Assign cell value to the name.
 							name = type(cell);
 
 							// Increment the column.
 							column++;
 							break;
 
-						// if it's in the third column.	
+						// if it's in the third column.
 						case 2:
 
-							// Assign cell value to the author. 
+							// Assign cell value to the author.
 							author = type(cell);
 
 							// Increment the column.
 							column++;
 							break;
 
-						// if it's in the fourth column.	
+						// if it's in the fourth column.
 						case 3:
 
 							// Assign cell value to the rate.
@@ -218,9 +213,8 @@ public class InventoryDatabase
 		}
 
 		// Handle Input or Output exceptions.
-		catch (IOException e)
-		{
-			System.out.println("Something is wrong with file. First check file directory and name.");
+		catch (IOException e) {
+			errorMessage = "Something is wrong with inventory file.";
 		}
 	}
 
@@ -229,8 +223,7 @@ public class InventoryDatabase
 	 * 
 	 * @return books.
 	 */
-	public Book[] getBooks()
-	{
+	public Book[] getBooks() {
 		return books;
 	}
 
@@ -240,31 +233,27 @@ public class InventoryDatabase
 	 * 
 	 * @param bookId - an id of a book
 	 */
-	public void updateInventory(int bookId)
-	{
-		try
-		{
+	public void updateInventory(int bookId) {
+		try {
 			// Initialize inputFile. Input bytes from a file in a file system.
 			FileInputStream inputFile = new FileInputStream(new File("src/databases/Inventory.xlsx"));
 
-			try (XSSFWorkbook workbook = new XSSFWorkbook(inputFile))
-			{
+			try (XSSFWorkbook workbook = new XSSFWorkbook(inputFile)) {
 				// Get the first sheet of excel file.
 				XSSFSheet sheet = workbook.getSheetAt(0);
 
-				// use iterator object to loop through collections like ArrayList. <Row> means each row of spreadsheet, 
+				// use iterator object to loop through collections like ArrayList. <Row> means
+				// each row of spreadsheet,
 				// so the program start to iterate for each row
 				// to iterate through rows of excel file.
 				java.util.Iterator<Row> rowIterator = sheet.iterator();
 
 				// While there isn't any blank row.
-				while (rowIterator.hasNext())
-				{
+				while (rowIterator.hasNext()) {
 					// Initialize row.
 					Row row = rowIterator.next();
-					if (row.getRowNum() == 0)
-					{
-						continue; //just skip the rows if row number is 0
+					if (row.getRowNum() == 0) {
+						continue; // just skip the rows if row number is 0
 					}
 
 					// Get the id Cell.
@@ -274,8 +263,7 @@ public class InventoryDatabase
 					int id = (int) idCell.getNumericCellValue();
 
 					// If the book id is the same by the id provided.
-					if (bookId == id)
-					{
+					if (bookId == id) {
 						// Get the leftInStore Cell.
 						Cell leftInStore = row.getCell(6);
 
@@ -287,7 +275,7 @@ public class InventoryDatabase
 					}
 
 					// Initialize the outputFile.
-					FileOutputStream outputFile = new FileOutputStream(new File("bestsellers.xlsx"));
+					FileOutputStream outputFile = new FileOutputStream(new File("src/databases/Inventory.xlsx"));
 
 					// Update the file.
 					workbook.write(outputFile);
@@ -303,9 +291,8 @@ public class InventoryDatabase
 		}
 
 		// Handle Input or Output exceptions.
-		catch (IOException e)
-		{
-			System.out.println("Something is wrong with file. First check file directory and name.");
+		catch (IOException e) {
+			errorMessage = "Something is wrong with inventory file.";
 		}
 	}
 
@@ -317,11 +304,10 @@ public class InventoryDatabase
 	 * @param cell - each cell of excel file.
 	 * @return cell value as String
 	 */
-	public static String type(Cell cell)
-	{
-		// The getCellTypeEnum method check the type of each cell's value. (It could be String, Numeric, or ...)
-		switch (cell.getCellTypeEnum())
-		{
+	public static String type(Cell cell) {
+		// The getCellTypeEnum method check the type of each cell's value. (It could be
+		// String, Numeric, or ...)
+		switch (cell.getCellTypeEnum()) {
 		// If the type of input is string.
 		case STRING:
 
@@ -331,7 +317,8 @@ public class InventoryDatabase
 		// If the type of input is Numeric
 		case NUMERIC:
 
-			// Return the Numeric value(double) and then turn it to Int, and then turn it to String.
+			// Return the Numeric value(double) and then turn it to Int, and then turn it to
+			// String.
 			return String.valueOf((int) cell.getNumericCellValue());
 		case BLANK:
 			break;
@@ -349,6 +336,26 @@ public class InventoryDatabase
 
 		// return empty Space if the cell has different type of values.
 		return " ";
+	}
+
+	/**
+	 * Purpose: Check if an error happened.
+	 * 
+	 * @return true if there is some error false if it's not.
+	 */
+	public boolean isError() {
+		if (errorMessage.length() > 0)
+			return true;
+		return false;
+	}
+
+	/**
+	 * Purpose: Get error message.
+	 * 
+	 * @return error message
+	 */
+	public String getErrorMessage() {
+		return errorMessage;
 	}
 
 }

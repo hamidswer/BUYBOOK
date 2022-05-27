@@ -26,7 +26,7 @@ package exceptions;
  * 
  */
 
-// An invalidEmailException is-a Exception.
+// An invalidEmailException is-an Exception.
 public class InvalidEmailException extends Exception
 {
 

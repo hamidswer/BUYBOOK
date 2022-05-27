@@ -26,7 +26,7 @@ package exceptions;
  * 
  */
 
-// An invalidExpirationDateException is-a Exception.
+// An invalidExpirationDateException is-an Exception.
 public class InvalidExpirationDateException extends Exception
 {
 

@@ -27,12 +27,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  *         by a customer. It is responsible for creating a new account in the
  *         customer database.
  * 
- *         Version/date: 1.6 / 05/15/2022
+ *         Version/date: 1.7 / 05/26/2022
  * 
  * 
  */
-public class CustomerDatabase
-{
+public class CustomerDatabase {
 
 	// A CustomerDatabase has-a customer.
 	private Customer customer;
@@ -40,12 +39,13 @@ public class CustomerDatabase
 	// The CustomerDatabase class has-a currentCustomer.
 	private static Customer currentCustomer;
 
-	public CustomerDatabase()
-	{
+	// A CustomerDatabase has-a databaseErrorMessage.
+	private String databaseErrorMessage;
+
+	public CustomerDatabase() {
 	}
 
-	public CustomerDatabase(Customer customer)
-	{
+	public CustomerDatabase(Customer customer) {
 		this.customer = customer;
 	}
 
@@ -53,18 +53,15 @@ public class CustomerDatabase
 	 * Purpose: Create a new account.
 	 * 
 	 */
-	public void createANewAccount()
-	{
-		
-		try
-		{
+	public void createANewAccount() {
+
+		try {
 			CreditCard creditCard = this.customer.getCreditCard();
 
 			// input the Customer database file.
 			FileInputStream inputFile = new FileInputStream(new File("src/databases/Customers.xlsx"));
 
-			try (XSSFWorkbook workbook = new XSSFWorkbook(inputFile))
-			{
+			try (XSSFWorkbook workbook = new XSSFWorkbook(inputFile)) {
 				// Get first sheet of excel file.
 				XSSFSheet sheet = workbook.getSheetAt(0);
 
@@ -117,21 +114,18 @@ public class CustomerDatabase
 				outputFile.close();
 
 				// Handle the output exceptions.
-			} catch (IOException e)
-			{
-				System.out.println("Something is wrong with the output file.");
-			} finally
-			{
+			} catch (IOException e) {
+				databaseErrorMessage = "Something is wrong about database file.";
+			} finally {
 				// The input file closed.
 				if (inputFile != null)
 					inputFile.close();
 			}
-			
+
 		}
 		// Handle Input exceptions.
-		catch (IOException e)
-		{
-			System.out.println("Something is wrong with the input file.");
+		catch (IOException e) {
+			databaseErrorMessage = "Something is wrong about database file.";
 		}
 	}
 
@@ -149,26 +143,23 @@ public class CustomerDatabase
 	 * @return true if the user exist in the Customer database, false if the user is
 	 *         not exist in the database.
 	 */
-	public boolean isCustomer(String userEmail, String userPassword)
-	{
-		try
-		{
+	public boolean isCustomer(String userEmail, String userPassword) {
+		try {
 			// input the Customer database file.
 			FileInputStream inputFile = new FileInputStream(new File("src/databases/Customers.xlsx"));
 
-			try (XSSFWorkbook workbook = new XSSFWorkbook(inputFile))
-			{
+			try (XSSFWorkbook workbook = new XSSFWorkbook(inputFile)) {
 				// Get first sheet of excel file.
 				XSSFSheet sheet = workbook.getSheetAt(0);
 
-				// use iterator object to loop through collections like ArrayList. 
-				// <Row> means each row of spreadsheet. so the program start to iterate for each row.
+				// use iterator object to loop through collections like ArrayList.
+				// <Row> means each row of spreadsheet. so the program start to iterate for each
+				// row.
 				// To iterate through rows of excel file.
 				java.util.Iterator<Row> rowIterator = sheet.iterator();
 
 				// While there isn't any blank row.
-				while (rowIterator.hasNext())
-				{
+				while (rowIterator.hasNext()) {
 					// Get the row.
 					Row row = rowIterator.next();
 
@@ -179,8 +170,7 @@ public class CustomerDatabase
 					String email = cell2.getStringCellValue();
 
 					// If the email is the same with provided email from the customer.
-					if (email.equals(userEmail))
-					{
+					if (email.equals(userEmail)) {
 						// Get the third Cell.
 						Cell cell3 = row.getCell(2);
 
@@ -188,21 +178,20 @@ public class CustomerDatabase
 						String password = cell3.getStringCellValue();
 
 						// If the password is the same with provided password from the customer.
-						if (password.equals(userPassword))
-						{
+						if (password.equals(userPassword)) {
 							// Assign the name from the first column of the row.
 							String name = row.getCell(0).getStringCellValue();
 
-							// Assign the creditCardNumber from the fourth column of the row. 
+							// Assign the creditCardNumber from the fourth column of the row.
 							String creditCardNumber = row.getCell(3).getStringCellValue();
 
-							// Assign the expirationDate from the fifth column of the row. 
+							// Assign the expirationDate from the fifth column of the row.
 							String expirationDate = row.getCell(4).getStringCellValue();
 
-							// Assign the cvv from the sixth column of the row. 
+							// Assign the cvv from the sixth column of the row.
 							String cvv = row.getCell(5).getStringCellValue();
 
-							// Create the currentCustomer from the Customer class. 
+							// Create the currentCustomer from the Customer class.
 							currentCustomer = new Customer(name, email, password, creditCardNumber, expirationDate,
 									cvv);
 
@@ -212,20 +201,16 @@ public class CustomerDatabase
 
 				}
 
-			} catch (IOException e)
-			{
-				System.out.println("Something is wrong with the output file.");
-			} finally
-			{
+			} catch (IOException e) {
+				databaseErrorMessage = "Something is wrong about database file.";
+			} finally {
 				// The input file closed.
 				if (inputFile != null)
 					inputFile.close();
 			}
-		} catch (IOException e)
-		{
-			System.out.println("Something is wrong with the output file.");
+		} catch (IOException e) {
+			databaseErrorMessage = "Something is wrong about database file.";
 		}
-
 		return false;
 	}
 
@@ -234,8 +219,27 @@ public class CustomerDatabase
 	 * 
 	 * @return currentCustomer
 	 */
-	public Customer getCurrentCustomer()
-	{
+	public Customer getCurrentCustomer() {
 		return currentCustomer;
+	}
+
+	/**
+	 * Purpose: Check if an error happened.
+	 * 
+	 * @return true if there is some error false if it's not.
+	 */
+	public boolean isError() {
+		if (databaseErrorMessage != null)
+			return true;
+		return false;
+	}
+
+	/**
+	 * Purpose: Get error message.
+	 * 
+	 * @return error message
+	 */
+	public String getErrorMessage() {
+		return databaseErrorMessage;
 	}
 }

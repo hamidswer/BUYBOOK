@@ -15,6 +15,7 @@ import controllers.AboutButtonListener;
 import controllers.LogoutButtonListener;
 import views.pages.PageView;
 import views.widgets.Button;
+import views.widgets.TextLabel;
 
 /**
  * Lead Author(s):
@@ -39,14 +40,13 @@ import views.widgets.Button;
  *         Responsibilities of class: It creates the headerPanel which includes
  *         logo image, about and logout button.
  * 
- *         Version/date: 1.5 / 05/15/2022
+ *         Version/date: 1.6 / 05/26/2022
  * 
  * 
  */
 
 // A HeaderPanel is-a JPanel.
-public class HeaderPanel extends JPanel
-{
+public class HeaderPanel extends JPanel {
 	/**
 	 * Serialization is a mechanism of converting the state of an object into a byte
 	 * stream, and it can be used to make it eligible for saving its state into a
@@ -68,47 +68,62 @@ public class HeaderPanel extends JPanel
 	// A HeaderPanel has-a logoutButton.
 	private Button logoutButton;
 
-	public HeaderPanel(PageView pageView, boolean isUserloggedIn)
-	{
+	// A HeaderPanel has-a logoutButton.
+	private String logoErrorMessage;
+
+	private String logoutErrorMessage;
+
+	public HeaderPanel(PageView pageView, boolean isUserloggedIn) {
 		// Make the panel transparent.
 		setOpaque(false);
 
 		// Set null layout/absolute layout.
 		setLayout(null);
 
-		try
-		{
+		try {
 			logoImage = ImageIO.read(new File("src/views/images/logo.png"));
-		} catch (IOException ex)
-		{
-			System.out.println("The application can not access to the logo file.");
+		} catch (IOException ex) {
+			logoErrorMessage = "Logo is not available.";
 		}
-		try
-		{
+		try {
 			logoutImage = ImageIO.read(new File("src/views/images/logout.png"));
-		} catch (IOException ex)
-		{
-			System.out.println("The application can not access to the logout file.");
+		} catch (IOException ex) {
+			logoutErrorMessage = "logout";
 		}
-		if (isUserloggedIn)
-		{
-			// Initialize the logoutButton.
-			logoutButton = new Button(new ImageIcon(logoutImage));
+		if (isUserloggedIn) {
+			if (logoutErrorMessage == null) {
+				// Initialize the logoutButton.
+				logoutButton = new Button(new ImageIcon(logoutImage));
 
-			// Set an empty border.
-			logoutButton.setBorder(BorderFactory.createEmptyBorder());
+				// Set an empty border.
+				logoutButton.setBorder(BorderFactory.createEmptyBorder());
 
-			// Disable area fill by default style.
-			logoutButton.setContentAreaFilled(false);
+				// Disable area fill by default style.
+				logoutButton.setContentAreaFilled(false);
 
-			// Set the location of logoutButton.
-			logoutButton.setBounds(388, 6, 22, 25);
+				// Set the location of logoutButton.
+				logoutButton.setBounds(388, 6, 22, 25);
 
-			// Add logoutButton to the headerPanel.
-			add(logoutButton);
+				// Add logoutButton to the headerPanel.
+				add(logoutButton);
 
-			// Listen to the logoutButton.
-			logoutButton.addActionListener(new LogoutButtonListener(pageView));
+				// Listen to the logoutButton.
+				logoutButton.addActionListener(new LogoutButtonListener(pageView));
+
+			} else {
+				Font font = new Font("Times New Roman", Font.PLAIN, 14);
+
+				// Initialize the button for logout.
+				Button logoutButton = new Button(logoutErrorMessage, font, new Color(27, 108, 89), Color.white);
+
+				logoutButton.setBounds(340, 6, 60, 30);
+
+				// Add logoutButton to the headerPanel.
+				add(logoutButton);
+
+				// Listen to the logoutButton.
+				logoutButton.addActionListener(new LogoutButtonListener(pageView));
+			}
 		}
 
 		Font font = new Font("Times New Roman", Font.PLAIN, 18);
@@ -129,10 +144,20 @@ public class HeaderPanel extends JPanel
 	 * It overrides paintComponent method. Polymorphism (dynamically bind).
 	 */
 	@Override
-	protected void paintComponent(Graphics graphic)
-	{
+	protected void paintComponent(Graphics graphic) {
 		super.paintComponent(graphic);
-		graphic.drawImage(logoImage, 150, 10, 116, 112, this);
+		if (logoErrorMessage == null) {
+			graphic.drawImage(logoImage, 150, 10, 116, 112, this);
+		} else {
+			Font font = new Font("Times New Roman", Font.PLAIN, 14);
+
+			TextLabel text = new TextLabel(logoErrorMessage, font, Color.white);
+
+			text.setBounds(150, 6, 200, 50);
+
+			add(text);
+
+		}
 	}
 
 }

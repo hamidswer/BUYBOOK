@@ -46,7 +46,7 @@ import views.widgets.FormText;
  * 
  * 
  */
-// A CreateAccountButtonListener is-an ActionListener.
+// A CreateAccountButtonListener is ActionListener.
 public class CreateAccountButtonListener implements ActionListener
 {
 

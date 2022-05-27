@@ -26,7 +26,7 @@ package exceptions;
  * 
  */
 
-// An invalidCreditCardNumberException is-a Exception.
+// An invalidCreditCardNumberException is-an Exception.
 public class InvalidCreditCardNumberException extends Exception
 {
 

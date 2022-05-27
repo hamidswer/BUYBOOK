@@ -32,7 +32,7 @@ import views.widgets.Button;
  * 
  * 
  */
-// A SortButtonListener is-an ActionListener.
+// A SortButtonListener is ActionListener.
 public class SortButtonListener implements ActionListener
 {
 

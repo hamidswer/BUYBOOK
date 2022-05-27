@@ -1,6 +1,8 @@
 package views.pages.components;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -34,14 +36,13 @@ import views.widgets.TextLabel;
  *         Responsibilities of class: It creates a ratePanel for showing
  *         star-rate component for a book to the user.
  * 
- *         Version/date: 1.4 / 05/15/2022
+ *         Version/date: 1.5 / 05/26/2022
  * 
  * 
  */
 
 // A RatePanel is-a JPanel.
-public class RatePanel extends JPanel
-{
+public class RatePanel extends JPanel {
 	/**
 	 * Serialization is a mechanism of converting the state of an object into a byte
 	 * stream, and it can be used to make it eligible for saving its state into a
@@ -57,8 +58,9 @@ public class RatePanel extends JPanel
 	// A RatePanel has-a starLabel.
 	private TextLabel starLabel;
 
-	public RatePanel(int bookRate)
-	{
+	private int bookRate;
+
+	public RatePanel(int bookRate) {
 		GridLayout grid = new GridLayout(1, 0, 0, 0);
 
 		setLayout(grid);
@@ -69,23 +71,22 @@ public class RatePanel extends JPanel
 		// Set alignment to the left.
 		setAlignmentX(Component.LEFT_ALIGNMENT);
 
-		// Initialize the rate by converting rate to the equivelant 5-star rating.  
-		int rate = bookRate / 20;
+		this.bookRate = bookRate;
 
 		// Update the panel.
-		update(rate);
+		update();
 
 	}
 
 	/**
 	 * Purpose: creates star-rate images for the panel based on a book's rate.
 	 * 
-	 * @param rate
 	 */
-	public void update(int rate)
-	{
-		try
-		{
+	public void update() {
+		// Initialize the rate by converting rate to the equivelant 5-star rating.
+		int rate = bookRate / 20;
+
+		try {
 			// Initialize a threeStarsImage.
 			BufferedImage threeStarsImage = ImageIO.read(new File("src/views/images/star3.png"));
 
@@ -94,8 +95,7 @@ public class RatePanel extends JPanel
 
 			// Initialize a fiveStarsImage.
 			BufferedImage fiveStarsImage = ImageIO.read(new File("src/views/images/star5.png"));
-			switch (rate)
-			{
+			switch (rate) {
 			case 3:
 				// Initialize star label.
 				starLabel = new TextLabel(new ImageIcon(threeStarsImage));
@@ -117,9 +117,12 @@ public class RatePanel extends JPanel
 			// Add starLabel to the ratePanel.
 			add(starLabel);
 
-		} catch (IOException ex)
-		{
-			System.out.println("The application can not access the star file.");
+		} catch (IOException ex) {
+			Font font = new Font("Times New Roman", Font.PLAIN, 14);
+
+			TextLabel text = new TextLabel(String.valueOf(bookRate), font, Color.white);
+
+			add(text);
 		}
 	}
 }

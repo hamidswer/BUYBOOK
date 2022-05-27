@@ -8,6 +8,7 @@ import models.Book;
 import models.BooksList;
 import models.Category;
 import models.Login;
+import views.pages.ErrorView;
 import views.pages.PageView;
 import views.pages.components.BookPanel;
 import views.pages.components.LoginPanel;
@@ -32,13 +33,13 @@ import views.pages.components.LoginPanel;
  *         categoryPanel, sortedPanel, and booksPanel to the page view. Note:
  *         books in booksPanel would be all the books in the inventory.
  * 
- *         Version/date: 1.3 / 05/15/2022
+ *         Version/date: 1.4 / 05/26/2022
  * 
  * 
  */
-// A LoginButtonListener is-an Exception and an ActionListener.
-public class LoginButtonListener extends Exception implements ActionListener
-{
+// A LoginButtonListener is-an Exception 
+// A LoginButtonListener is ActionListener.
+public class LoginButtonListener extends Exception implements ActionListener {
 
 	/**
 	 * Serialization is a mechanism of converting the state of an object into a byte
@@ -63,13 +64,18 @@ public class LoginButtonListener extends Exception implements ActionListener
 	// A LoginButtonListener has many booksPanel.
 	private BookPanel[] booksPanel;
 
-	public LoginButtonListener(PageView pageView, LoginPanel loginPanel)
-	{
+	// A LoginButtonListener has-a booksList.
+	private BooksList booksList;
+
+	public LoginButtonListener(PageView pageView, LoginPanel loginPanel) {
 		// Assign the pageView value.
 		this.pageView = pageView;
 
 		// Assign the loginPanel value.
 		this.loginPanel = loginPanel;
+
+		// Create a new Bookslist.
+		booksList = new BooksList(true);
 	}
 
 	/**
@@ -78,8 +84,7 @@ public class LoginButtonListener extends Exception implements ActionListener
 	 * ActionListener. Polymorphism (dynamically bind)
 	 */
 	@Override
-	public void actionPerformed(ActionEvent event)
-	{
+	public void actionPerformed(ActionEvent event) {
 		// Initialize the email.
 		String email = loginPanel.getEmailComponent().getText();
 
@@ -89,15 +94,16 @@ public class LoginButtonListener extends Exception implements ActionListener
 		// Initialize the login based on email and password.
 		this.login = new Login(email, password);
 
-		// It tries to update page view, and if the customer didn't provide right credentials throw an invalidCredentialsException. 
-		// then adds loginErrorPanel with customized error message from the invalidCredentialsException error message.
-		try
-		{
+		// It tries to update page view, and if the customer didn't provide right
+		// credentials throw an invalidCredentialsException.
+		// then adds loginErrorPanel with customized error message from the
+		// invalidCredentialsException error message.
+		try {
 			update();
-		} catch (InvalidCredentialsException error)
-		{
-			// Add loginErrorPanel if customer provides wrong credentials with customized message from invalidCredentialsException.
-			this.pageView.addLoginErrorPanel(error.getMessage());
+		} catch (InvalidCredentialsException error) {
+			// create new ErrorView if customer provides wrong credentials with customized
+			// message from invalidCredentialsException.
+			new ErrorView("Invalid credentials", error.getMessage());
 		}
 
 	}
@@ -110,36 +116,44 @@ public class LoginButtonListener extends Exception implements ActionListener
 	 * @throws InvalidCredentialsException used to throw an exception when a
 	 *                                     customer provides wrong credentials.
 	 */
-	public void update() throws InvalidCredentialsException
-	{
-		// If the customer provides input wrong credentials throw an invalidCredentialsException.
-		if (!login.getIsACustomerExist())
-			throw new InvalidCredentialsException();
+	public void update() throws InvalidCredentialsException {
 
-		// Remove the login, error and create account panel.
-		this.pageView.removeLoginPanels();
+		if (!login.getIsACustomerExist()) {
+			// If we catch an error by reading the database file
+			if (login.isError())
+				new ErrorView("IO Error", login.getDatabaseFileErrorMessage());
+			else {
+				// If the customer provides input wrong credentials throw an
+				// invalidCredentialsException.
+				throw new InvalidCredentialsException();
+			}
+		}
+		else if (booksList.isError()) {
+			new ErrorView("IO Error", booksList.getDatabaseFileErrorMessage());
+		}
 
-		// Remove old header panel, and add new header panel, because user logged in.
-		this.pageView.addHeaderPanel(true);
+		else {
+			// Remove the login, error and create account panel.
+			this.pageView.removeLoginPanels();
 
-		// Add categoryPanel. true the books button disabled. 
-		this.pageView.addCategoryPanel(true);
+			// Remove old header panel, and add new header panel, because user logged in.
+			this.pageView.addHeaderPanel(true);
 
-		// Add sortPanel to the page view.
-		this.pageView.addSortPanel();
+			// Add categoryPanel. true the books button disabled.
+			this.pageView.addCategoryPanel(true);
 
-		// Add the booksPanel.
-		addBookPanel();
+			// Add sortPanel to the page view.
+			this.pageView.addSortPanel();
 
+			// Add the booksPanel.
+			addBookPanel();
+		}
 	}
 
 	/**
 	 * Purpose: It creates a new BooksList and adds the booksPanel to the page view.
 	 */
-	public void addBookPanel()
-	{
-		// Create a new Bookslist.
-		new BooksList(true);
+	public void addBookPanel() {
 
 		// Create the booksPanel array by books category.
 		createBooksArray("Books");
@@ -153,8 +167,7 @@ public class LoginButtonListener extends Exception implements ActionListener
 	 * 
 	 * @param categoryName - It could be books, fictions, or non fictions.
 	 */
-	public void createBooksArray(String categoryName)
-	{
+	public void createBooksArray(String categoryName) {
 		// Create a category.
 		Category category = new Category();
 

@@ -27,7 +27,7 @@ import views.pages.components.LoginAccountPanel;
  * 
  * 
  */
-// A LoginAccountButtonListener is-an ActionListener.
+// A LoginAccountButtonListener is ActionListener.
 public class LoginAccountButtonListener implements ActionListener
 {
 	// A LoginAccountButtonListener has-a pageView.

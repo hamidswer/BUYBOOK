@@ -26,7 +26,7 @@ package exceptions;
  * 
  */
 
-// An invalidPasswordException is-a Exception.
+// An invalidPasswordException is-an Exception.
 public class InvalidPasswordException extends Exception
 {
 	/**

@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
  *         customer databse. It checks all user input for creating a new
  *         account. It sets the create new account form data.
  * 
- *         Version/date: 1.5 / 05/15/2022
+ *         Version/date: 1.6 / 05/26/2022
  * 
  * 
  */
@@ -130,7 +130,7 @@ public class CreateAccount
 	 */
 	public boolean isNameValid()
 	{
-		if (this.name.length() > 8)
+		if (this.name.length() >= 8)
 		{
 			// Initialize the regex. It matches only with text and space.
 			String regex = "^[a-zA-Z_ ]*";

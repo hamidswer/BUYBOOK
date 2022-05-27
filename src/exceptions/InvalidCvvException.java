@@ -26,7 +26,7 @@ package exceptions;
  * 
  */
 
-// An invalidCvvException is-a Exception.
+// An invalidCvvException is-an Exception.
 public class InvalidCvvException extends Exception
 {
 

@@ -5,7 +5,6 @@ import models.Book;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import views.pages.components.LoginAccountPanel;
-import views.pages.components.LoginErrorPanel;
 import views.pages.components.BookPanel;
 import views.pages.components.BooksPanel;
 import views.pages.components.BuyPanel;
@@ -43,7 +42,7 @@ import views.widgets.Scroll;
  * 
  *         Responsibilities of class: It creates the pageView.
  * 
- *         Version/date: 1.8 / 05/15/2022
+ *         Version/date: 1.9 / 05/26/2022
  * 
  * 
  */
@@ -75,9 +74,6 @@ public class PageView extends JFrame
 
 	// A PageView has-a loginPanel.
 	private LoginPanel loginPanel;
-
-	// A PageView has-a loginErrorPanel.
-	private LoginErrorPanel loginErrorPanel;
 
 	// A PageView has-a loginAccountPanel.
 	private LoginAccountPanel loginAccountPanel;
@@ -186,30 +182,6 @@ public class PageView extends JFrame
 		loginAccountPanel.setBounds(0, 550, width, 70);
 
 		add(loginAccountPanel);
-
-		// Repaint the page view.
-		repaintPageView();
-	}
-
-	/**
-	 * Purpose: It removes the old loginErrorPanel and adds the new loginErrorPanel
-	 * with the default error message to the page view.
-	 * 
-	 * @param errorMessaage - It's a message to inform the customer can't login to
-	 *                      the application.
-	 */
-	public void addLoginErrorPanel(String errorMessaage)
-	{
-		// remove the old loginErrorPanel.
-		if (loginErrorPanel != null)
-			remove(loginErrorPanel);
-
-		// create a loginErrorPanel.
-		loginErrorPanel = new LoginErrorPanel(errorMessaage);
-
-		loginErrorPanel.setBounds(0, 530, width, 200);
-
-		add(loginErrorPanel);
 
 		// Repaint the page view.
 		repaintPageView();
@@ -340,8 +312,6 @@ public class PageView extends JFrame
 	{
 		if (loginPanel != null)
 			remove(loginPanel);
-		if (loginErrorPanel != null)
-			remove(loginErrorPanel);
 		if (loginAccountPanel != null)
 			remove(loginAccountPanel);
 

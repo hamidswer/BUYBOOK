@@ -26,7 +26,7 @@ package exceptions;
  * 
  */
 
-//An invalidCredentialsException is-a Exception.
+//An invalidCredentialsException is-an Exception.
 public class InvalidCredentialsException extends Exception
 {
 	/**

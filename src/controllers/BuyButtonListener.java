@@ -28,7 +28,7 @@ import views.widgets.Button;
  * 
  * 
  */
-// A BuyButtonListener is-an ActionListener.
+// A BuyButtonListener is ActionListener.
 public class BuyButtonListener implements ActionListener
 {
 
